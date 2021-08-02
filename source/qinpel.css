@@ -30,15 +30,11 @@
 }
 
 .QinpelFrame {
-  background-color: rgb(207, 207, 207);
+  background-color: rgb(135, 135, 135);
   border: 2px solid rgb(108, 108, 108);
   border-style: outset;
   border-radius: 4px;
   position: absolute;
-  top: 64px;
-  left: 64px;
-  width: 800px;
-  height: 600px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
