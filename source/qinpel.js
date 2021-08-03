@@ -422,6 +422,7 @@ function qpNewFrame(title, address) {
       document.onmousemove = null;
       document.onmouseup = null;
       qpIFramesShow();
+      qpClearSelection();
       qpShowElement(divFrame);
     }
 
@@ -429,6 +430,7 @@ function qpNewFrame(title, address) {
       document.ontouchmove = null;
       document.ontouchend = null;
       qpIFramesShow();
+      qpClearSelection();
       qpShowElement(divFrame);
     }
   }
@@ -480,7 +482,8 @@ function qpShowElement(element) {
 function qpClearSelection() {
   if (window.getSelection) {
     window.getSelection().removeAllRanges();
-  } else if (document.selection) {
+  }
+  if (document.selection) {
     document.selection.empty();
   }
 }
@@ -491,5 +494,9 @@ function qpStopEvent(event) {
       event.preventDefault();
     }
   }
-  if (event.stopPropagation != undefined) event.stopPropagation();
+  if (event.stopPropagation != undefined) {
+    event.stopPropagation();
+  }
+  event.cancelBubble = true;
+  return false;
 }
