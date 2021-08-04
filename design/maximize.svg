@@ -3,8 +3,8 @@
 
 <svg
    width="24"
-   height="16"
-   viewBox="0 0 6.3499998 4.2333335"
+   height="20"
+   viewBox="0 0 6.3499998 5.2916669"
    version="1.1"
    id="svg5"
    inkscape:export-filename="maximize.png"
@@ -28,14 +28,16 @@
      showgrid="false"
      units="px"
      inkscape:zoom="16.771208"
-     inkscape:cx="14.876686"
-     inkscape:cy="14.071735"
-     inkscape:window-width="1284"
-     inkscape:window-height="1008"
-     inkscape:window-x="2373"
-     inkscape:window-y="0"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="layer1" />
+     inkscape:cx="11.597256"
+     inkscape:cy="14.041922"
+     inkscape:window-width="1920"
+     inkscape:window-height="1013"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     height="20px"
+     showguides="false" />
   <defs
      id="defs2" />
   <g
@@ -44,8 +46,7 @@
      id="layer1">
     <path
        id="rect65"
-       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:8.31761"
-       d="M 7.7910156 2.5 C 7.0756366 2.5 6.5 3.0756366 6.5 3.7910156 L 6.5 12.208984 C 6.5 12.924363 7.0756366 13.5 7.7910156 13.5 L 16.208984 13.5 C 16.924363 13.5 17.5 12.924363 17.5 12.208984 L 17.5 3.7910156 C 17.5 3.0756366 16.924363 2.5 16.208984 2.5 L 7.7910156 2.5 z M 9.0820312 5.0820312 L 14.917969 5.0820312 L 14.917969 10.917969 L 9.0820312 10.917969 L 9.0820312 5.0820312 z "
-       transform="scale(0.26458333)" />
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.2007"
+       d="m 2.0613729,1.190625 c -0.1892774,0 -0.3415812,0.1523038 -0.3415812,0.3415812 v 2.2272541 c 0,0.1892774 0.1523038,0.3415814 0.3415812,0.3415814 H 4.288627 c 0.1892774,0 0.3415813,-0.152304 0.3415813,-0.3415814 V 1.5322062 C 4.6302083,1.3429288 4.4779044,1.190625 4.288627,1.190625 Z M 2.4029541,1.8737874 H 3.947046 V 3.4178793 H 2.4029541 Z" />
   </g>
 </svg>

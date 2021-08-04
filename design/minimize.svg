@@ -3,8 +3,8 @@
 
 <svg
    width="24"
-   height="16"
-   viewBox="0 0 6.3499998 4.2333335"
+   height="20"
+   viewBox="0 0 6.3499998 5.2916669"
    version="1.1"
    id="svg5"
    inkscape:export-filename="minimize.png"
@@ -28,14 +28,15 @@
      showgrid="false"
      units="px"
      inkscape:zoom="16.771208"
-     inkscape:cx="14.876686"
-     inkscape:cy="14.071735"
-     inkscape:window-width="1284"
-     inkscape:window-height="1040"
-     inkscape:window-x="1626"
-     inkscape:window-y="0"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="layer1" />
+     inkscape:cx="11.597256"
+     inkscape:cy="14.041922"
+     inkscape:window-width="1920"
+     inkscape:window-height="1013"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     height="20px" />
   <defs
      id="defs2" />
   <g
@@ -47,8 +48,8 @@
        id="rect1287"
        width="2.9104166"
        height="0.68331182"
-       x="1.7197918"
-       y="2.8885632"
+       x="1.7197917"
+       y="3.4177299"
        ry="0.34165591" />
   </g>
 </svg>

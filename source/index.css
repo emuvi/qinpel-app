@@ -29,6 +29,29 @@
   height: 48px;
 }
 
+.QinpelPopMenu {
+  background-color: rgb(135, 135, 135);
+  border: 2px solid rgb(108, 108, 108);
+  border-style: outset;
+  border-radius: 4px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.QinpelPopItem {
+  border-bottom: 2px solid rgb(180, 180, 182);
+  background-color: rgb(234, 234, 234);
+  color: rgb(36, 36, 36);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.QinpelPopItem:hover {
+  background-color: rgb(207, 230, 255);
+}
+
 .QinpelFrame {
   background-color: rgb(135, 135, 135);
   border: 2px solid rgb(108, 108, 108);

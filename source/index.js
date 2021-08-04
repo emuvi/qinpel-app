@@ -1,18 +1,35 @@
-const qpState = qpInit();
+function qinpel() {
+  return qpModule;
+}
+
+const qpModule = {
+  version: qpVersion,
+  newFrame: qpNewFrame,
+}
+
+const qpRefMain = qpInit();
+
+function qpVersion() {
+  return "0.1.0";
+}
 
 function qpInit() {
+  const constants = initConstants();
   const divBody = document.createElement("div");
   const divMenu = document.createElement("div");
   const imgMenu = document.createElement("img");
   const refMenu = {
     elements: { divMenu, imgMenu },
   };
-  const constants = initConstants();
-  const result = {
+  const refMain = {
+    constants,
     divBody,
     refMenu,
-    constants,
-    frames: [],
+    refPopMenu: null,
+    refAppMenu: null,
+    refFrames: [],
+    getRefFrameFromID,
+    getRefFrameIndexFromID,
     options: {
       framesTopZ: 0,
     },
@@ -20,13 +37,14 @@ function qpInit() {
   initBody();
   initMenu();
   initBodyEvents();
-  initDocEvents();
-  return result;
+  initGlobalEvents();
+  return refMain;
 
   function initConstants() {
-    // TODO - to determine programmatically the MINIMIZED_WIDTH
+    // TODO - to determine this constants programmatically
+    const POP_MENU_WIDTH = 200;
     const MINIMIZED_WIDTH = 200;
-    const result = { MINIMIZED_WIDTH };
+    const result = { POP_MENU_WIDTH, MINIMIZED_WIDTH };
     return result;
   }
 
@@ -36,25 +54,26 @@ function qpInit() {
   }
 
   function initMenu() {
+    divMenu.id = "QinpelMenuID0";
     divMenu.className = "QinpelMenu";
     divMenu.onclick = onMenuClick;
-
-    // TODO - put fullscreen feature on a menu item.
-    divMenu.ondblclick = onMenuDblClick;
 
     imgMenu.src = "./assets/qinpel.png";
     imgMenu.alt = "Menu";
     divMenu.append(imgMenu);
     divBody.append(divMenu);
 
-    function onMenuClick() {
-      qpShowElement(divMenu);
-      qpNewFrame("Título", "./frame.html");
-    }
-
-    // TODO - put fullscreen feature on a menu item.
-    function onMenuDblClick() {
-      document.body.requestFullscreen();
+    function onMenuClick(e) {
+      if (e.shiftKey) {
+        document.body.requestFullscreen();
+      } else {
+        if (refMain.refAppMenu == null) {
+          refMain.refAppMenu = qpNewFrame("Qinpel Menu", "./menu.html");
+        } else {
+          qpShowElement(refMain.refAppMenu.elements.divFrame);
+        }
+      }
+      return qpStopEvent(e);
     }
   }
 
@@ -65,6 +84,7 @@ function qpInit() {
     var bodyDragScrollY = 0;
 
     divBody.ondblclick = onBodyDblClick;
+    divBody.ondragstart = qpStopEvent;
     divBody.ontouchstart = onBodyTouchInit;
     divBody.onmousedown = onBodyMouseInit;
 
@@ -128,14 +148,96 @@ function qpInit() {
     }
   }
 
-  function initDocEvents() {
-    // TODO - create a menu list of opened frames to switch between them.
-    document.oncontextmenu = qpStopEvent;
+  function initGlobalEvents() {
+    window.onbeforeunload = () => "";
+    document.oncontextmenu = onBodyPopMenu;
+
+    function onBodyPopMenu(e) {
+      if (refMain.refFrames.length > 0) {
+        const items = [];
+        refMain.refFrames.map((refFrame) => {
+          items.push({
+            title: refFrame.elements.divTitle.innerText,
+            onclick: (e) => {
+              qpShowElement(refFrame.elements.divFrame);
+              return qpStopEvent(e);
+            },
+          });
+        });
+        qpNewPopMenu(e.clientX, e.clientY, items);
+      }
+      return qpStopEvent(e);
+    }
+  }
+
+  function getRefFrameFromID(frameID) {
+    for (let index = 0; index < refMain.refFrames.length; index++) {
+      const refFrame = refMain.refFrames[index];
+      if (refFrame.elements.divFrame.id === frameID) {
+        return refFrame;
+      }
+    }
+  }
+
+  function getRefFrameIndexFromID(frameID) {
+    for (let index = 0; index < refMain.refFrames.length; index++) {
+      const refFrame = refMain.refFrames[index];
+      if (refFrame.elements.divFrame.id === frameID) {
+        return index;
+      }
+    }
+  }
+}
+
+function qpNewPopMenu(posX, posY, items) {
+  qpDelPopMenu();
+  const divPopMenu = document.createElement("div");
+  const divPopMenuItems = [];
+  initDivPopMenu();
+  initDivPopMenuItems();
+  initRefPopMenu();
+  qpRefMain.divBody.append(divPopMenu);
+  qpShowElement(divPopMenu);
+
+  function initDivPopMenu() {
+    divPopMenu.id = "QinpelPopMenuID1";
+    divPopMenu.className = "QinpelPopMenu";
+    divPopMenu.style.left = posX + "px";
+    divPopMenu.style.top = posY + "px";
+    divPopMenu.style.width = qpRefMain.constants.POP_MENU_WIDTH + "px";
+  }
+
+  function initDivPopMenuItems() {
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const divItem = document.createElement("div");
+      divItem.className = "QinpelPopItem";
+      divItem.innerText = item.title;
+      divItem.onclick = item.onclick;
+      divPopMenuItems.push(divItem);
+      divPopMenu.append(divItem);
+    }
+  }
+
+  function initRefPopMenu() {
+    const refPopMenu = {
+      elements: { divPopMenu, divPopMenuItems },
+      options: { posX, posY, items },
+    };
+    qpRefMain.refPopMenu = refPopMenu;
+  }
+}
+
+function qpDelPopMenu() {
+  if (qpRefMain.refPopMenu != null) {
+    qpRefMain.divBody.removeChild(qpRefMain.refPopMenu.elements.divPopMenu);
+    qpRefMain.refPopMenu = null;
   }
 }
 
 function qpNewFrame(title, address) {
   const frameInitBounds = getFrameInitBounds();
+  const rndID = Math.floor(Math.random() * 1_000_000);
   const divFrame = document.createElement("div");
   const divHead = document.createElement("div");
   const imgMenu = document.createElement("img");
@@ -149,6 +251,7 @@ function qpNewFrame(title, address) {
   const imgResize = document.createElement("img");
   const refFrame = {
     elements: {
+      rndID,
       divFrame,
       divHead,
       imgMenu,
@@ -175,13 +278,10 @@ function qpNewFrame(title, address) {
   initIFrameBody();
   initDivFoot();
   makeFrameDraggable();
-  qpState.frames.push(refFrame);
-  qpState.divBody.append(divFrame);
+  qpRefMain.refFrames.push(refFrame);
+  qpRefMain.divBody.append(divFrame);
   qpShowElement(divFrame);
-
-  function newFrameID() {
-    return "QinpelFrameID" + Math.floor(Math.random() * 1_000_000);
-  }
+  return refFrame;
 
   function getFrameInitBounds() {
     // TODO - load from local persistence the last frame bounds for the same qpWindowSizeStyles.
@@ -208,7 +308,7 @@ function qpNewFrame(title, address) {
   }
 
   function initDivFrame() {
-    divFrame.id = newFrameID();
+    divFrame.id = "QinpelFrameID" + rndID;
     divFrame.className = "QinpelFrame";
     divFrame.style.left = frameInitBounds.posX + "px";
     divFrame.style.top = frameInitBounds.posY + "px";
@@ -245,12 +345,11 @@ function qpNewFrame(title, address) {
     divFrame.append(divHead);
 
     function onHeadMenuClick(e) {
-      qpStopEvent(e);
-      qpShowElement(qpState.refMenu.elements.divMenu);
+      qpShowElement(qpRefMain.refMenu.elements.divMenu);
+      return qpStopEvent(e);
     }
 
     function onHeadMinimizeClick(e) {
-      qpStopEvent(e);
       if (refFrame.options.minimized) {
         divFrame.style.width = refFrame.options.lastWidth + "px";
         divFrame.style.height = refFrame.options.lastHeight + "px";
@@ -263,14 +362,14 @@ function qpNewFrame(title, address) {
         refFrame.options.lastHeight = parseInt(divFrame.style.height, 10);
         iframeBody.style.display = "none";
         divFoot.style.display = "none";
-        divFrame.style.width = qpState.constants.MINIMIZED_WIDTH + "px";
+        divFrame.style.width = qpRefMain.constants.MINIMIZED_WIDTH + "px";
         divFrame.style.height = divHead.clientHeight + "px";
         refFrame.options.minimized = true;
       }
+      return qpStopEvent(e);
     }
 
     function onHeadMaximizeClick(e) {
-      qpStopEvent(e);
       if (refFrame.options.maximized) {
         divFrame.style.left = refFrame.options.lastPosX + "px";
         divFrame.style.top = refFrame.options.lastPosY + "px";
@@ -282,26 +381,31 @@ function qpNewFrame(title, address) {
         refFrame.options.lastPosY = parseInt(divFrame.style.top, 10);
         refFrame.options.lastWidth = parseInt(divFrame.style.width, 10);
         refFrame.options.lastHeight = parseInt(divFrame.style.height, 10);
-        divFrame.style.left = qpState.divBody.scrollLeft + "px";
-        divFrame.style.top = qpState.divBody.scrollTop + "px";
-        divFrame.style.width = qpState.divBody.clientWidth - 4 + "px";
-        divFrame.style.height = qpState.divBody.clientHeight - 4 + "px";
+        divFrame.style.left = qpRefMain.divBody.scrollLeft + "px";
+        divFrame.style.top = qpRefMain.divBody.scrollTop + "px";
+        divFrame.style.width = qpRefMain.divBody.clientWidth - 4 + "px";
+        divFrame.style.height = qpRefMain.divBody.clientHeight - 4 + "px";
         refFrame.options.maximized = true;
       }
+      return qpStopEvent(e);
     }
 
     function onHeadCloseClick(e) {
-      qpStopEvent(e);
       // TODO - save on local persistence the actual frame bounds for the actual qpWindowSizeStyles.
-      const index = qpState.frames.indexOf(refFrame);
+      const index = qpRefMain.refFrames.indexOf(refFrame);
       if (index > -1) {
-        qpState.frames.splice(index, 1);
+        qpRefMain.refFrames.splice(index, 1);
       }
-      qpState.divBody.removeChild(divFrame);
+      qpRefMain.divBody.removeChild(divFrame);
+      if (qpRefMain.refAppMenu == refFrame) {
+        qpRefMain.refAppMenu = null;
+      }
+      return qpStopEvent(e);
     }
   }
 
   function initIFrameBody() {
+    iframeBody.id = "IID" + rndID;
     iframeBody.className = "QinpelFrameBody";
     iframeBody.src = address;
     divFrame.append(iframeBody);
@@ -325,6 +429,9 @@ function qpNewFrame(title, address) {
     var frameDragInitPosY = 0;
     var frameDragInitWidth = 0;
     var frameDragInitHeight = 0;
+    divHead.ondragstart = qpStopEvent;
+    divStatus.ondragstart = qpStopEvent;
+    imgResize.ondragstart = qpStopEvent;
     divHead.ontouchstart = onTouchPositionInit;
     divStatus.ontouchstart = onTouchPositionInit;
     imgResize.ontouchstart = onTouchResizeInit;
@@ -475,8 +582,19 @@ function qpIFramesShow() {
 }
 
 function qpShowElement(element) {
-  element.style.zIndex = ++qpState.options.framesTopZ;
-  qpState.divBody.scrollTo(element.offsetLeft - 18, element.offsetTop - 18);
+  if (element.id != "QinpelPopMenuID1") {
+    qpDelPopMenu();
+  }
+  element.style.zIndex = ++qpRefMain.options.framesTopZ;
+  qpRefMain.divBody.scrollTo(element.offsetLeft - 18, element.offsetTop - 18);
+  if (element.id.startsWith("QinpelFrameID")) {
+    const index = qpRefMain.getRefFrameIndexFromID(element.id);
+    if (index > 0) {
+      const refFrame = qpRefMain.refFrames[index];
+      qpRefMain.refFrames.splice(index, 1);
+      qpRefMain.refFrames.unshift(refFrame);
+    }
+  }
 }
 
 function qpClearSelection() {
