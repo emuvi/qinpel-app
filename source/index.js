@@ -1,17 +1,13 @@
+const qpModule = {
+  version: qpVersion,
+  newFrame: qpNewFrame,
+};
+
 function qinpel() {
   return qpModule;
 }
 
-const qpModule = {
-  version: qpVersion,
-  newFrame: qpNewFrame,
-}
-
 const qpRefMain = qpInit();
-
-function qpVersion() {
-  return "0.1.0";
-}
 
 function qpInit() {
   const constants = initConstants();
@@ -28,10 +24,11 @@ function qpInit() {
     refPopMenu: null,
     refAppMenu: null,
     refFrames: [],
-    getRefFrameFromID,
-    getRefFrameIndexFromID,
+    getRefFrameFromFID,
+    getRefFrameIndexFromFID: getRefFrameIndexFromFID,
     options: {
-      framesTopZ: 0,
+      framesTopZ: 1,
+      lastPointerEvent: null,
     },
   };
   initBody();
@@ -41,10 +38,10 @@ function qpInit() {
   return refMain;
 
   function initConstants() {
-    // TODO - to determine this constants programmatically
-    const POP_MENU_WIDTH = 200;
-    const MINIMIZED_WIDTH = 200;
-    const result = { POP_MENU_WIDTH, MINIMIZED_WIDTH };
+    const POP_MENU_MAX_HEIGHT = 270;
+    const POP_MENU_WIDTH = 180;
+    const MINIMIZED_WIDTH = 180;
+    const result = { POP_MENU_MAX_HEIGHT, POP_MENU_WIDTH, MINIMIZED_WIDTH };
     return result;
   }
 
@@ -57,6 +54,7 @@ function qpInit() {
     divMenu.id = "QinpelMenuID0";
     divMenu.className = "QinpelMenu";
     divMenu.onclick = onMenuClick;
+    divMenu.ontouchstart = onMenuClick;
 
     imgMenu.src = "./assets/qinpel.png";
     imgMenu.alt = "Menu";
@@ -83,94 +81,85 @@ function qpInit() {
     var bodyDragScrollX = 0;
     var bodyDragScrollY = 0;
 
-    divBody.ondblclick = onBodyDblClick;
     divBody.ondragstart = qpStopEvent;
-    divBody.ontouchstart = onBodyTouchInit;
-    divBody.onmousedown = onBodyMouseInit;
+    divBody.ontouchstart = onBodyPointerInit;
+    divBody.onmousedown = onBodyPointerInit;
 
-    function onBodyDblClick() {
-      qpShowElement(divMenu);
+    function onBodyDblClick(e) {
+      divBody.scrollTo(0, 0);
       qpClearSelection();
+      return qpStopEvent(e);
     }
 
-    function onBodyTouchInit(e) {
-      qpStopEvent(e);
-      bodyDragInitX = e.touches[0].clientX;
-      bodyDragInitY = e.touches[0].clientY;
+    function onBodyPointerInit(e) {
+      if (qpIsEventPointerDouble(e)) {
+        onBodyDblClick(e);
+      }
+      const pointer = qpGetEventPointer(e);
+      bodyDragInitX = pointer.clientX;
+      bodyDragInitY = pointer.clientY;
       bodyDragScrollX = divBody.scrollLeft;
       bodyDragScrollY = divBody.scrollTop;
-      document.ontouchmove = onBodyTouchMove;
-      document.ontouchend = onBodyTouchClose;
-      qpIFramesHide();
+      document.ontouchmove = onBodyPointerMove;
+      document.onmousemove = onBodyPointerMove;
+      document.ontouchend = onBodyPointerClose;
+      document.onmouseup = onBodyPointerClose;
+      qpHideAllIFrames();
+      return qpCloseEventPointerInit(e);
     }
 
-    function onBodyMouseInit(e) {
-      qpStopEvent(e);
-      bodyDragInitX = e.clientX;
-      bodyDragInitY = e.clientY;
-      bodyDragScrollX = divBody.scrollLeft;
-      bodyDragScrollY = divBody.scrollTop;
-      document.onmousemove = onBodyMouseMove;
-      document.onmouseup = onBodyMouseClose;
-      qpIFramesHide();
-    }
-
-    function onBodyTouchMove(e) {
-      qpStopEvent(e);
-      var bodyDragDifX = e.touches[0].clientX - bodyDragInitX;
-      var bodyDragDifY = e.touches[0].clientY - bodyDragInitY;
+    function onBodyPointerMove(e) {
+      const pointer = qpGetEventPointer(e);
+      var bodyDragDifX = pointer.clientX - bodyDragInitX;
+      var bodyDragDifY = pointer.clientY - bodyDragInitY;
       var bodyDragNewX = bodyDragScrollX - bodyDragDifX;
       var bodyDragNewY = bodyDragScrollY - bodyDragDifY;
       divBody.scrollTo(bodyDragNewX, bodyDragNewY);
+      return qpStopEvent(e);
     }
 
-    function onBodyMouseMove(e) {
-      qpStopEvent(e);
-      var bodyDragDifX = e.clientX - bodyDragInitX;
-      var bodyDragDifY = e.clientY - bodyDragInitY;
-      var bodyDragNewX = bodyDragScrollX - bodyDragDifX;
-      var bodyDragNewY = bodyDragScrollY - bodyDragDifY;
-      divBody.scrollTo(bodyDragNewX, bodyDragNewY);
-    }
-
-    function onBodyTouchClose() {
+    function onBodyPointerClose(e) {
+      if (qpIsEventPointerLong(e)) {
+        onBodyPopMenu(e);
+      }
       document.ontouchmove = null;
       document.ontouchend = null;
-      qpIFramesShow();
-      qpClearSelection();
-    }
-
-    function onBodyMouseClose() {
       document.onmousemove = null;
       document.onmouseup = null;
-      qpIFramesShow();
+      qpShowAllIFrames();
       qpClearSelection();
+      return qpStopEvent(e);
     }
   }
 
   function initGlobalEvents() {
     window.onbeforeunload = () => "";
     document.oncontextmenu = onBodyPopMenu;
-
-    function onBodyPopMenu(e) {
-      if (refMain.refFrames.length > 0) {
-        const items = [];
-        refMain.refFrames.map((refFrame) => {
-          items.push({
-            title: refFrame.elements.divTitle.innerText,
-            onclick: (e) => {
-              qpShowElement(refFrame.elements.divFrame);
-              return qpStopEvent(e);
-            },
-          });
-        });
-        qpNewPopMenu(e.clientX, e.clientY, items);
-      }
-      return qpStopEvent(e);
-    }
   }
 
-  function getRefFrameFromID(frameID) {
+  function onBodyPopMenu(e) {
+    if (refMain.refFrames.length > 0) {
+      const items = [];
+      refMain.refFrames.map((refFrame) => {
+        items.push({
+          title: refFrame.elements.divTitle.innerText,
+          onclick: (e) => {
+            qpShowElement(refFrame.elements.divFrame);
+            return qpStopEvent(e);
+          },
+        });
+      });
+      const pointer = qpGetEventPointer(e);
+      qpNewPopMenu(
+        e.target.scrollLeft + pointer.clientX,
+        e.target.scrollTop + pointer.clientY,
+        items
+      );
+    }
+    return qpStopEvent(e);
+  }
+
+  function getRefFrameFromFID(frameID) {
     for (let index = 0; index < refMain.refFrames.length; index++) {
       const refFrame = refMain.refFrames[index];
       if (refFrame.elements.divFrame.id === frameID) {
@@ -179,7 +168,7 @@ function qpInit() {
     }
   }
 
-  function getRefFrameIndexFromID(frameID) {
+  function getRefFrameIndexFromFID(frameID) {
     for (let index = 0; index < refMain.refFrames.length; index++) {
       const refFrame = refMain.refFrames[index];
       if (refFrame.elements.divFrame.id === frameID) {
@@ -190,7 +179,7 @@ function qpInit() {
 }
 
 function qpNewPopMenu(posX, posY, items) {
-  qpDelPopMenu();
+  qpClosePopMenu();
   const divPopMenu = document.createElement("div");
   const divPopMenuItems = [];
   initDivPopMenu();
@@ -205,6 +194,7 @@ function qpNewPopMenu(posX, posY, items) {
     divPopMenu.style.left = posX + "px";
     divPopMenu.style.top = posY + "px";
     divPopMenu.style.width = qpRefMain.constants.POP_MENU_WIDTH + "px";
+    divPopMenu.style.maxHeight = qpRefMain.constants.POP_MENU_MAX_HEIGHT + "px";
   }
 
   function initDivPopMenuItems() {
@@ -214,6 +204,7 @@ function qpNewPopMenu(posX, posY, items) {
       divItem.className = "QinpelPopItem";
       divItem.innerText = item.title;
       divItem.onclick = item.onclick;
+      divItem.ontouchstart = item.onclick;
       divPopMenuItems.push(divItem);
       divPopMenu.append(divItem);
     }
@@ -228,7 +219,7 @@ function qpNewPopMenu(posX, posY, items) {
   }
 }
 
-function qpDelPopMenu() {
+function qpClosePopMenu() {
   if (qpRefMain.refPopMenu != null) {
     qpRefMain.divBody.removeChild(qpRefMain.refPopMenu.elements.divPopMenu);
     qpRefMain.refPopMenu = null;
@@ -236,8 +227,9 @@ function qpDelPopMenu() {
 }
 
 function qpNewFrame(title, address) {
-  const frameInitBounds = getFrameInitBounds();
-  const rndID = Math.floor(Math.random() * 1_000_000);
+  title = initFrameTitle();
+  const frameInitBounds = initFrameBounds();
+  const rndID = Math.floor(Math.random() * 1000000);
   const divFrame = document.createElement("div");
   const divHead = document.createElement("div");
   const imgMenu = document.createElement("img");
@@ -267,8 +259,6 @@ function qpNewFrame(title, address) {
     options: {
       minimized: false,
       maximized: false,
-      lastPosX: frameInitBounds.posX,
-      lastPosY: frameInitBounds.posY,
       lastWidth: frameInitBounds.width,
       lastHeight: frameInitBounds.height,
     },
@@ -283,7 +273,28 @@ function qpNewFrame(title, address) {
   qpShowElement(divFrame);
   return refFrame;
 
-  function getFrameInitBounds() {
+  function initFrameTitle() {
+    var result = title;
+    var attempt = 1;
+    while (true) {
+      let isThereAnyTitleEqual = false;
+      for (let i = 0; i < qpRefMain.refFrames.length; i++) {
+        const refFrame = qpRefMain.refFrames[i];
+        if (refFrame.elements.divTitle.innerText === result) {
+          isThereAnyTitleEqual = true;
+          break;
+        }
+      }
+      if (isThereAnyTitleEqual) {
+        result = title + " (" + ++attempt + ")";
+      } else {
+        break;
+      }
+    }
+    return result;
+  }
+
+  function initFrameBounds() {
     // TODO - load from local persistence the last frame bounds for the same qpWindowSizeStyles.
     const result = {
       posX: 64,
@@ -321,6 +332,7 @@ function qpNewFrame(title, address) {
     imgMenu.src = "./assets/menu.png";
     imgMenu.alt = "o";
     imgMenu.onclick = onHeadMenuClick;
+    imgMenu.ontouchstart = onHeadMenuClick;
     imgMenu.onmousedown = qpStopEvent;
     divHead.append(imgMenu);
     divTitle.className = "QinpelFrameHeadTitle";
@@ -329,23 +341,27 @@ function qpNewFrame(title, address) {
     imgMinimize.src = "./assets/minimize.png";
     imgMinimize.alt = "-";
     imgMinimize.onclick = onHeadMinimizeClick;
+    imgMinimize.ontouchstart = onHeadMinimizeClick;
     imgMinimize.onmousedown = qpStopEvent;
     divHead.append(imgMinimize);
     imgMaximize.src = "./assets/maximize.png";
     imgMaximize.alt = "+";
     imgMaximize.onclick = onHeadMaximizeClick;
+    imgMaximize.ontouchstart = onHeadMaximizeClick;
     divHead.ondblclick = onHeadMaximizeClick;
     imgMaximize.onmousedown = qpStopEvent;
     divHead.append(imgMaximize);
     imgClose.src = "./assets/close.png";
     imgClose.alt = "x";
     imgClose.onclick = onHeadCloseClick;
+    imgClose.ontouchstart = onHeadCloseClick;
     imgClose.onmousedown = qpStopEvent;
     divHead.append(imgClose);
     divFrame.append(divHead);
 
     function onHeadMenuClick(e) {
       qpShowElement(qpRefMain.refMenu.elements.divMenu);
+      qpRefMain.divBody.scrollTo(0, 0);
       return qpStopEvent(e);
     }
 
@@ -357,7 +373,9 @@ function qpNewFrame(title, address) {
         divFoot.style.display = "";
         refFrame.options.minimized = false;
       } else {
-        // TODO - if it is maximized we have to deal with it
+        if (refFrame.options.maximized) {
+          onHeadMaximizeClick(e);
+        }
         refFrame.options.lastWidth = parseInt(divFrame.style.width, 10);
         refFrame.options.lastHeight = parseInt(divFrame.style.height, 10);
         iframeBody.style.display = "none";
@@ -366,27 +384,26 @@ function qpNewFrame(title, address) {
         divFrame.style.height = divHead.clientHeight + "px";
         refFrame.options.minimized = true;
       }
+      qpShowElement(divFrame);
       return qpStopEvent(e);
     }
 
     function onHeadMaximizeClick(e) {
       if (refFrame.options.maximized) {
-        divFrame.style.left = refFrame.options.lastPosX + "px";
-        divFrame.style.top = refFrame.options.lastPosY + "px";
         divFrame.style.width = refFrame.options.lastWidth + "px";
         divFrame.style.height = refFrame.options.lastHeight + "px";
         refFrame.options.maximized = false;
       } else {
-        refFrame.options.lastPosX = parseInt(divFrame.style.left, 10);
-        refFrame.options.lastPosY = parseInt(divFrame.style.top, 10);
+        if (refFrame.options.minimized) {
+          onHeadMinimizeClick(e);
+        }
         refFrame.options.lastWidth = parseInt(divFrame.style.width, 10);
         refFrame.options.lastHeight = parseInt(divFrame.style.height, 10);
-        divFrame.style.left = qpRefMain.divBody.scrollLeft + "px";
-        divFrame.style.top = qpRefMain.divBody.scrollTop + "px";
         divFrame.style.width = qpRefMain.divBody.clientWidth - 4 + "px";
         divFrame.style.height = qpRefMain.divBody.clientHeight - 4 + "px";
         refFrame.options.maximized = true;
       }
+      qpShowElement(divFrame);
       return qpStopEvent(e);
     }
 
@@ -432,113 +449,73 @@ function qpNewFrame(title, address) {
     divHead.ondragstart = qpStopEvent;
     divStatus.ondragstart = qpStopEvent;
     imgResize.ondragstart = qpStopEvent;
-    divHead.ontouchstart = onTouchPositionInit;
-    divStatus.ontouchstart = onTouchPositionInit;
-    imgResize.ontouchstart = onTouchResizeInit;
-    divHead.onmousedown = onMousePositionInit;
-    divStatus.onmousedown = onMousePositionInit;
-    imgResize.onmousedown = onMouseResizeInit;
+    divHead.ontouchstart = onFramePositionInit;
+    divHead.onmousedown = onFramePositionInit;
+    divStatus.ontouchstart = onFramePositionInit;
+    divStatus.onmousedown = onFramePositionInit;
+    imgResize.ontouchstart = onFrameResizeInit;
+    imgResize.onmousedown = onFrameResizeInit;
 
-    function onTouchPositionInit(e) {
-      qpStopEvent(e);
-      frameDragInitEventX = e.touches[0].clientX;
-      frameDragInitEventY = e.touches[0].clientY;
+    function onFramePositionInit(e) {
+      const pointer = qpGetEventPointer(e);
+      frameDragInitEventX = pointer.clientX;
+      frameDragInitEventY = pointer.clientY;
       frameDragInitPosX = parseInt(divFrame.style.left, 10);
       frameDragInitPosY = parseInt(divFrame.style.top, 10);
-      document.ontouchmove = onTouchPositionMove;
-      document.ontouchend = onTouchDragClose;
-      qpIFramesHide();
+      document.ontouchmove = onFramePositionMove;
+      document.onmousemove = onFramePositionMove;
+      document.ontouchend = onFramePointerClose;
+      document.onmouseup = onFramePointerClose;
+      qpHideAllIFrames();
+      return qpCloseEventPointerInit(e);
     }
 
-    function onTouchPositionMove(e) {
-      qpStopEvent(e);
-      var frameDragDifX = e.touches[0].clientX - frameDragInitEventX;
-      var frameDragDifY = e.touches[0].clientY - frameDragInitEventY;
+    function onFrameResizeInit(e) {
+      const pointer = qpGetEventPointer(e);
+      frameDragInitEventX = pointer.clientX;
+      frameDragInitEventY = pointer.clientY;
+      frameDragInitWidth = parseInt(divFrame.style.width, 10);
+      frameDragInitHeight = parseInt(divFrame.style.height, 10);
+      document.ontouchmove = onFrameResizeMove;
+      document.onmousemove = onFrameResizeMove;
+      document.ontouchend = onFramePointerClose;
+      document.onmouseup = onFramePointerClose;
+      qpHideAllIFrames();
+      return qpCloseEventPointerInit(e);
+    }
+
+    function onFramePositionMove(e) {
+      const pointer = qpGetEventPointer(e);
+      var frameDragDifX = pointer.clientX - frameDragInitEventX;
+      var frameDragDifY = pointer.clientY - frameDragInitEventY;
       var frameDragFinalX = frameDragInitPosX + frameDragDifX;
       var frameDragFinalY = frameDragInitPosY + frameDragDifY;
       divFrame.style.left = (frameDragFinalX > 0 ? frameDragFinalX : 0) + "px";
       divFrame.style.top = (frameDragFinalY > 0 ? frameDragFinalY : 0) + "px";
+      return qpStopEvent(e);
     }
 
-    function onTouchResizeInit(e) {
-      qpStopEvent(e);
-      frameDragInitEventX = e.touches[0].clientX;
-      frameDragInitEventY = e.touches[0].clientY;
-      frameDragInitWidth = parseInt(divFrame.style.width, 10);
-      frameDragInitHeight = parseInt(divFrame.style.height, 10);
-      document.ontouchmove = onTouchResizeMove;
-      document.ontouchend = onTouchDragClose;
-      qpIFramesHide();
-    }
-
-    function onTouchResizeMove(e) {
-      qpStopEvent(e);
-      var frameDragDifX = e.touches[0].clientX - frameDragInitEventX;
-      var frameDragDifY = e.touches[0].clientY - frameDragInitEventY;
+    function onFrameResizeMove(e) {
+      const pointer = qpGetEventPointer(e);
+      var frameDragDifX = pointer.clientX - frameDragInitEventX;
+      var frameDragDifY = pointer.clientY - frameDragInitEventY;
       var frameDragFinalWidth = frameDragInitWidth + frameDragDifX;
       var frameDragFinalHeight = frameDragInitHeight + frameDragDifY;
       divFrame.style.width = (frameDragFinalWidth > 0 ? frameDragFinalWidth : 0) + "px";
       divFrame.style.height =
         (frameDragFinalHeight > 0 ? frameDragFinalHeight : 0) + "px";
+      return qpStopEvent(e);
     }
 
-    function onMousePositionInit(e) {
-      qpStopEvent(e);
-      frameDragInitEventX = e.clientX;
-      frameDragInitEventY = e.clientY;
-      frameDragInitPosX = parseInt(divFrame.style.left, 10);
-      frameDragInitPosY = parseInt(divFrame.style.top, 10);
-      document.onmousemove = onMousePositionMove;
-      document.onmouseup = onMouseDragClose;
-      qpIFramesHide();
-    }
-
-    function onMousePositionMove(e) {
-      qpStopEvent(e);
-      var frameDragDifX = e.clientX - frameDragInitEventX;
-      var frameDragDifY = e.clientY - frameDragInitEventY;
-      var frameDragFinalX = frameDragInitPosX + frameDragDifX;
-      var frameDragFinalY = frameDragInitPosY + frameDragDifY;
-      divFrame.style.left = (frameDragFinalX > 0 ? frameDragFinalX : 0) + "px";
-      divFrame.style.top = (frameDragFinalY > 0 ? frameDragFinalY : 0) + "px";
-    }
-
-    function onMouseResizeInit(e) {
-      qpStopEvent(e);
-      frameDragInitEventX = e.clientX;
-      frameDragInitEventY = e.clientY;
-      frameDragInitWidth = parseInt(divFrame.style.width, 10);
-      frameDragInitHeight = parseInt(divFrame.style.height, 10);
-      document.onmousemove = onMouseResizeMove;
-      document.onmouseup = onMouseDragClose;
-      qpIFramesHide();
-    }
-
-    function onMouseResizeMove(e) {
-      qpStopEvent(e);
-      var frameDragDifX = e.clientX - frameDragInitEventX;
-      var frameDragDifY = e.clientY - frameDragInitEventY;
-      var frameDragFinalWidth = frameDragInitWidth + frameDragDifX;
-      var frameDragFinalHeight = frameDragInitHeight + frameDragDifY;
-      divFrame.style.width = (frameDragFinalWidth > 0 ? frameDragFinalWidth : 0) + "px";
-      divFrame.style.height =
-        (frameDragFinalHeight > 0 ? frameDragFinalHeight : 0) + "px";
-    }
-
-    function onMouseDragClose() {
-      document.onmousemove = null;
-      document.onmouseup = null;
-      qpIFramesShow();
-      qpClearSelection();
-      qpShowElement(divFrame);
-    }
-
-    function onTouchDragClose() {
+    function onFramePointerClose(e) {
       document.ontouchmove = null;
+      document.onmousemove = null;
       document.ontouchend = null;
-      qpIFramesShow();
+      document.onmouseup = null;
+      qpShowAllIFrames();
       qpClearSelection();
       qpShowElement(divFrame);
+      return qpStopEvent(e);
     }
   }
 }
@@ -567,28 +544,96 @@ function qpGetWindowSizeStyle() {
   }
 }
 
-function qpIFramesHide() {
+function qpGetEventPointer(e) {
+  const result = {
+    clientX: 0,
+    clientY: 0,
+  };
+  if (e.clientX || e.clientY) {
+    result.clientX = e.clientX;
+    result.clientY = e.clientY;
+  } else if (
+    e.touches &&
+    e.touches[0] &&
+    (e.touches[0].clientX || e.touches[0].clientY)
+  ) {
+    result.clientX = e.touches[0].clientX;
+    result.clientY = e.touches[0].clientY;
+  } else {
+    return qpGetEventPointer(qpRefMain.options.lastPointerEvent);
+  }
+  return result;
+}
+
+function qpIsEventPointerDouble(e) {
+  if (qpRefMain.options.lastPointerEvent == null || e == null) {
+    return false;
+  }
+  const timeDif = e.timeStamp - qpRefMain.options.lastPointerEvent.timeStamp;
+  return timeDif < 450;
+}
+
+function qpIsEventPointerLong(e) {
+  if (qpRefMain.options.lastPointerEvent == null || e == null) {
+    return false;
+  }
+  const timeDif = e.timeStamp - qpRefMain.options.lastPointerEvent.timeStamp;
+  return timeDif > 720;
+}
+
+function qpCloseEventPointerInit(e) {
+  qpRefMain.options.lastPointerEvent = e;
+  return qpStopEvent(e);
+}
+
+function qpHideAllIFrames() {
   var doc_frames = document.getElementsByTagName("iframe");
   for (let doc_frame of doc_frames) {
     doc_frame.style.visibility = "hidden";
   }
 }
 
-function qpIFramesShow() {
+function qpShowAllIFrames() {
   var doc_frames = document.getElementsByTagName("iframe");
   for (let doc_frame of doc_frames) {
     doc_frame.style.visibility = "visible";
   }
 }
 
+function qpIsElementVisibleInScroll(element) {
+  if (element.offsetTop < element.parentElement.scrollTop) {
+    return false;
+  }
+  if (element.offsetLeft < element.parentElement.scrollLeft) {
+    return false;
+  }
+  if (
+    element.clientWidth >
+    element.parentElement.clientWidth -
+      (element.offsetLeft - element.parentElement.scrollLeft)
+  ) {
+    return false;
+  }
+  if (
+    element.clientHeight >
+    element.parentElement.clientHeight -
+      (element.offsetTop - element.parentElement.scrollTop)
+  ) {
+    return false;
+  }
+  return true;
+}
+
 function qpShowElement(element) {
   if (element.id != "QinpelPopMenuID1") {
-    qpDelPopMenu();
+    qpClosePopMenu();
   }
   element.style.zIndex = ++qpRefMain.options.framesTopZ;
-  qpRefMain.divBody.scrollTo(element.offsetLeft - 18, element.offsetTop - 18);
+  if (!qpIsElementVisibleInScroll(element)) {
+    element.parentElement.scrollTo(element.offsetLeft, element.offsetTop);
+  }
   if (element.id.startsWith("QinpelFrameID")) {
-    const index = qpRefMain.getRefFrameIndexFromID(element.id);
+    const index = qpRefMain.getRefFrameIndexFromFID(element.id);
     if (index > 0) {
       const refFrame = qpRefMain.refFrames[index];
       qpRefMain.refFrames.splice(index, 1);
@@ -608,13 +653,15 @@ function qpClearSelection() {
 
 function qpStopEvent(event) {
   if (event.preventDefault != undefined) {
-    if (event.defaultPrevented) {
-      event.preventDefault();
-    }
+    event.preventDefault();
   }
   if (event.stopPropagation != undefined) {
     event.stopPropagation();
   }
   event.cancelBubble = true;
   return false;
+}
+
+function qpVersion() {
+  return "0.1.0";
 }
