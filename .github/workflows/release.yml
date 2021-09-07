@@ -10,7 +10,7 @@ jobs:
       - name: Build
         run: |
           mkdir -p release
-          tar -C ./source -czvf ./release/qinpel-app.tar.gz ./qinpel-app
+          tar -C ./source -czvf ./release/qinpel-app.tar.gz *
 
       - name: Release
         uses: softprops/action-gh-release@v1
