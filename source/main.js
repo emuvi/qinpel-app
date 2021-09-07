@@ -5,7 +5,7 @@ const qpmRefMain = qpmInitMain();
 
 function qpmInitMain() {
 	const divBody = document.createElement("div");
-	divBody.innerText = "IID: " + qpmIID + ", Version: " + qinpel.version();
+	divBody.innerText = "[Release] prototype IID: " + qpmIID + ", Version: " + qinpel.version();
 	const refMain = {
 		IID: qpmIID,
 		divBody,
