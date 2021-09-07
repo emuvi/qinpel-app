@@ -1,0 +1,25 @@
+name: Web Release CI
+on: [push]
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, '[Release]')"
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Build
+        run: |
+          mkdir -p release
+          tar -C ./source -czvf ./release/qinpel-app.tar.gz ./qinpel-app
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          name: Release ${{ github.ref }}
+          draft: true
+          files: ./release/*.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+  
