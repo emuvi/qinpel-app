@@ -1,9 +1,13 @@
 * {
-  margin: 0px;
-  border: 0px;
-  padding: 0px;
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
 }
 
 body {
-  background-color: white;
+    background-color: white;
+}
+
+#QinpelMainDivBody {
+    padding: 30px;
 }

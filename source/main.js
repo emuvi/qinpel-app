@@ -5,7 +5,6 @@ const qpmRefMain = qpmInitMain();
 
 function qpmInitMain() {
 	const divBody = document.createElement("div");
-	divBody.innerText = "[Release] prototype IID: " + qpmIID + ", Version: " + qinpel.version();
 	const refMain = {
 		IID: qpmIID,
 		divBody,
@@ -14,6 +13,14 @@ function qpmInitMain() {
 	return refMain;
 
 	function initBody() {
+		divBody.id = "QinpelMainDivBody";
+		axios.get("../../../index2")
+			.then(res => { divBody.innerText = "Res:" + res.data; })
+			.catch(err => { divBody.innerText = "QinpelApp problem on retrieve the menu list. - " + err; });
 		document.body.append(divBody);
+
+		function addMenu(name) {
+
+		}
 	}
 }
