@@ -23,9 +23,9 @@
 }
 
 .QinpelWindowMenu {
-  background-color: black;
-  border: 2px solid rgb(108, 108, 108);
-  border-style: outset;
+  background-color: #2e0036;
+  border: 2px solid #1a001f;
+  border-radius: 4px;
   position: absolute;
   top: 18px;
   left: 18px;
