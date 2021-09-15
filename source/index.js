@@ -244,7 +244,7 @@ function qinpelClosePopMenu() {
     }
 }
 
-function qinpelNewFrame(title, address, toReturn) {
+function qinpelNewFrame(title, address, toReturn, params) {
     title = initFrameTitle();
     const frameInitBounds = initFrameBounds();
     const rndID = Math.floor(Math.random() * 1000000);
@@ -286,10 +286,11 @@ function qinpelNewFrame(title, address, toReturn) {
         headClose: callHeadCloseClick,
         footStatus: callFootStatus,
         toReturn,
+        params,
     };
     initDivFrame();
     initDivHead();
-    initIFrameBody();
+    initInsideFrameBody();
     initDivFoot();
     initDraggable();
     qinpelRefWindow.refFrames.push(refFrame);
@@ -418,8 +419,8 @@ function qinpelNewFrame(title, address, toReturn) {
         return qinpelStopEvent(event);
     }
 
-    function initIFrameBody() {
-        iframeBody.id = "QinpelWindowFrameID" + rndID;
+    function initInsideFrameBody() {
+        iframeBody.id = "QinpelInsideFrameID" + rndID;
         iframeBody.className = "QinpelWindowFrameBody";
         iframeBody.src = address;
         divFrame.appendChild(iframeBody);
