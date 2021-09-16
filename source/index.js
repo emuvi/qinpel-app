@@ -1,7 +1,11 @@
 const qinpelModule = {
-    token: "ThisIsATest",
+    log: qinpelLog,
+    location: qinpelLocation,
+    isLocalHost: qinpelIsLocalHost,
+    token: "",
     get: qinpelGet,
     post: qinpelPost,
+    hasLogged: qinpelHasLogged,
     newFrame: qinpelNewFrame,
     stopEvent: qinpelStopEvent,
     version: qinpelVersion,
@@ -9,6 +13,31 @@ const qinpelModule = {
 
 function qinpelApp() {
     return qinpelModule;
+}
+
+function qinpelLog(message) {
+    if (window.nodeAPI) {
+        window.nodeAPI.send("logOnMain", message);
+    } else {
+        console.log(message);
+    }
+}
+
+function qinpelLocation() {
+    return window.location.href;
+}
+
+function qinpelIsLocalHost() {
+    var location = qinpelLocation();
+    var start = location.indexOf("://");
+    if (start == -1) { start = 0; }
+    else { start += 3 }
+    location = location.substr(start);
+    return location.startsWith("localhost") || location.startsWith("127.0.0.1")
+}
+
+function qinpelHasLogged() {
+    return qinpelModule.token != "";
 }
 
 function qinpelGet(address) {

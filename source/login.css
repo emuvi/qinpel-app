@@ -1,0 +1,31 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    padding: 9px;
+    background-color: rgb(240, 240, 240);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+#divBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+#divBody img {
+    margin: 9px;
+}
+
+#divBody h1 {
+    margin: 9px;
+}
+
+#divBody input {
+    margin: 3px;
+    padding: 5px;
+}

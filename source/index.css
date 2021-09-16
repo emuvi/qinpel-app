@@ -4,10 +4,14 @@
   padding: 0px;
 }
 
+body {
+  background-color: rgb(240, 240, 240);
+  font-family: Arial, Helvetica, Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .QinpelWindowBody {
   background-image: url("./assets/normal.png");
   background-attachment: local;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 12px;
   position: relative;

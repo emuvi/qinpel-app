@@ -6,6 +6,7 @@
 
 body {
     background-color: rgb(240, 240, 240);
+    font-family: Arial, Helvetica, Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #QinpelMainDivBody {
@@ -18,7 +19,6 @@ body {
     border: 2px solid #1a001f;
     border-radius: 4px;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     margin: 5px;
     padding: 5px;

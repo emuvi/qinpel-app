@@ -1,28 +1,27 @@
+const qinpelFrame = window.frameElement;
 const qinpelFrameID = window.frameElement.id;
 const qinpelRefSelf = window.frameElement.qinpelRefSelf;
 const qinpelApp = window.parent.qinpelApp();
 
-const qinpelRefMain = qinpelInitMain();
+if (!qinpelApp.isLocalHost() && !qinpelApp.hasLogged()) {
+	qinpelFrame.src = "./login.html";
+} else {
+	qinpelInitMain();
+}
 
 function qinpelInitMain() {
 	const divBody = document.createElement("div");
-	const refMain = {
-		frameID: qinpelFrameID,
-		divBody,
-	};
 	initBody();
-	return refMain;
-
+	
 	function initBody() {
 		divBody.id = "QinpelMainDivBody";
-		qinpelApp.get("../../../list/apps")
+		qinpelApp.get("../../../list/app")
 			.then(res => { for (let name of listMenu(res.data)) { tryAddMenu(name); }; })
 			.catch(err => { divBody.innerText = "QinpelApp problem on retrieve the menu list. - " + err; });
 		document.body.appendChild(divBody);
 
-
 		function listMenu(response) {
-			return response.split(/\r?\n/).slice(1);
+			return response.split(/\r?\n/);
 		}
 
 		function tryAddMenu(name) {
