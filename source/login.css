@@ -5,8 +5,9 @@
 
 body {
     padding: 9px;
-    background-color: rgb(240, 240, 240);
+    background-color: #fffefa;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #270036;
 }
 
 #divBody {

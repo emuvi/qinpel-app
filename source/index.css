@@ -5,8 +5,9 @@
 }
 
 body {
-  background-color: rgb(240, 240, 240);
+  background-color: #fffefa;
   font-family: Arial, Helvetica, Tahoma, Geneva, Verdana, sans-serif;
+  color: #270036;
 }
 
 .QinpelWindowBody {
@@ -27,8 +28,8 @@ body {
 }
 
 .QinpelWindowMenu {
-  background-color: #2e0036;
-  border: 2px solid #1a001f;
+  background-color: #270036;
+  border: 2px solid #180027;
   border-radius: 4px;
   position: absolute;
   top: 18px;

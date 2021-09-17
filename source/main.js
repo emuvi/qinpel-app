@@ -1,6 +1,5 @@
 const qinpelFrame = window.frameElement;
-const qinpelFrameID = window.frameElement.id;
-const qinpelRefSelf = window.frameElement.qinpelRefSelf;
+const qinpelRefSelf = qinpelFrame.qinpelRefSelf;
 const qinpelApp = window.parent.qinpelApp();
 
 if (!qinpelApp.isLocalHost() && !qinpelApp.hasLogged()) {
@@ -43,7 +42,7 @@ function qinpelInitMain() {
 
 						function divContentClicked(e) {
 							qinpelApp.newFrame(title, "../" + name + "/index.html");
-							return qinpelApp.stopEvent(e);
+							return qinpelRefSelf.headClose(e);
 						}
 					})
 					.catch(err => {

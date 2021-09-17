@@ -5,8 +5,9 @@
 }
 
 body {
-    background-color: rgb(240, 240, 240);
+    background-color: #fffefa;
     font-family: Arial, Helvetica, Tahoma, Geneva, Verdana, sans-serif;
+    color: #270036;
 }
 
 #QinpelMainDivBody {
@@ -15,11 +16,6 @@ body {
 
 .QinpelMainDivMenu {
     display: inline-block;
-    background-color: #2e0036;
-    border: 2px solid #1a001f;
-    border-radius: 4px;
-    color: white;
-    font-weight: bold;
     margin: 5px;
     padding: 5px;
     max-width: 130px;
@@ -33,11 +29,12 @@ body {
 }
 
 .QinpelMainDivMenuContent img {
-    width: 64px;
-    height: 64px;
-    margin: 2px;
+    width: 48px;
+    height: 48px;
+    margin: 3px;
 }
 
 .QinpelMainDivMenuContent span {
-    margin: 2px;
+    margin: 3px;
+    font-weight: bold;
 }

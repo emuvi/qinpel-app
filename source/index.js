@@ -3,6 +3,7 @@ const qinpelModule = {
     location: qinpelLocation,
     isLocalHost: qinpelIsLocalHost,
     token: "",
+    userLang: "",
     get: qinpelGet,
     post: qinpelPost,
     hasLogged: qinpelHasLogged,
@@ -40,19 +41,34 @@ function qinpelHasLogged() {
     return qinpelModule.token != "";
 }
 
-function qinpelGet(address) {
-    return axios.get(address, qinpelAxiosConfig());
+function qinpelGet(address, headers) {
+    return axios.get(address, qinpelAxiosConfig(headers));
 }
 
-function qinpelPost(address, data) {
-    return axios.post(address, data, qinpelAxiosConfig());
+function qinpelPost(address, data, headers) {
+    return axios.post(address, data, qinpelAxiosConfig(headers));
 }
 
-function qinpelAxiosConfig() {
-    return {
-        headers: {
-            QinpelToken: qinpelModule.token
+function qinpelAxiosConfig(headers) {
+    if (!headers) {
+        headers = {};
+    }
+    headers['Qinpel-Token'] = qinpelModule.token;
+    if (!headers['Accept-Language']) {
+        if (qinpelModule.userLang) {
+            headers['Accept-Language'] = qinpelModule.userLang;
+        } else {
+            let browserLang = navigator.language || navigator.userLanguage;
+            if (browserLang) {
+                headers['Accept-Language'] = browserLang;
+            }
         }
+    }
+    if (!headers['Content-Type']) {
+        headers['Content-Type'] = "application/json";
+    }
+    return {
+        headers
     };
 }
 
