@@ -41,7 +41,7 @@ export declare class Frame {
     headMaximizeAction(): void;
     headCloseAction(): void;
     statusInfo(message: string): void;
-    statusError(error: any, file_name: string, class_name: string, func_name: string): void;
+    statusError(error: any, origin?: string): void;
     saveFrameBounds(): void;
 }
 //# sourceMappingURL=frame.d.ts.map

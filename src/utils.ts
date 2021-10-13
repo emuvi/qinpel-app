@@ -94,7 +94,7 @@ function isLocalHost() {
     if (start == -1) { start = 0; }
     else { start += 3 }
     location = location.substring(start);
-    return location.startsWith("localhost") || location.startsWith("127.0.0.1")
+    return location.indexOf("localhost") === 0 || location.indexOf("127.0.0.1") === 0
 }
 
 function getWindowSize(): Dimension {
@@ -547,22 +547,13 @@ function unmaskSpecialChars(fromText: string): string {
         .replace("\\t", "\t");
 }
 
-type Origin = {
-    file_name: string, class_name: string, func_name: string
-};
-
-function getOrigin() {
-    
-}
-
-function getErrorMessage(error: any, origin: Origin) {
+function getErrorMessage(error: any, origin?: string) {
     var result = "Problem with " + error;
     if (error.response && error.response.data) {
         result += " - Data: " + error.response.data;
     }
     if (origin) {
-        result += " - Origin: " + origin.class_name + "." + origin.func_name +
-            " on " + origin.file_name;
+        result += " - Origin: " + origin;
     }
     return result;
 }

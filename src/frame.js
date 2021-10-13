@@ -224,9 +224,9 @@ var Frame = (function () {
     Frame.prototype.statusInfo = function (message) {
         this.divStatusText.innerText = message;
     };
-    Frame.prototype.statusError = function (error, file_name, class_name, func_name) {
+    Frame.prototype.statusError = function (error, origin) {
         this.imgStatusType.src = "./assets/status-error.png";
-        this.divStatusText.innerText = utils_1.default.getErrorMessage(error, file_name, class_name, func_name);
+        this.divStatusText.innerText = utils_1.default.getErrorMessage(error, origin);
     };
     Frame.prototype.saveFrameBounds = function () {
         var windowSizeStyle = utils_1.default.getWindowSizeStyle();

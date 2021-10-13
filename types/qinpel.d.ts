@@ -7,7 +7,7 @@ export declare class Qinpel {
     util: {
         log: (message: any) => void;
         getLocation: () => string;
-        isLocalHost: () => any;
+        isLocalHost: () => boolean;
         getWindowSize: () => import("./utils").Dimension;
         getWindowSizeStyle: () => import("./utils").WindowSizeStyle;
         stopEvent: (event: any) => boolean;
@@ -29,7 +29,7 @@ export declare class Qinpel {
         getCSVRows: (fromText: string, names?: string[]) => string[][] | object[];
         maskSpecialChars: (fromText: string) => string;
         unmaskSpecialChars: (fromText: string) => string;
-        getErrorMessage: (error: any, file_name: string, class_name: string, func_name: string) => string;
+        getErrorMessage: (error: any, origin?: string) => string;
         toggleDevTools: () => void;
     };
     constructor(manager: Manager, frame: Frame);

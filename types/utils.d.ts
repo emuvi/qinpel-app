@@ -41,7 +41,7 @@ export declare type DragCalls = {
 };
 declare function log(message: any): void;
 declare function getLocation(): string;
-declare function isLocalHost(): any;
+declare function isLocalHost(): boolean;
 declare function getWindowSize(): Dimension;
 declare function getWindowSizeStyle(): WindowSizeStyle;
 declare function stopEvent(event: any): boolean;
@@ -63,7 +63,7 @@ declare function getTextLines(fromText: string): string[];
 declare function getCSVRows(fromText: string, names?: string[]): string[][] | object[];
 declare function maskSpecialChars(fromText: string): string;
 declare function unmaskSpecialChars(fromText: string): string;
-declare function getErrorMessage(error: any, file_name: string, class_name: string, func_name: string): string;
+declare function getErrorMessage(error: any, origin?: string): string;
 declare function toggleDevTools(): void;
 declare const utils: {
     log: typeof log;

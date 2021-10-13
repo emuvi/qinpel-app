@@ -242,11 +242,9 @@ export class Frame {
         this.divStatusText.innerText = message;
     }
 
-    public statusError(error: any,
-        file_name: string, class_name: string, func_name: string) {
+    public statusError(error: any, origin?: string) {
         this.imgStatusType.src = "./assets/status-error.png";
-        this.divStatusText.innerText = utils.getErrorMessage(error,
-            file_name, class_name, func_name);
+        this.divStatusText.innerText = utils.getErrorMessage(error, origin);
     }
 
     public saveFrameBounds() {

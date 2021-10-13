@@ -113,7 +113,7 @@ var Manager = (function () {
             if (!utils_1.default.isElementVisibleInScroll(element)) {
                 element.parentElement.scrollTo(element.offsetLeft, element.offsetTop);
             }
-            if (element.id.startsWith("QinpelFrameID")) {
+            if (element.id.indexOf("QinpelFrameID") === 0) {
                 var index = _this.getFrameIndexFromID(element.id);
                 if (index > 0) {
                     var frame = _this.frames[index];

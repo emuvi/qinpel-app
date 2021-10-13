@@ -62,7 +62,7 @@ function isLocalHost() {
         start += 3;
     }
     location = location.substring(start);
-    return location.startsWith("localhost") || location.startsWith("127.0.0.1");
+    return location.indexOf("localhost") === 0 || location.indexOf("127.0.0.1") === 0;
 }
 function getWindowSize() {
     return {
@@ -496,12 +496,14 @@ function unmaskSpecialChars(fromText) {
         .replace("\\n", "\n")
         .replace("\\t", "\t");
 }
-function getErrorMessage(error, file_name, class_name, func_name) {
+function getErrorMessage(error, origin) {
     var result = "Problem with " + error;
     if (error.response && error.response.data) {
         result += " - Data: " + error.response.data;
     }
-    result += " - Origin: " + class_name + "." + func_name + " on " + file_name;
+    if (origin) {
+        result += " - Origin: " + origin;
+    }
     return result;
 }
 function toggleDevTools() {

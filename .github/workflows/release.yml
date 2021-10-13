@@ -9,9 +9,8 @@ jobs:
       
       - name: Build
         run: |
-          mkdir -p dist
-          cp -r source/* dist/
-          mkdir -p release
+          bash -v build.sh
+          bash -v publish.sh
           tar -czvf ./release/qinpel-app.tar.gz ./dist
 
       - name: Release

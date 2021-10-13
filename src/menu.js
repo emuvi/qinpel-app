@@ -26,7 +26,7 @@ var Menu = (function () {
             ;
         })
             .catch(function (err) {
-            _this.divBody.innerText = qinpel.util.getErrorMessage(err, __filename, Menu.name, _this.initApps.name);
+            _this.divBody.innerText = qinpel.util.getErrorMessage(err, "(ErrCode-000002)");
         });
     };
     Menu.prototype.listApps = function (response) {
@@ -46,7 +46,7 @@ var Menu = (function () {
             })
                 .catch(function (err) {
                 var divError = document.createElement("div");
-                divError.innerText = qinpel.util.getErrorMessage(err, __filename, Menu.name, _this.tryAddApp.name);
+                divError.innerText = qinpel.util.getErrorMessage(err, "(ErrCode-000001)");
                 _this.addMenu(_this.divApps, divError);
             });
         }
