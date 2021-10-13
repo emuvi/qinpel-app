@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="24"
+   height="20"
+   viewBox="0 0 6.3499998 5.2916669"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="status-error.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="status-error.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="15.651904"
+     inkscape:cx="7.4431839"
+     inkscape:cy="15.237763"
+     inkscape:window-width="2560"
+     inkscape:window-height="1027"
+     inkscape:window-x="-8"
+     inkscape:window-y="22"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     height="20px" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       transform="matrix(0.14552083,0,0,0.13859127,1.825625,-141.08465)"
+       id="g864">
+      <path
+         d="M 22,12 C 22,17.523 17.523,22 12,22 6.4772,22 2,17.523 2,12 2,6.4772 6.4772,2 12,2 17.523,2 22,6.4772 22,12 Z"
+         fill="#c0392b"
+         transform="translate(0,1029.4)"
+         id="path856" />
+      <path
+         d="M 22,12 C 22,17.523 17.523,22 12,22 6.4772,22 2,17.523 2,12 2,6.4772 6.4772,2 12,2 17.523,2 22,6.4772 22,12 Z"
+         fill="#e74c3c"
+         transform="translate(0,1028.4)"
+         id="path858" />
+      <path
+         d="m 7.0503,1037.8 3.5357,3.6 -3.5357,3.5 1.4142,1.4 3.5355,-3.5 3.536,3.5 1.414,-1.4 -3.536,-3.5 3.536,-3.6 -1.414,-1.4 -3.536,3.5 -3.5355,-3.5 z"
+         fill="#c0392b"
+         id="path860" />
+      <path
+         d="m 7.0503,1036.8 3.5357,3.6 -3.5357,3.5 1.4142,1.4 3.5355,-3.5 3.536,3.5 1.414,-1.4 -3.536,-3.5 3.536,-3.6 -1.414,-1.4 -3.536,3.5 -3.5355,-3.5 z"
+         fill="#ecf0f1"
+         id="path862" />
+    </g>
+  </g>
+</svg>

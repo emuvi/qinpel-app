@@ -1,0 +1,16 @@
+{
+  "name": "qinpel-app",
+  "version": "0.1.0",
+  "description": "",
+  "main": "main.js",
+  "types": "./types",
+  "scripts": {
+    "start": "test.bat"
+  },
+  "keywords": [],
+  "author": "Éverton M. Vieira",
+  "license": "LGPL-3.0-only",
+  "dependencies": {
+    "axios": "^0.22.0"
+  }
+}

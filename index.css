@@ -1,0 +1,484 @@
+* {
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+}
+
+body {
+    background-color: #fffefa;
+    font-family: Arial, Helvetica, Tahoma, Geneva, Verdana, sans-serif;
+    color: #270036;
+}
+
+.QinpelWindowBody {
+    background-image: url("./assets/normal.png");
+    background-attachment: local;
+    font-weight: bold;
+    font-size: 12px;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: scroll;
+    touch-action: none;
+    scrollbar-width: none;
+}
+
+.QinpelWindowBody::-webkit-scrollbar {
+    display: none;
+}
+
+.QinpelWindowMenu {
+    background-color: #270036;
+    border: 2px solid #180027;
+    border-radius: 4px;
+    position: absolute;
+    overflow: hidden;
+    top: 18px;
+    left: 18px;
+    width: 48px;
+    height: 48px;
+}
+
+.QinpelWindowPopMenu {
+    background-color: rgb(135, 135, 135);
+    border: 2px solid rgb(108, 108, 108);
+    border-style: outset;
+    border-radius: 4px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.QinpelWindowPopItem {
+    border-bottom: 2px solid rgb(180, 180, 182);
+    background-color: rgb(234, 234, 234);
+    color: rgb(36, 36, 36);
+    cursor: pointer;
+    padding: 4px;
+}
+
+.QinpelWindowPopItem:hover {
+    background-color: rgb(207, 230, 255);
+}
+
+.QinpelWindowFrame {
+    background-color: rgb(135, 135, 135);
+    border: 2px solid rgb(108, 108, 108);
+    border-style: outset;
+    border-radius: 4px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.QinpelWindowFrameHead {
+    padding: 3px;
+    background-color: rgb(84, 84, 84);
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    cursor: default;
+}
+
+.QinpelWindowFrameHeadTitle {
+    flex: 1;
+}
+
+.QinpelWindowFrameBody {
+    flex: 1;
+    background-color: white;
+    min-width: 10px;
+    min-height: 10px;
+}
+
+.QinpelWindowFrameFoot {
+    padding: 3px;
+    background-color: rgb(84, 84, 84);
+    color: rgb(207, 207, 207);
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    cursor: default;
+}
+
+.QinpelWindowFrameFootStatus {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.QinpelWindowBackground-light {
+    background-image: url('./assets/light.png');
+}
+
+.QinpelWindowBackground-light-0 {
+    background-image: url('./assets/light-0.png');
+}
+
+.QinpelWindowBackground-light-1 {
+    background-image: url('./assets/light-1.png');
+}
+
+.QinpelWindowBackground-light-2 {
+    background-image: url('./assets/light-2.png');
+}
+
+.QinpelWindowBackground-light-3 {
+    background-image: url('./assets/light-3.png');
+}
+
+.QinpelWindowBackground-light-4 {
+    background-image: url('./assets/light-4.png');
+}
+
+.QinpelWindowBackground-light-5 {
+    background-image: url('./assets/light-5.png');
+}
+
+.QinpelWindowBackground-light-6 {
+    background-image: url('./assets/light-6.png');
+}
+
+.QinpelWindowBackground-light-7 {
+    background-image: url('./assets/light-7.png');
+}
+
+.QinpelWindowBackground-light-8 {
+    background-image: url('./assets/light-8.png');
+}
+
+.QinpelWindowBackground-light-9 {
+    background-image: url('./assets/light-9.png');
+}
+
+.QinpelWindowBackground-light-10 {
+    background-image: url('./assets/light-10.png');
+}
+
+.QinpelWindowBackground-light-11 {
+    background-image: url('./assets/light-11.png');
+}
+
+.QinpelWindowBackground-light-12 {
+    background-image: url('./assets/light-12.png');
+}
+
+.QinpelWindowBackground-light-13 {
+    background-image: url('./assets/light-13.png');
+}
+
+.QinpelWindowBackground-light-14 {
+    background-image: url('./assets/light-14.png');
+}
+
+.QinpelWindowBackground-light-15 {
+    background-image: url('./assets/light-15.png');
+}
+
+.QinpelWindowBackground-light-16 {
+    background-image: url('./assets/light-16.png');
+}
+
+.QinpelWindowBackground-light-17 {
+    background-image: url('./assets/light-17.png');
+}
+
+.QinpelWindowBackground-light-18 {
+    background-image: url('./assets/light-18.png');
+}
+
+.QinpelWindowBackground-light-19 {
+    background-image: url('./assets/light-19.png');
+}
+
+.QinpelWindowBackground-light-20 {
+    background-image: url('./assets/light-20.png');
+}
+
+.QinpelWindowBackground-light-21 {
+    background-image: url('./assets/light-21.png');
+}
+
+.QinpelWindowBackground-light-22 {
+    background-image: url('./assets/light-22.png');
+}
+
+.QinpelWindowBackground-light-23 {
+    background-image: url('./assets/light-23.png');
+}
+
+.QinpelWindowBackground-light-24 {
+    background-image: url('./assets/light-24.png');
+}
+
+.QinpelWindowBackground-light-25 {
+    background-image: url('./assets/light-25.png');
+}
+
+.QinpelWindowBackground-light-26 {
+    background-image: url('./assets/light-26.png');
+}
+
+.QinpelWindowBackground-light-27 {
+    background-image: url('./assets/light-27.png');
+}
+
+.QinpelWindowBackground-light-28 {
+    background-image: url('./assets/light-28.png');
+}
+
+.QinpelWindowBackground-light-29 {
+    background-image: url('./assets/light-29.png');
+}
+
+.QinpelWindowBackground-normal {
+    background-image: url('./assets/normal.png');
+}
+
+.QinpelWindowBackground-normal-0 {
+    background-image: url('./assets/normal-0.png');
+}
+
+.QinpelWindowBackground-normal-1 {
+    background-image: url('./assets/normal-1.png');
+}
+
+.QinpelWindowBackground-normal-2 {
+    background-image: url('./assets/normal-2.png');
+}
+
+.QinpelWindowBackground-normal-3 {
+    background-image: url('./assets/normal-3.png');
+}
+
+.QinpelWindowBackground-normal-4 {
+    background-image: url('./assets/normal-4.png');
+}
+
+.QinpelWindowBackground-normal-5 {
+    background-image: url('./assets/normal-5.png');
+}
+
+.QinpelWindowBackground-normal-6 {
+    background-image: url('./assets/normal-6.png');
+}
+
+.QinpelWindowBackground-normal-7 {
+    background-image: url('./assets/normal-7.png');
+}
+
+.QinpelWindowBackground-normal-8 {
+    background-image: url('./assets/normal-8.png');
+}
+
+.QinpelWindowBackground-normal-9 {
+    background-image: url('./assets/normal-9.png');
+}
+
+.QinpelWindowBackground-normal-10 {
+    background-image: url('./assets/normal-10.png');
+}
+
+.QinpelWindowBackground-normal-11 {
+    background-image: url('./assets/normal-11.png');
+}
+
+.QinpelWindowBackground-normal-12 {
+    background-image: url('./assets/normal-12.png');
+}
+
+.QinpelWindowBackground-normal-13 {
+    background-image: url('./assets/normal-13.png');
+}
+
+.QinpelWindowBackground-normal-14 {
+    background-image: url('./assets/normal-14.png');
+}
+
+.QinpelWindowBackground-normal-15 {
+    background-image: url('./assets/normal-15.png');
+}
+
+.QinpelWindowBackground-normal-16 {
+    background-image: url('./assets/normal-16.png');
+}
+
+.QinpelWindowBackground-normal-17 {
+    background-image: url('./assets/normal-17.png');
+}
+
+.QinpelWindowBackground-normal-18 {
+    background-image: url('./assets/normal-18.png');
+}
+
+.QinpelWindowBackground-normal-19 {
+    background-image: url('./assets/normal-19.png');
+}
+
+.QinpelWindowBackground-normal-20 {
+    background-image: url('./assets/normal-20.png');
+}
+
+.QinpelWindowBackground-normal-21 {
+    background-image: url('./assets/normal-21.png');
+}
+
+.QinpelWindowBackground-normal-22 {
+    background-image: url('./assets/normal-22.png');
+}
+
+.QinpelWindowBackground-normal-23 {
+    background-image: url('./assets/normal-23.png');
+}
+
+.QinpelWindowBackground-normal-24 {
+    background-image: url('./assets/normal-24.png');
+}
+
+.QinpelWindowBackground-normal-25 {
+    background-image: url('./assets/normal-25.png');
+}
+
+.QinpelWindowBackground-normal-26 {
+    background-image: url('./assets/normal-26.png');
+}
+
+.QinpelWindowBackground-normal-27 {
+    background-image: url('./assets/normal-27.png');
+}
+
+.QinpelWindowBackground-normal-28 {
+    background-image: url('./assets/normal-28.png');
+}
+
+.QinpelWindowBackground-normal-29 {
+    background-image: url('./assets/normal-29.png');
+}
+
+.QinpelWindowBackground-dark {
+    background-image: url('./assets/dark.png');
+}
+
+.QinpelWindowBackground-dark-0 {
+    background-image: url('./assets/dark-0.png');
+}
+
+.QinpelWindowBackground-dark-1 {
+    background-image: url('./assets/dark-1.png');
+}
+
+.QinpelWindowBackground-dark-2 {
+    background-image: url('./assets/dark-2.png');
+}
+
+.QinpelWindowBackground-dark-3 {
+    background-image: url('./assets/dark-3.png');
+}
+
+.QinpelWindowBackground-dark-4 {
+    background-image: url('./assets/dark-4.png');
+}
+
+.QinpelWindowBackground-dark-5 {
+    background-image: url('./assets/dark-5.png');
+}
+
+.QinpelWindowBackground-dark-6 {
+    background-image: url('./assets/dark-6.png');
+}
+
+.QinpelWindowBackground-dark-7 {
+    background-image: url('./assets/dark-7.png');
+}
+
+.QinpelWindowBackground-dark-8 {
+    background-image: url('./assets/dark-8.png');
+}
+
+.QinpelWindowBackground-dark-9 {
+    background-image: url('./assets/dark-9.png');
+}
+
+.QinpelWindowBackground-dark-10 {
+    background-image: url('./assets/dark-10.png');
+}
+
+.QinpelWindowBackground-dark-11 {
+    background-image: url('./assets/dark-11.png');
+}
+
+.QinpelWindowBackground-dark-12 {
+    background-image: url('./assets/dark-12.png');
+}
+
+.QinpelWindowBackground-dark-13 {
+    background-image: url('./assets/dark-13.png');
+}
+
+.QinpelWindowBackground-dark-14 {
+    background-image: url('./assets/dark-14.png');
+}
+
+.QinpelWindowBackground-dark-15 {
+    background-image: url('./assets/dark-15.png');
+}
+
+.QinpelWindowBackground-dark-16 {
+    background-image: url('./assets/dark-16.png');
+}
+
+.QinpelWindowBackground-dark-17 {
+    background-image: url('./assets/dark-17.png');
+}
+
+.QinpelWindowBackground-dark-18 {
+    background-image: url('./assets/dark-18.png');
+}
+
+.QinpelWindowBackground-dark-19 {
+    background-image: url('./assets/dark-19.png');
+}
+
+.QinpelWindowBackground-dark-20 {
+    background-image: url('./assets/dark-20.png');
+}
+
+.QinpelWindowBackground-dark-21 {
+    background-image: url('./assets/dark-21.png');
+}
+
+.QinpelWindowBackground-dark-22 {
+    background-image: url('./assets/dark-22.png');
+}
+
+.QinpelWindowBackground-dark-23 {
+    background-image: url('./assets/dark-23.png');
+}
+
+.QinpelWindowBackground-dark-24 {
+    background-image: url('./assets/dark-24.png');
+}
+
+.QinpelWindowBackground-dark-25 {
+    background-image: url('./assets/dark-25.png');
+}
+
+.QinpelWindowBackground-dark-26 {
+    background-image: url('./assets/dark-26.png');
+}
+
+.QinpelWindowBackground-dark-27 {
+    background-image: url('./assets/dark-27.png');
+}
+
+.QinpelWindowBackground-dark-28 {
+    background-image: url('./assets/dark-28.png');
+}
+
+.QinpelWindowBackground-dark-29 {
+    background-image: url('./assets/dark-29.png');
+}
