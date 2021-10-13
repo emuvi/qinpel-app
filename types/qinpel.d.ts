@@ -7,7 +7,7 @@ export declare class Qinpel {
     util: {
         log: (message: any) => void;
         getLocation: () => string;
-        isLocalHost: () => boolean;
+        isLocalHost: () => any;
         getWindowSize: () => import("./utils").Dimension;
         getWindowSizeStyle: () => import("./utils").WindowSizeStyle;
         stopEvent: (event: any) => boolean;

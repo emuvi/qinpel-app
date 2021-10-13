@@ -120,7 +120,7 @@ export class Manager {
             if (!utils.isElementVisibleInScroll(element)) {
                 element.parentElement.scrollTo(element.offsetLeft, element.offsetTop);
             }
-            if (element.id.startsWith("QinpelFrameID")) {
+            if (element.id.indexOf("QinpelFrameID") === 0) {
                 const index = this.getFrameIndexFromID(element.id);
                 if (index > 0) {
                     const frame = this.frames[index];

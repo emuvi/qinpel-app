@@ -547,13 +547,23 @@ function unmaskSpecialChars(fromText: string): string {
         .replace("\\t", "\t");
 }
 
-function getErrorMessage(error: any,
-    file_name: string, class_name: string, func_name: string) {
+type Origin = {
+    file_name: string, class_name: string, func_name: string
+};
+
+function getOrigin() {
+    
+}
+
+function getErrorMessage(error: any, origin: Origin) {
     var result = "Problem with " + error;
     if (error.response && error.response.data) {
         result += " - Data: " + error.response.data;
     }
-    result += " - Origin: " + class_name + "." + func_name + " on " + file_name;
+    if (origin) {
+        result += " - Origin: " + origin.class_name + "." + origin.func_name +
+            " on " + origin.file_name;
+    }
     return result;
 }
 

@@ -27,10 +27,10 @@ class Menu {
                     this.tryAddApp(name);
                 };
             })
+            
             .catch(err => {
                 this.divBody.innerText = qinpel.util.getErrorMessage(err,
-                    // TODO this does not work!
-                    __filename, Menu.name, this.initApps.name);
+                    "menu.ts", "Menu", "initApps");
             });
     }
 
@@ -54,7 +54,7 @@ class Menu {
                 .catch(err => {
                     const divError = document.createElement("div");
                     divError.innerText = qinpel.util.getErrorMessage(err,
-                        __filename, Menu.name, this.tryAddApp.name);
+                        __filename, "(ErrCode-abc)" Menu.name, this.tryAddApp.name);
                     this.addMenu(this.divApps, divError);
                 });
         }

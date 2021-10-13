@@ -41,7 +41,7 @@ export declare type DragCalls = {
 };
 declare function log(message: any): void;
 declare function getLocation(): string;
-declare function isLocalHost(): boolean;
+declare function isLocalHost(): any;
 declare function getWindowSize(): Dimension;
 declare function getWindowSizeStyle(): WindowSizeStyle;
 declare function stopEvent(event: any): boolean;
