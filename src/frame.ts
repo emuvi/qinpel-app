@@ -242,7 +242,7 @@ export class Frame {
         this.divStatusText.innerText = message;
     }
 
-    public statusError(error: any, origin?: string) {
+    public statusError(error: any, origin: string) {
         this.imgStatusType.src = "./assets/status-error.png";
         this.divStatusText.innerText = utils.getErrorMessage(error, origin);
     }

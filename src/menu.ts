@@ -21,14 +21,15 @@ class Menu {
     }
 
     public initApps() {
-        qinpel.get("/list/app2")
+        qinpel.get("/list/app")
             .then(res => {
                 for (let name of this.listApps(res.data)) {
                     this.tryAddApp(name);
                 };
             })
             .catch(err => {
-                this.divBody.innerText = qinpel.util.getErrorMessage(err, "(ErrCode-000002)");
+                this.divBody.innerText = qinpel.util.getErrorMessage(err,
+                    "(ErrCode-000002)");
             });
     }
 

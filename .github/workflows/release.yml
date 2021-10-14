@@ -9,9 +9,10 @@ jobs:
       
       - name: Build
         run: |
+          bash -v setup.sh
           bash -v build.sh
           bash -v publish.sh
-          tar -czvf ./release/qinpel-app.tar.gz ./dist
+          tar -czvf ./release/qinpel-app.tar.gz ./out
 
       - name: Release
         uses: softprops/action-gh-release@v1

@@ -4,8 +4,9 @@
   "description": "",
   "main": "main.js",
   "types": "./types",
+  "repository": "https://github.com/emuvi/qinpel-app",
   "scripts": {
-    "start": "test.bat"
+    "test": "bash -v test.sh"
   },
   "keywords": [],
   "author": "Éverton M. Vieira",

@@ -17,7 +17,7 @@ var Menu = (function () {
     };
     Menu.prototype.initApps = function () {
         var _this = this;
-        qinpel.get("/list/app2")
+        qinpel.get("/list/app")
             .then(function (res) {
             for (var _i = 0, _a = _this.listApps(res.data); _i < _a.length; _i++) {
                 var name_1 = _a[_i];
