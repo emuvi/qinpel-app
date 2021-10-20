@@ -193,8 +193,22 @@ function addKeyAction(element, action) {
 }
 function addAction(element, action) {
     element.onkeydown = actionKeyboard;
-    element.onmousedown = actionMouse;
-    element.ontouchstart = actionTouch;
+    if (hasActionOnClick()) {
+        element.onmousedown = actionMouse;
+        element.ontouchstart = actionTouch;
+    }
+    function hasActionOnClick() {
+        var result = true;
+        if (element.tagName && element.tagName.toLowerCase() === "input") {
+            if (element.type !== "button") {
+                result = false;
+            }
+        }
+        if (element.isContentEditable) {
+            result = false;
+        }
+        return result;
+    }
     function actionKeyboard(ev) {
         if (isKeyReturn(ev)) {
             action(new QinpelEvent().setFromKeyboard(ev));
