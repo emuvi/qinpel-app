@@ -48,7 +48,7 @@ declare function stopEvent(event: any): boolean;
 declare function makeEventPointer(isDown: boolean, ev: MouseEvent | TouchEvent): Point;
 declare function hideAllIFrames(): void;
 declare function showAllIFrames(): void;
-declare function disableSelection(element: any): void;
+declare function disableSelection(element: HTMLElement): void;
 declare function clearSelection(): void;
 declare function isElementVisibleInScroll(element: HTMLElement): boolean;
 declare function isKeyReturn(ev: KeyboardEvent): boolean;

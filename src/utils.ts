@@ -186,14 +186,9 @@ function showAllIFrames() {
     }
 }
 
-function disableSelection(element: any) {
-    var style = element.style;
-    if (!style) {
-        style = "";
-    }
-    style += " -moz-user-select: none; -webkit-user-select: none; -ms-user-select: none; user-select: none; -o-user-select: none;";
-    element.style = style;
-    element.unselectable = stopEvent;
+function disableSelection(element: HTMLElement) {
+    element.style.userSelect = "none";
+    element.style.webkitUserSelect = "none";
     element.onselectstart = stopEvent;
 }
 

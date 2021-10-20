@@ -14,7 +14,7 @@ export declare class Qinpel {
         makeEventPointer: (isDown: boolean, ev: MouseEvent | TouchEvent) => import("./utils").Point;
         hideAllIFrames: () => void;
         showAllIFrames: () => void;
-        disableSelection: (element: any) => void;
+        disableSelection: (element: HTMLElement) => void;
         clearSelection: () => void;
         isElementVisibleInScroll: (element: HTMLElement) => boolean;
         isKeyReturn: (ev: KeyboardEvent) => boolean;
