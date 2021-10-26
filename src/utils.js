@@ -1,45 +1,120 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QinpelEvent = exports.WindowSizeStyle = void 0;
-var WindowSizeStyle;
-(function (WindowSizeStyle) {
-    WindowSizeStyle["SMALL"] = "SMALL";
-    WindowSizeStyle["MEDIUM"] = "MEDIUM";
-    WindowSizeStyle["LARGE"] = "LARGE";
-})(WindowSizeStyle = exports.WindowSizeStyle || (exports.WindowSizeStyle = {}));
-;
-var QinpelEvent = (function () {
-    function QinpelEvent() {
-        this.alt = false;
-        this.ctrl = false;
-        this.shift = false;
-        this.long = false;
-        this.double = false;
-        this.posX = -1;
-        this.posY = -1;
-        this.key = "";
+exports.QinEvent = exports.QinDragCalls = exports.QinFilesDescriptor = exports.QinFilesOperation = exports.QinFilesNature = exports.QinStyles = exports.QinGrandeur = exports.QinBounds = exports.QinDimension = exports.QinPoint = void 0;
+var QinPoint = (function () {
+    function QinPoint() {
     }
-    QinpelEvent.prototype.setFromKeyboard = function (ev) {
-        this.alt = ev.altKey;
-        this.ctrl = ev.ctrlKey;
-        this.shift = ev.shiftKey;
-        return this;
-    };
-    QinpelEvent.prototype.setFromMouse = function (ev) {
-        this.alt = ev.altKey;
-        this.ctrl = ev.ctrlKey;
-        this.shift = ev.shiftKey;
-        return this;
-    };
-    QinpelEvent.prototype.setFromTouch = function (ev) {
-        this.alt = ev.altKey;
-        this.ctrl = ev.ctrlKey;
-        this.shift = ev.shiftKey;
-        return this;
-    };
-    return QinpelEvent;
+    return QinPoint;
 }());
-exports.QinpelEvent = QinpelEvent;
+exports.QinPoint = QinPoint;
+;
+var QinDimension = (function () {
+    function QinDimension() {
+    }
+    return QinDimension;
+}());
+exports.QinDimension = QinDimension;
+;
+var QinBounds = (function () {
+    function QinBounds() {
+    }
+    return QinBounds;
+}());
+exports.QinBounds = QinBounds;
+;
+var QinGrandeur;
+(function (QinGrandeur) {
+    QinGrandeur["SMALL"] = "small";
+    QinGrandeur["MEDIUM"] = "medium";
+    QinGrandeur["LARGE"] = "large";
+})(QinGrandeur = exports.QinGrandeur || (exports.QinGrandeur = {}));
+var QinStyles;
+(function (QinStyles) {
+    QinStyles["ColorBack"] = "#fff9ef";
+    QinStyles["ColorFont"] = "#270036";
+    QinStyles["FontName"] = "Poppins";
+    QinStyles["FontSize"] = "12px";
+})(QinStyles = exports.QinStyles || (exports.QinStyles = {}));
+var QinFilesNature;
+(function (QinFilesNature) {
+    QinFilesNature["DIRECTORIES"] = "directories";
+    QinFilesNature["FILES"] = "files";
+    QinFilesNature["BOTH"] = "both";
+})(QinFilesNature = exports.QinFilesNature || (exports.QinFilesNature = {}));
+var QinFilesOperation;
+(function (QinFilesOperation) {
+    QinFilesOperation["OPEN"] = "open";
+    QinFilesOperation["SAVE"] = "save";
+})(QinFilesOperation = exports.QinFilesOperation || (exports.QinFilesOperation = {}));
+var QinFilesDescriptor = (function () {
+    function QinFilesDescriptor() {
+    }
+    return QinFilesDescriptor;
+}());
+exports.QinFilesDescriptor = QinFilesDescriptor;
+var QinDragCalls = (function () {
+    function QinDragCalls() {
+    }
+    return QinDragCalls;
+}());
+exports.QinDragCalls = QinDragCalls;
+var QinEvent = (function () {
+    function QinEvent() {
+        this.fromTyping = false;
+        this.fromPointing = false;
+        this.hasAlt = false;
+        this.hasCtrl = false;
+        this.hasShift = false;
+        this.hasMeta = false;
+        this.isEnter = false;
+        this.isEscape = false;
+        this.isDouble = false;
+        this.isLong = false;
+        this.keyTyped = "";
+        this.pointOnX = -1;
+        this.pointOnY = -1;
+        this.stopEvent = false;
+    }
+    QinEvent.prototype.setFromKeyboard = function (ev) {
+        this.fromTyping = true;
+        this.hasAlt = ev.altKey;
+        this.hasCtrl = ev.ctrlKey;
+        this.hasShift = ev.shiftKey;
+        this.hasMeta = ev.metaKey;
+        this.isEnter = isKeyEnter(ev);
+        this.isEscape = isKeyEscape(ev);
+        this.isSpace = isKeySpace(ev);
+        this.keyTyped = ev.key;
+        return this;
+    };
+    QinEvent.prototype.setFromMouse = function (ev) {
+        this.fromPointing = true;
+        this.hasAlt = ev.altKey;
+        this.hasCtrl = ev.ctrlKey;
+        this.hasShift = ev.shiftKey;
+        this.hasMeta = ev.metaKey;
+        this.pointOnX = ev.clientX;
+        this.pointOnY = ev.clientY;
+        return this;
+    };
+    QinEvent.prototype.setFromTouch = function (ev) {
+        this.fromPointing = true;
+        this.hasAlt = ev.altKey;
+        this.hasCtrl = ev.ctrlKey;
+        this.hasShift = ev.shiftKey;
+        this.hasMeta = ev.metaKey;
+        if (ev.touches.length > 0) {
+            this.pointOnX = ev.touches[0].clientX;
+            this.pointOnY = ev.touches[0].clientY;
+        }
+        return this;
+    };
+    QinEvent.prototype.stop = function () {
+        this.stopEvent = true;
+    };
+    return QinEvent;
+}());
+exports.QinEvent = QinEvent;
 ;
 function log(message) {
     if (window.deskAPI) {
@@ -73,13 +148,13 @@ function getWindowSize() {
 function getWindowSizeStyle() {
     var width = getWindowSize().width;
     if (width < 600) {
-        return WindowSizeStyle.SMALL;
+        return QinGrandeur.SMALL;
     }
     else if (width < 1000) {
-        return WindowSizeStyle.MEDIUM;
+        return QinGrandeur.MEDIUM;
     }
     else {
-        return WindowSizeStyle.LARGE;
+        return QinGrandeur.LARGE;
     }
 }
 function stopEvent(event) {
@@ -176,52 +251,61 @@ function isElementVisibleInScroll(element) {
     }
     return true;
 }
-function isKeyReturn(ev) {
-    return ev.key === "Enter" || ev.keyCode === 13;
+function isKeyInList(ev, list) {
+    var keyLower = ev.key.toLowerCase();
+    return list.indexOf(keyLower) > -1;
+}
+function isKeyEnter(ev) {
+    return isKeyInList(ev, ["enter", "return"]) || ev.keyCode === 13;
 }
 function isKeyEscape(ev) {
-    return ev.key === "Esc" || ev.key === "Escape" || ev.keyCode === 27;
+    return isKeyInList(ev, ["esc", "escape"]) || ev.keyCode === 27;
+}
+function isKeySpace(ev) {
+    return isKeyInList(ev, [" ", "space", "spacebar"]) || ev.keyCode === 32;
 }
 function addKeyAction(element, action) {
     element.onkeydown = actionKeyboard;
     function actionKeyboard(ev) {
-        if (isKeyReturn(ev)) {
-            action(new QinpelEvent().setFromKeyboard(ev));
+        if (isKeyEnter(ev)) {
+            action(new QinEvent().setFromKeyboard(ev));
             return stopEvent(ev);
         }
     }
 }
 function addAction(element, action) {
     element.onkeydown = actionKeyboard;
-    if (hasActionOnClick()) {
-        element.onmousedown = actionMouse;
-        element.ontouchstart = actionTouch;
-    }
-    function hasActionOnClick() {
-        var result = true;
-        if (element.tagName && element.tagName.toLowerCase() === "input") {
-            if (element.type !== "button") {
-                result = false;
-            }
-        }
-        if (element.isContentEditable) {
-            result = false;
-        }
-        return result;
-    }
+    element.onmousedown = actionMouse;
+    element.ontouchstart = actionTouch;
     function actionKeyboard(ev) {
-        if (isKeyReturn(ev)) {
-            action(new QinpelEvent().setFromKeyboard(ev));
+        var qinEvent = new QinEvent().setFromKeyboard(ev);
+        action(qinEvent);
+        if (qinEvent.stopEvent) {
             return stopEvent(ev);
+        }
+        else {
+            return true;
         }
     }
     function actionMouse(ev) {
-        action(new QinpelEvent().setFromMouse(ev));
-        return stopEvent(ev);
+        var qinEvent = new QinEvent().setFromMouse(ev);
+        action(qinEvent);
+        if (qinEvent.stopEvent) {
+            return stopEvent(ev);
+        }
+        else {
+            return true;
+        }
     }
     function actionTouch(ev) {
-        action(new QinpelEvent().setFromTouch(ev));
-        return stopEvent(ev);
+        var qinEvent = new QinEvent().setFromTouch(ev);
+        action(qinEvent);
+        if (qinEvent.stopEvent) {
+            return stopEvent(ev);
+        }
+        else {
+            return true;
+        }
     }
 }
 function addMover(sources, target, dragCalls) {
@@ -413,6 +497,72 @@ function addScroller(target, dragCalls) {
         return stopEvent(ev);
     }
 }
+function applyStyleAsBody(el) {
+    el.style.position = "absolute";
+    el.style.top = "0px";
+    el.style.right = "0px";
+    el.style.bottom = "0px";
+    el.style.left = "0px";
+    el.style.overflow = "auto";
+}
+var iconSmall = {
+    width: 16,
+    height: 16,
+};
+function getIconDimension(size) {
+    if (size == QinGrandeur.LARGE) {
+        return getIconLarge();
+    }
+    else if (size == QinGrandeur.MEDIUM) {
+        return getIconMedium();
+    }
+    else {
+        return getIconSmall();
+    }
+}
+function getIconSmall() {
+    return iconSmall;
+}
+var iconMedium = {
+    width: 32,
+    height: 32,
+};
+function getIconMedium() {
+    return iconMedium;
+}
+var iconLarge = {
+    width: 64,
+    height: 64,
+};
+function getIconLarge() {
+    return iconLarge;
+}
+function getPathJoin(pathA, pathB) {
+    if (pathA == null || pathA == undefined) {
+        pathA = "";
+    }
+    if (pathB == null || pathB == undefined) {
+        pathB = "";
+    }
+    if (pathA.length == 0) {
+        return pathB;
+    }
+    else if (pathB.length == 0) {
+        return pathA;
+    }
+    else {
+        var union = "/";
+        if (pathA.indexOf("\\") > -1 || pathB.indexOf("\\") > -1) {
+            union = "\\";
+        }
+        var pathAEnd = pathA.substring(pathA.length - 1, pathA.length);
+        var pathBStart = pathB.substring(0, 1);
+        if (pathAEnd == union || pathBStart == union) {
+            union = "";
+        }
+        return pathA + union + pathB;
+    }
+}
 function getFileExtension(name) {
     var position = name.lastIndexOf(".");
     if (position > -1) {
@@ -421,6 +571,43 @@ function getFileExtension(name) {
     else {
         return "";
     }
+}
+var appsExtensions = ["htm", "html", "css", "js", "jsx", "ts", "tsx", "phtml"];
+var cmdsExtensions = [
+    "h", "c", "hpp", "cpp", "rs", "jl",
+    "cs", "csproj", "fs", "ml", "fsi", "mli", "fsx", "fsscript",
+    "java", "gy", "gvy", "groovy", "sc", "scala", "clj",
+    "py", "ruby", "php", "phtml",
+];
+var execExtensions = ["exe", "jar", "com", "bat", "sh"];
+var imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp"];
+var vectorExtensions = ["svg"];
+var movieExtensions = ["avi", "mp4"];
+var musicExtensions = ["wav", "mp3"];
+var zippedExtensions = ["zip", "rar", "7z", "tar", "gz"];
+function isFileApp(extension) {
+    return appsExtensions.indexOf(extension) > -1;
+}
+function isFileCmd(extension) {
+    return cmdsExtensions.indexOf(extension) > -1;
+}
+function isFileExec(extension) {
+    return execExtensions.indexOf(extension) > -1;
+}
+function isFileImage(extension) {
+    return imageExtensions.indexOf(extension) > -1;
+}
+function isFileVector(extension) {
+    return vectorExtensions.indexOf(extension) > -1;
+}
+function isFileMovie(extension) {
+    return movieExtensions.indexOf(extension) > -1;
+}
+function isFileMusic(extension) {
+    return musicExtensions.indexOf(extension) > -1;
+}
+function isFileZipped(extension) {
+    return zippedExtensions.indexOf(extension) > -1;
 }
 function getTextLines(fromText) {
     return fromText.match(/[^\r\n]+/g);
@@ -536,14 +723,29 @@ var utils = {
     disableSelection: disableSelection,
     clearSelection: clearSelection,
     isElementVisibleInScroll: isElementVisibleInScroll,
-    isKeyReturn: isKeyReturn,
+    isKeyInList: isKeyInList,
+    isKeyEnter: isKeyEnter,
     isKeyEscape: isKeyEscape,
     addAction: addAction,
     addKeyAction: addKeyAction,
     addMover: addMover,
     addResizer: addResizer,
     addScroller: addScroller,
+    applyStyleAsBody: applyStyleAsBody,
+    getIconDimension: getIconDimension,
+    getIconSmall: getIconSmall,
+    getIconMedium: getIconMedium,
+    getIconLarge: getIconLarge,
+    getPathJoin: getPathJoin,
     getFileExtension: getFileExtension,
+    isFileApp: isFileApp,
+    isFileCmd: isFileCmd,
+    isFileExec: isFileExec,
+    isFileImage: isFileImage,
+    isFileVector: isFileVector,
+    isFileMusic: isFileMusic,
+    isFileMovie: isFileMovie,
+    isFileZipped: isFileZipped,
     getTextLines: getTextLines,
     getCSVRows: getCSVRows,
     maskSpecialChars: maskSpecialChars,

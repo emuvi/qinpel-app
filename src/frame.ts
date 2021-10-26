@@ -1,6 +1,8 @@
 import { Manager } from "./manager";
-import utils, { Bounds, WindowSizeStyle } from "./utils";
+import utils, { QinBounds, QinGrandeur } from "./utils";
 import param from "./param";
+import { Qinpel } from "./qinpel";
+import styles from "./styles/frame-styles"
 
 export class Frame {
     private manager: Manager;
@@ -16,8 +18,6 @@ export class Frame {
     private imgClose = document.createElement("img");
     private iframeBody = document.createElement("iframe");
     private divFoot = document.createElement("div");
-    private imgStatusUp = document.createElement("img");
-    private imgStatusDown = document.createElement("img");
     private imgStatusType = document.createElement("img");
     private divStatusText = document.createElement("div");
     private imgResize = document.createElement("img");
@@ -33,7 +33,7 @@ export class Frame {
         this.address = address;
         this.initDivFrame();
         this.initDivHead();
-        this.initInsideFrameBody();
+        this.initIFrameBody();
         this.initDivFoot();
         this.initDraggable();
     }
@@ -63,7 +63,7 @@ export class Frame {
         this.lastHeight = frameInitBounds.height;
     }
 
-    private loadFrameInitBounds(): Bounds {
+    private loadFrameInitBounds(): QinBounds {
         const result = {
             posX: 64,
             posY: 64,
@@ -80,13 +80,13 @@ export class Frame {
             result.width = Number(parts[2]);
             result.height = Number(parts[3]);
         } else {
-            if (windowSizeStyle === WindowSizeStyle.SMALL) {
+            if (windowSizeStyle === QinGrandeur.SMALL) {
                 result.posX = 0;
                 result.posY = 0;
                 const size = utils.getWindowSize();
                 result.width = size.width - 4;
                 result.height = size.height - 4;
-            } else if (windowSizeStyle === WindowSizeStyle.MEDIUM) {
+            } else if (windowSizeStyle === QinGrandeur.MEDIUM) {
                 result.posX = 48;
                 result.posY = 48;
                 result.width = 500;
@@ -96,53 +96,52 @@ export class Frame {
         return result;
     }
 
-    private getFrameWindowStyleID(windowSizeStyle: WindowSizeStyle): string {
+    private getFrameWindowStyleID(windowSizeStyle: QinGrandeur): string {
         return "window " + windowSizeStyle + " size of: " + this.title;
     }
 
     private initDivHead() {
         this.divHead.className = "QinpelWindowFrameHead";
-        this.imgMenu.src = "./assets/menu.png";
+        this.imgMenu.src = "./assets/frame-menu.png";
         this.imgMenu.alt = "o";
         utils.addAction(this.imgMenu, () => this.headMenuAction());
         this.divHead.appendChild(this.imgMenu);
         this.divTitle.className = "QinpelWindowFrameHeadTitle";
         this.divTitle.innerText = this.title;
         this.divHead.appendChild(this.divTitle);
-        this.imgMinimize.src = "./assets/minimize.png";
+        this.imgMinimize.src = "./assets/frame-minimize.png";
         this.imgMinimize.alt = "-";
         utils.addAction(this.imgMinimize, () => this.headMinimizeAction());
         this.divHead.appendChild(this.imgMinimize);
-        this.imgMaximize.src = "./assets/maximize.png";
+        this.imgMaximize.src = "./assets/frame-maximize.png";
         this.imgMaximize.alt = "+";
         utils.addAction(this.imgMaximize, () => this.headMaximizeAction());
         this.divHead.appendChild(this.imgMaximize);
-        this.imgClose.src = "./assets/close.png";
+        this.imgClose.src = "./assets/frame-close.png";
         this.imgClose.alt = "x";
         utils.addAction(this.imgClose, () => this.headCloseAction());
         this.divHead.appendChild(this.imgClose);
         this.divFrame.appendChild(this.divHead);
     }
 
-    private initInsideFrameBody() {
+    private initIFrameBody() {
         this.iframeBody.id = "QinpelInsideFrameID" + this.rndID;
         this.iframeBody.className = "QinpelWindowFrameBody";
         this.iframeBody.src = this.address;
+        this.iframeBody.onload = (_) => {
+            styles.applyOnIFrame(this.iframeBody);
+        }
         this.divFrame.appendChild(this.iframeBody);
     }
 
     private initDivFoot() {
         this.divFoot.className = "QinpelWindowFrameFoot";
-        this.imgStatusUp.src = "./assets/status-up.png";
-        this.divFoot.appendChild(this.imgStatusUp);
-        this.imgStatusDown.src = "./assets/status-down.png";
-        this.divFoot.appendChild(this.imgStatusDown);
-        this.imgStatusType.src = "./assets/status-info.png";
+        this.imgStatusType.src = "./assets/frame-status-info.png";
         this.divFoot.appendChild(this.imgStatusType);
         this.divStatusText.className = "QinpelWindowFrameFootStatus";
         this.divStatusText.innerText = "StatusBar";
         this.divFoot.appendChild(this.divStatusText);
-        this.imgResize.src = "./assets/resize.png";
+        this.imgResize.src = "./assets/frame-resize.png";
         this.imgResize.alt = "/";
         this.divFoot.appendChild(this.imgResize);
         this.divFrame.appendChild(this.divFoot);
@@ -174,20 +173,15 @@ export class Frame {
         return this.title;
     }
 
-    public getDiv(): HTMLDivElement {
-        return this.divFrame;
-    }
-
-    public getIFrame(): any {
-        return this.iframeBody;
-    }
-
     public getID(): string {
         return this.divFrame.id;
     }
 
-    public show() {
-        this.manager.showElement(this.divFrame);
+    public install() {
+        //@ts-ignore
+        this.iframeBody.qinpel = new Qinpel(this.manager, this);
+        this.manager.addChild(this.divFrame);
+        this.show();
     }
 
     public headMenuAction() {
@@ -235,7 +229,7 @@ export class Frame {
     }
 
     public headCloseAction() {
-        this.manager.closeFrame(this);
+        this.close();
     }
 
     public statusInfo(message: string) {
@@ -243,7 +237,7 @@ export class Frame {
     }
 
     public statusError(error: any, origin: string) {
-        this.imgStatusType.src = "./assets/status-error.png";
+        this.imgStatusType.src = "./assets/frame-status-error.png";
         this.divStatusText.innerText = utils.getErrorMessage(error, origin);
     }
 
@@ -256,6 +250,101 @@ export class Frame {
             parseInt(this.divFrame.style.width, 10) + "," +
             parseInt(this.divFrame.style.height, 10);
         window.localStorage.setItem(frameStyleID, frameBounds);
+    }
+
+    public show() {
+        this.manager.showElement(this.divFrame);
+    }
+
+    public close() {
+        this.saveFrameBounds();
+        this.manager.delChild(this.divFrame);
+        this.manager.delFrame(this);
+    }
+
+    public newDialog(title: string, divContent: HTMLDivElement): FrameDialog {
+        const docBody = this.iframeBody.contentWindow.document.body;
+        return new FrameDialog(title, docBody, divContent);
+    }
+
+}
+
+class FrameDialog {
+    
+    private title: string;
+    private docBody: HTMLElement;
+    private divContent: HTMLDivElement;
+    private divDialog = document.createElement("div");
+    private divTop = document.createElement("div");
+    private spanTitle = document.createElement("span");
+    private spanClose = document.createElement("span");
+    private imgClose = document.createElement("img");
+    private divPack = document.createElement("div");
+
+    private showing = false;
+    private docNodes: ChildNode[] = [];
+
+    public constructor(title: string, docBody: HTMLElement, divContent: HTMLDivElement) {
+        this.title = title;
+        this.docBody = docBody;
+        this.divContent = divContent;
+        this.initDialog();
+        this.initTop();
+        this.initPack();
+    }
+
+    private initDialog() {
+        styles.applyOnDialog(this.divDialog);
+    }
+    
+    private initTop() {
+        styles.applyOnDialogTop(this.divTop);
+        this.divDialog.appendChild(this.divTop);
+        styles.applyOnDialogTitle(this.spanTitle);
+        this.spanTitle.innerText = this.title;
+        this.divTop.appendChild(this.spanTitle);
+        styles.applyOnDialogClose(this.spanClose);
+        this.divTop.appendChild(this.spanClose);
+        styles.applyOnDialogImage(this.imgClose);
+        this.imgClose.src = "/run/app/qinpel-app/assets/frame-close.png";
+        this.spanClose.appendChild(this.imgClose);
+        utils.addAction(this.spanClose, (_) => {
+            this.close();
+        });
+    }
+    
+    private initPack() {
+        this.divDialog.appendChild(this.divPack);
+        styles.applyOnDialogPack(this.divPack);
+        this.divPack.appendChild(this.divContent);
+    }
+
+    public show() {
+        if (this.showing) {
+            return;
+        }
+        this.docNodes = [];
+        for (let i = 0; i < this.docBody.childNodes.length; i++) {
+            const child = this.docBody.childNodes[i];
+            this.docNodes.push(child);
+        }
+        for (const child of this.docNodes) {
+            this.docBody.removeChild(child);
+        }
+        this.docBody.appendChild(this.divDialog);
+        this.showing = true;
+    }
+
+    public close() {
+        if (!this.showing) {
+            return;
+        }
+        this.docBody.removeChild(this.divDialog);
+        for (const child of this.docNodes) {
+            this.docBody.appendChild(child);
+        }
+        this.docNodes = [];
+        this.showing = false;
     }
 
 }

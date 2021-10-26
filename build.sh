@@ -1,3 +1,4 @@
 bash -v clean.sh
-tsc -p .
+py src/qinpel.py
+tsc -p tsconfig.json
 cp src/main.js main.js

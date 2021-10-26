@@ -3,6 +3,20 @@ import { Frame } from "./frame";
 import utils from "./utils";
 import { AxiosResponse } from "axios";
 
+export {
+    QinPoint,
+    QinDimension,
+    QinBounds,
+    QinGrandeur,
+    QinStyles,
+    QinFilesNature,
+    QinFilesOperation,
+    QinFilesDescriptor,
+    QinDragCalls,
+    QinEvent,
+    QinAction,
+} from "./utils";
+
 export class Qinpel {
 
     public manager: Manager;

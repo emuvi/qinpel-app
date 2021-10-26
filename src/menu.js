@@ -57,7 +57,7 @@ var Menu = (function () {
         }
     };
     Menu.prototype.addDevTools = function () {
-        this.addMenu(this.divConfigs, this.newMenu("DevTools", "./assets/devtools.ico", function () {
+        this.addMenu(this.divConfigs, this.newMenu("DevTools", "./assets/menu-devtools.ico", function () {
             qinpel.util.toggleDevTools();
         }));
     };

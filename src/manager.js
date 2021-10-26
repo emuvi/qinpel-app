@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Manager = void 0;
 var frame_1 = require("./frame");
-var qinpel_1 = require("./qinpel");
 var utils_1 = require("./utils");
 var axios_1 = require("axios");
 var Manager = (function () {
@@ -30,7 +29,7 @@ var Manager = (function () {
         this.divMenu.appendChild(this.imgMenu);
         this.divBody.appendChild(this.divMenu);
         utils_1.default.addAction(this.divMenu, function (event) {
-            if (event.shift) {
+            if (event.hasShift) {
                 document.body.requestFullscreen();
             }
             else {
@@ -57,13 +56,8 @@ var Manager = (function () {
     };
     Manager.prototype.newFrame = function (title, address) {
         var frame = new frame_1.Frame(this, title, address);
-        this.addFrame(frame);
-        frame.getIFrame().qinpel = new qinpel_1.Qinpel(this, frame);
-        this.showElement(frame.getDiv());
-    };
-    Manager.prototype.addFrame = function (frame) {
+        frame.install();
         this.frames.push(frame);
-        this.divBody.appendChild(frame.getDiv());
     };
     Manager.prototype.getFrame = function (fromTitle) {
         for (var _i = 0, _a = this.frames; _i < _a.length; _i++) {
@@ -73,6 +67,12 @@ var Manager = (function () {
             }
         }
         return null;
+    };
+    Manager.prototype.addChild = function (child) {
+        this.divBody.appendChild(child);
+    };
+    Manager.prototype.delChild = function (child) {
+        this.divBody.removeChild(child);
     };
     Manager.prototype.getFrameFromID = function (fromID) {
         for (var _i = 0, _a = this.frames; _i < _a.length; _i++) {
@@ -91,13 +91,11 @@ var Manager = (function () {
         }
         return -1;
     };
-    Manager.prototype.closeFrame = function (frame) {
-        frame.saveFrameBounds();
+    Manager.prototype.delFrame = function (frame) {
         var index = this.frames.indexOf(frame);
         if (index > -1) {
             this.frames.splice(index, 1);
         }
-        this.divBody.removeChild(frame.getDiv());
     };
     Manager.prototype.showMenu = function () {
         this.divBody.scrollTo(0, 0);

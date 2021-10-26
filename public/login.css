@@ -1,21 +1,15 @@
-* {
-    margin: 0px;
-    padding: 0px;
-}
-
-body {
-    padding: 9px;
-    background-color: #fffefa;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    color: #270036;
-}
-
 #divBody {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    overflow: auto;
+    padding: 9px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 90vh;
 }
 
 #divBody img {

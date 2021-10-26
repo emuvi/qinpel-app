@@ -14,11 +14,12 @@ export declare class Manager {
     private initDraggable;
     putInDocument(): void;
     newFrame(title: string, address: string): void;
-    addFrame(frame: Frame): void;
     getFrame(fromTitle: string): Frame;
+    addChild(child: HTMLElement): void;
+    delChild(child: HTMLElement): void;
     getFrameFromID(fromID: string): Frame;
     getFrameIndexFromID(fromID: string): number;
-    closeFrame(frame: Frame): void;
+    delFrame(frame: Frame): void;
     showMenu(): void;
     showElement(element: HTMLElement): void;
     closePopMenu(): void;

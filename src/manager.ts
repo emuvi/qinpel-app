@@ -32,7 +32,7 @@ export class Manager {
         this.divMenu.appendChild(this.imgMenu);
         this.divBody.appendChild(this.divMenu);
         utils.addAction(this.divMenu, (event) => {
-            if (event.shift) {
+            if (event.hasShift) {
                 document.body.requestFullscreen();
             } else {
                 this.newFrame("Qinpel", "./menu.html");
@@ -60,14 +60,8 @@ export class Manager {
 
     public newFrame(title: string, address: string) {
         let frame = new Frame(this, title, address);
-        this.addFrame(frame);
-        frame.getIFrame().qinpel = new Qinpel(this, frame);
-        this.showElement(frame.getDiv());
-    }
-
-    public addFrame(frame: Frame) {
+        frame.install();
         this.frames.push(frame);
-        this.divBody.appendChild(frame.getDiv());
     }
 
     public getFrame(fromTitle: string): Frame {
@@ -77,6 +71,14 @@ export class Manager {
             }
         }
         return null;
+    }
+
+    public addChild(child: HTMLElement) {
+        this.divBody.appendChild(child);
+    }
+
+    public delChild(child: HTMLElement) {
+        this.divBody.removeChild(child);
     }
 
     public getFrameFromID(fromID: string): Frame {
@@ -97,13 +99,11 @@ export class Manager {
         return -1;
     }
 
-    public closeFrame(frame: Frame) {
-        frame.saveFrameBounds();
+    public delFrame(frame: Frame) {
         const index = this.frames.indexOf(frame);
         if (index > -1) {
             this.frames.splice(index, 1);
         }
-        this.divBody.removeChild(frame.getDiv());
     }
 
     public showMenu() {

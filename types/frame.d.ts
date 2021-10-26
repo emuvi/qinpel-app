@@ -13,8 +13,6 @@ export declare class Frame {
     private imgClose;
     private iframeBody;
     private divFoot;
-    private imgStatusUp;
-    private imgStatusDown;
     private imgStatusType;
     private divStatusText;
     private imgResize;
@@ -28,14 +26,12 @@ export declare class Frame {
     private loadFrameInitBounds;
     private getFrameWindowStyleID;
     private initDivHead;
-    private initInsideFrameBody;
+    private initIFrameBody;
     private initDivFoot;
     private initDraggable;
     getTitle(): string;
-    getDiv(): HTMLDivElement;
-    getIFrame(): any;
     getID(): string;
-    show(): void;
+    install(): void;
     headMenuAction(): void;
     headMinimizeAction(): void;
     headMaximizeAction(): void;
@@ -43,5 +39,28 @@ export declare class Frame {
     statusInfo(message: string): void;
     statusError(error: any, origin: string): void;
     saveFrameBounds(): void;
+    show(): void;
+    close(): void;
+    newDialog(title: string, divContent: HTMLDivElement): FrameDialog;
 }
+declare class FrameDialog {
+    private title;
+    private docBody;
+    private divContent;
+    private divDialog;
+    private divTop;
+    private spanTitle;
+    private spanClose;
+    private imgClose;
+    private divPack;
+    private showing;
+    private docNodes;
+    constructor(title: string, docBody: HTMLElement, divContent: HTMLDivElement);
+    private initDialog;
+    private initTop;
+    private initPack;
+    show(): void;
+    close(): void;
+}
+export {};
 //# sourceMappingURL=frame.d.ts.map

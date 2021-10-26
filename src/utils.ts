@@ -1,78 +1,135 @@
-export type Point = {
-    posX: number,
-    posY: number,
-};
-
-export type Dimension = {
-    width: number,
-    height: number,
-};
-
-export type Bounds = {
-    posX: number,
-    posY: number,
-    width: number,
-    height: number,
-};
-
-export enum WindowSizeStyle {
-    SMALL = "SMALL",
-    MEDIUM = "MEDIUM",
-    LARGE = "LARGE",
-};
-
-export class QinpelEvent {
-    alt: boolean;
-    ctrl: boolean;
-    shift: boolean;
-    long: boolean;
-    double: boolean;
+export class QinPoint {
     posX: number;
     posY: number;
-    key: string;
+};
+
+export class QinDimension {
+    width: number;
+    height: number;
+};
+
+export class QinBounds {
+    posX: number;
+    posY: number;
+    width: number;
+    height: number;
+};
+
+export enum QinGrandeur {
+    SMALL = "small",
+    MEDIUM = "medium",
+    LARGE = "large",
+}
+
+export enum QinStyles {
+    ColorBack = "#fff9ef",
+    ColorFont = "#270036",
+    FontName = "Poppins",
+    FontSize = "12px",
+}
+
+export enum QinFilesNature {
+    DIRECTORIES = "directories",
+    FILES = "files",
+    BOTH = "both",
+}
+
+export enum QinFilesOperation {
+    OPEN = "open",
+    SAVE = "save",
+}
+
+export class QinFilesDescriptor {
+    public description: string;
+    public extensions: string[];
+}
+
+export class QinDragCalls {
+    onDouble?: CallableFunction;
+    onLong?: CallableFunction;
+    onStart?: CallableFunction;
+    onMove?: CallableFunction;
+    onEnd?: CallableFunction;
+}
+
+export class QinEvent {
+
+    public fromTyping: boolean;
+    public fromPointing: boolean;
+    public hasAlt: boolean;
+    public hasCtrl: boolean;
+    public hasShift: boolean;
+    public hasMeta: boolean;
+    public isEnter: boolean;
+    public isEscape: boolean;
+    public isSpace: boolean;
+    public isDouble: boolean; // TODO
+    public isLong: boolean;   // TODO
+    public keyTyped: string;
+    public pointOnX: number;
+    public pointOnY: number;
+    public stopEvent: boolean;
 
     constructor() {
-        this.alt = false;
-        this.ctrl = false;
-        this.shift = false;
-        this.long = false;
-        this.double = false;
-        this.posX = -1;
-        this.posY = -1;
-        this.key = "";
+        this.fromTyping = false;
+        this.fromPointing = false;
+        this.hasAlt = false;
+        this.hasCtrl = false;
+        this.hasShift = false;
+        this.hasMeta = false;
+        this.isEnter = false;
+        this.isEscape = false;
+        this.isDouble = false;
+        this.isLong = false;
+        this.keyTyped = "";
+        this.pointOnX = -1;
+        this.pointOnY = -1;
+        this.stopEvent = false;
     }
 
-    setFromKeyboard(ev: KeyboardEvent): QinpelEvent {
-        this.alt = ev.altKey;
-        this.ctrl = ev.ctrlKey;
-        this.shift = ev.shiftKey;
+    setFromKeyboard(ev: KeyboardEvent): QinEvent {
+        this.fromTyping = true;
+        this.hasAlt = ev.altKey;
+        this.hasCtrl = ev.ctrlKey;
+        this.hasShift = ev.shiftKey;
+        this.hasMeta = ev.metaKey;
+        this.isEnter = isKeyEnter(ev);
+        this.isEscape = isKeyEscape(ev);
+        this.isSpace = isKeySpace(ev);
+        this.keyTyped = ev.key;
         return this;
     }
 
-    setFromMouse(ev: MouseEvent): QinpelEvent {
-        this.alt = ev.altKey;
-        this.ctrl = ev.ctrlKey;
-        this.shift = ev.shiftKey;
+    setFromMouse(ev: MouseEvent): QinEvent {
+        this.fromPointing = true;
+        this.hasAlt = ev.altKey;
+        this.hasCtrl = ev.ctrlKey;
+        this.hasShift = ev.shiftKey;
+        this.hasMeta = ev.metaKey;
+        this.pointOnX = ev.clientX;
+        this.pointOnY = ev.clientY;
         return this;
     }
 
-    setFromTouch(ev: TouchEvent): QinpelEvent {
-        this.alt = ev.altKey;
-        this.ctrl = ev.ctrlKey;
-        this.shift = ev.shiftKey;
+    setFromTouch(ev: TouchEvent): QinEvent {
+        this.fromPointing = true;
+        this.hasAlt = ev.altKey;
+        this.hasCtrl = ev.ctrlKey;
+        this.hasShift = ev.shiftKey;
+        this.hasMeta = ev.metaKey;
+        if (ev.touches.length > 0) {
+            this.pointOnX = ev.touches[0].clientX;
+            this.pointOnY = ev.touches[0].clientY;
+        }
         return this;
+    }
+
+    public stop() {
+        this.stopEvent = true;
     }
 };
 
-export type QinpelAction = (event: QinpelEvent) => void;
-
-export type DragCalls = {
-    onDouble?: CallableFunction,
-    onLong?: CallableFunction,
-    onStart?: CallableFunction,
-    onMove?: CallableFunction,
-    onEnd?: CallableFunction,
-}
+export type QinAction = (event: QinEvent) => void;
 
 function log(message) {
     // @ts-ignore
@@ -97,21 +154,21 @@ function isLocalHost() {
     return location.indexOf("localhost") === 0 || location.indexOf("127.0.0.1") === 0
 }
 
-function getWindowSize(): Dimension {
+function getWindowSize(): QinDimension {
     return {
         width: document.body.clientWidth,
         height: document.body.clientHeight,
     };
 }
 
-function getWindowSizeStyle(): WindowSizeStyle {
+function getWindowSizeStyle(): QinGrandeur {
     const width = getWindowSize().width;
     if (width < 600) {
-        return WindowSizeStyle.SMALL;
+        return QinGrandeur.SMALL;
     } else if (width < 1000) {
-        return WindowSizeStyle.MEDIUM;
+        return QinGrandeur.MEDIUM;
     } else {
-        return WindowSizeStyle.LARGE;
+        return QinGrandeur.LARGE;
     }
 }
 
@@ -128,7 +185,7 @@ function stopEvent(event: any) {
 
 var lastEventPointer: MouseEvent | TouchEvent = null;
 
-function makeEventPointer(isDown: boolean, ev: MouseEvent | TouchEvent): Point {
+function makeEventPointer(isDown: boolean, ev: MouseEvent | TouchEvent): QinPoint {
     const result = {
         posX: 0,
         posY: 0,
@@ -224,66 +281,72 @@ function isElementVisibleInScroll(element: HTMLElement) {
     return true;
 }
 
-function isKeyReturn(ev: KeyboardEvent): boolean {
-    return ev.key === "Enter" || ev.keyCode === 13;
+function isKeyInList(ev: KeyboardEvent, list: string[]): boolean {
+    let keyLower = ev.key.toLowerCase();
+    return list.indexOf(keyLower) > -1;
+}
+
+function isKeyEnter(ev: KeyboardEvent): boolean {
+    return isKeyInList(ev, ["enter", "return"]) || ev.keyCode === 13;
 }
 
 function isKeyEscape(ev: KeyboardEvent): boolean {
-    return ev.key === "Esc" || ev.key === "Escape" || ev.keyCode === 27;
+    return isKeyInList(ev, ["esc", "escape"]) || ev.keyCode === 27;
 }
 
-function addKeyAction(element: HTMLElement, action: QinpelAction) {
+function isKeySpace(ev: KeyboardEvent): boolean {
+    return isKeyInList(ev, [" ", "space", "spacebar"]) || ev.keyCode === 32;
+}
+
+function addKeyAction(element: HTMLElement, action: QinAction) {
     element.onkeydown = actionKeyboard;
 
     function actionKeyboard(ev: KeyboardEvent) {
-        if (isKeyReturn(ev)) {
-            action(new QinpelEvent().setFromKeyboard(ev));
+        if (isKeyEnter(ev)) {
+            action(new QinEvent().setFromKeyboard(ev));
             return stopEvent(ev);
         }
     }
 }
 
-function addAction(element: HTMLElement, action: QinpelAction) {
+function addAction(element: HTMLElement, action: QinAction) {
     element.onkeydown = actionKeyboard;
-
-    if (hasActionOnClick()) {
-        element.onmousedown = actionMouse;
-        element.ontouchstart = actionTouch;
-    }
-
-    function hasActionOnClick() {
-        let result = true;
-        if (element.tagName && element.tagName.toLowerCase() === "input") {   
-            if ((element as HTMLInputElement).type !== "button") {
-                result = false;
-            }
-        }
-        if (element.isContentEditable) {
-            result = false;
-        }
-        return result;
-    }
+    element.onmousedown = actionMouse;
+    element.ontouchstart = actionTouch;
 
     function actionKeyboard(ev: KeyboardEvent) {
-        if (isKeyReturn(ev)) {
-            action(new QinpelEvent().setFromKeyboard(ev));
+        let qinEvent = new QinEvent().setFromKeyboard(ev);
+        action(qinEvent);
+        if (qinEvent.stopEvent) {
             return stopEvent(ev);
+        } else {
+            return true;
         }
     }
 
     function actionMouse(ev: MouseEvent) {
-        action(new QinpelEvent().setFromMouse(ev));
-        return stopEvent(ev);
+        let qinEvent = new QinEvent().setFromMouse(ev)
+        action(qinEvent);
+        if (qinEvent.stopEvent) {
+            return stopEvent(ev);
+        } else {
+            return true;
+        }
     }
 
     function actionTouch(ev: TouchEvent) {
-        action(new QinpelEvent().setFromTouch(ev));
-        return stopEvent(ev);
+        let qinEvent = new QinEvent().setFromTouch(ev)
+        action(qinEvent);
+        if (qinEvent.stopEvent) {
+            return stopEvent(ev);
+        } else {
+            return true;
+        }
     }
 }
 
 function addMover(sources: HTMLElement[], target: HTMLElement,
-    dragCalls?: DragCalls) {
+    dragCalls?: QinDragCalls) {
     var dragInitEventX = 0;
     var dragInitEventY = 0;
     var dragInitPosX = 0;
@@ -347,7 +410,7 @@ function addMover(sources: HTMLElement[], target: HTMLElement,
 }
 
 function addResizer(sources: HTMLElement[], target: HTMLElement,
-    dragCalls?: DragCalls) {
+    dragCalls?: QinDragCalls) {
     var dragInitEventX = 0;
     var dragInitEventY = 0;
     var dragInitWidth = 0;
@@ -410,7 +473,7 @@ function addResizer(sources: HTMLElement[], target: HTMLElement,
     }
 }
 
-function addScroller(target: HTMLElement, dragCalls?: DragCalls) {
+function addScroller(target: HTMLElement, dragCalls?: QinDragCalls) {
     var dragInitX = 0;
     var dragInitY = 0;
     var dragScrollX = 0;
@@ -470,6 +533,77 @@ function addScroller(target: HTMLElement, dragCalls?: DragCalls) {
 
 }
 
+function applyStyleAsBody(el: HTMLDivElement) {
+    el.style.position = "absolute";
+    el.style.top = "0px";
+    el.style.right = "0px";
+    el.style.bottom = "0px";
+    el.style.left = "0px";
+    el.style.overflow = "auto";
+}
+
+const iconSmall: QinDimension = {
+    width: 16,
+    height: 16,
+};
+
+function getIconDimension(size: QinGrandeur): QinDimension {
+    if (size == QinGrandeur.LARGE) {
+        return getIconLarge();
+    } else if (size == QinGrandeur.MEDIUM) {
+        return getIconMedium();
+    } else {
+        return getIconSmall();
+    }
+}
+
+function getIconSmall(): QinDimension {
+    return iconSmall;
+}
+
+const iconMedium: QinDimension = {
+    width: 32,
+    height: 32,
+};
+
+function getIconMedium(): QinDimension {
+    return iconMedium;
+}
+
+const iconLarge: QinDimension = {
+    width: 64,
+    height: 64,
+};
+
+function getIconLarge(): QinDimension {
+    return iconLarge;
+}
+
+function getPathJoin(pathA: string, pathB: string): string {
+    if (pathA == null || pathA == undefined) {
+        pathA = "";
+    }
+    if (pathB == null || pathB == undefined) {
+        pathB = "";
+    }
+    if (pathA.length == 0) {
+        return pathB;
+    } else if (pathB.length == 0) {
+        return pathA;
+    } else {
+        let union = "/";
+        if (pathA.indexOf("\\") > -1 || pathB.indexOf("\\") > -1) {
+            union = "\\";
+        }
+        let pathAEnd = pathA.substring(pathA.length - 1, pathA.length);
+        let pathBStart = pathB.substring(0, 1);
+        if (pathAEnd == union || pathBStart == union) {
+            union = "";
+        }
+        return pathA + union + pathB;
+    }
+}
+
 function getFileExtension(name: string): string {
     let position = name.lastIndexOf(".");
     if (position > -1) {
@@ -477,6 +611,52 @@ function getFileExtension(name: string): string {
     } else {
         return "";
     }
+}
+
+const appsExtensions = ["htm", "html", "css", "js", "jsx", "ts", "tsx", "phtml"];
+const cmdsExtensions = [
+    "h", "c", "hpp", "cpp", "rs", "jl",
+    "cs", "csproj", "fs", "ml", "fsi", "mli", "fsx", "fsscript",
+    "java", "gy", "gvy", "groovy", "sc", "scala", "clj",
+    "py", "ruby", "php", "phtml",
+];
+const execExtensions = ["exe", "jar", "com", "bat", "sh"];
+const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp"];
+const vectorExtensions = ["svg"];
+const movieExtensions = ["avi", "mp4"];
+const musicExtensions = ["wav", "mp3"];
+const zippedExtensions = ["zip", "rar", "7z", "tar", "gz"];
+
+function isFileApp(extension: string): boolean {
+    return appsExtensions.indexOf(extension) > -1;
+}
+
+function isFileCmd(extension: string): boolean {
+    return cmdsExtensions.indexOf(extension) > -1;
+}
+
+function isFileExec(extension: string): boolean {
+    return execExtensions.indexOf(extension) > -1;
+}
+
+function isFileImage(extension: string): boolean {
+    return imageExtensions.indexOf(extension) > -1;
+}
+
+function isFileVector(extension: string): boolean {
+    return vectorExtensions.indexOf(extension) > -1;
+}
+
+function isFileMovie(extension: string): boolean {
+    return movieExtensions.indexOf(extension) > -1;
+}
+
+function isFileMusic(extension: string): boolean {
+    return musicExtensions.indexOf(extension) > -1;
+}
+
+function isFileZipped(extension: string): boolean {
+    return zippedExtensions.indexOf(extension) > -1;
 }
 
 function getTextLines(fromText: string): string[] {
@@ -592,14 +772,29 @@ const utils = {
     disableSelection,
     clearSelection,
     isElementVisibleInScroll,
-    isKeyReturn,
+    isKeyInList,
+    isKeyEnter,
     isKeyEscape,
     addAction,
     addKeyAction,
     addMover,
     addResizer,
     addScroller,
+    applyStyleAsBody,
+    getIconDimension,
+    getIconSmall,
+    getIconMedium,
+    getIconLarge,
+    getPathJoin,
     getFileExtension,
+    isFileApp,
+    isFileCmd,
+    isFileExec,
+    isFileImage,
+    isFileVector,
+    isFileMusic,
+    isFileMovie,
+    isFileZipped,
     getTextLines,
     getCSVRows,
     maskSpecialChars,

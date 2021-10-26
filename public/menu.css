@@ -1,15 +1,3 @@
-* {
-    margin: 0px;
-    border: 0px;
-    padding: 0px;
-}
-
-body {
-    background-color: rgb(255, 245, 235);
-    font-family: Arial, Helvetica, Tahoma, Geneva, Verdana, sans-serif;
-    color: #270036;
-}
-
 #QinpelMenuDivBody {
     padding: 3px;
 }

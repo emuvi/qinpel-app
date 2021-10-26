@@ -66,7 +66,7 @@ class Menu {
 
     private addDevTools() {
         this.addMenu(this.divConfigs,
-            this.newMenu("DevTools", "./assets/devtools.ico", () => {
+            this.newMenu("DevTools", "./assets/menu-devtools.ico", () => {
                 qinpel.util.toggleDevTools();
             })
         );
