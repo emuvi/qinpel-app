@@ -1,5 +1,6 @@
 import { Frame } from "./frame";
 import { AxiosResponse } from "axios";
+import { QinAction } from "qinpel-res";
 export declare class Manager {
     private divBody;
     private divMenu;
@@ -22,7 +23,10 @@ export declare class Manager {
     delFrame(frame: Frame): void;
     showMenu(): void;
     showElement(element: HTMLElement): void;
-    closePopMenu(): void;
+    popMenuAdd(title: string, action: QinAction): void;
+    popMenuClear(): void;
+    popMenuShow(): void;
+    popMenuClose(): void;
     getBodyWidth(): number;
     getBodyHeight(): number;
     hasLogged(): boolean;

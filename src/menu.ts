@@ -1,8 +1,6 @@
 import { Qinpel } from "./qinpel";
 import { QinSoul } from "qinpel-res"
-
-// @ts-ignore
-const qinpel = window.frameElement.qinpel as Qinpel;
+const qinpel = (window.frameElement as any).qinpel as Qinpel;
 
 class Menu {
     private divBody = document.createElement("div");

@@ -41,9 +41,11 @@ export declare class Frame {
     saveFrameBounds(): void;
     show(): void;
     close(): void;
+    getDocBody(): HTMLElement;
     newDialog(title: string, divContent: HTMLDivElement): FrameDialog;
+    newPopup(parent: HTMLElement, divContent: HTMLDivElement): FramePopup;
 }
-declare class FrameDialog {
+export declare class FrameDialog {
     private title;
     private docBody;
     private divContent;
@@ -62,5 +64,20 @@ declare class FrameDialog {
     show(): void;
     close(): void;
 }
-export {};
+export declare class FramePopup {
+    private parent;
+    private docBody;
+    private divContent;
+    private divPopup;
+    constructor(parent: HTMLElement, docBody: HTMLElement, divContent: HTMLDivElement);
+    private initPopup;
+    private addFocusOutCloseToAll;
+    private delFocusOutCloseFromAll;
+    private onFocusOutClose;
+    addCloseButton(): void;
+    addCloseFocusout(el: HTMLElement): void;
+    addCloseFocusoutToAll(): void;
+    show(): void;
+    close(): void;
+}
 //# sourceMappingURL=frame.d.ts.map

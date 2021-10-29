@@ -1,5 +1,5 @@
 import { Manager } from "./manager";
-import { QinSoul, QinBounds, QinGrandeur } from "qinpel-res";
+import { QinSoul, QinBounds, QinGrandeur, QinStyles } from "qinpel-res";
 import param from "./param";
 import { Qinpel } from "./qinpel";
 import styles from "./styles/frame-styles"
@@ -156,7 +156,7 @@ export class Frame {
                     QinSoul.skin.clearSelection();
                 }
             });
-            QinSoul.arm.addResizer([this.imgResize], this.divFrame,
+        QinSoul.arm.addResizer([this.imgResize], this.divFrame,
             {
                 onDouble: () => this.headMaximizeAction(),
                 onEnd: () => {
@@ -262,15 +262,22 @@ export class Frame {
         this.manager.delFrame(this);
     }
 
+    public getDocBody(): HTMLElement {
+        return this.iframeBody.contentWindow.document.body;
+    }
+
     public newDialog(title: string, divContent: HTMLDivElement): FrameDialog {
-        const docBody = this.iframeBody.contentWindow.document.body;
-        return new FrameDialog(title, docBody, divContent);
+        return new FrameDialog(title, this.getDocBody(), divContent);
+    }
+
+    public newPopup(parent: HTMLElement, divContent: HTMLDivElement): FramePopup {
+        return new FramePopup(parent, this.getDocBody(), divContent);
     }
 
 }
 
-class FrameDialog {
-    
+export class FrameDialog {
+
     private title: string;
     private docBody: HTMLElement;
     private divContent: HTMLDivElement;
@@ -296,7 +303,7 @@ class FrameDialog {
     private initDialog() {
         styles.applyOnDialog(this.divDialog);
     }
-    
+
     private initTop() {
         styles.applyOnDialogTop(this.divTop);
         this.divDialog.appendChild(this.divTop);
@@ -312,7 +319,7 @@ class FrameDialog {
             this.close();
         });
     }
-    
+
     private initPack() {
         this.divDialog.appendChild(this.divPack);
         styles.applyOnDialogPack(this.divPack);
@@ -345,6 +352,84 @@ class FrameDialog {
         }
         this.docNodes = [];
         this.showing = false;
+    }
+
+}
+
+export class FramePopup {
+
+    private parent: HTMLElement;
+    private docBody: HTMLElement;
+    private divContent: HTMLDivElement;
+    private divPopup = document.createElement("div");
+
+    public constructor(parent: HTMLElement, docBody: HTMLElement, divContent: HTMLDivElement) {
+        this.parent = parent;
+        this.docBody = docBody;
+        this.divContent = divContent;
+        this.initPopup();
+    }
+
+    private initPopup() {
+        this.divPopup.appendChild(this.divContent);
+        this.divPopup.style.position = "absolute";
+        this.divPopup.style.border = "1px solid " + QinStyles.ColorFont;
+        this.divPopup.style.padding = "5px";
+    }
+
+    private addFocusOutCloseToAll(el: HTMLElement) {
+        el.addEventListener("focusout", this.onFocusOutClose);
+        for (let index = 0; index < el.children.length; index++) {
+            const child = el.children.item(index);
+            if (child instanceof HTMLElement) {
+                this.addFocusOutCloseToAll(child);
+            }
+        }
+    }
+
+    private delFocusOutCloseFromAll(el: HTMLElement) {
+        el.addEventListener("focusout", this.onFocusOutClose);
+        for (let index = 0; index < el.children.length; index++) {
+            const child = el.children.item(index);
+            if (child instanceof HTMLElement) {
+                this.addFocusOutCloseToAll(child);
+            }
+        }
+    }
+
+    private onFocusOutClose(ev: FocusEvent) {
+        setTimeout(() => {
+            if (!this.divPopup.contains(document.activeElement)) {
+                this.close();
+            }
+        }, 360);
+        return QinSoul.arm.stopEvent(ev);
+    }
+
+    public addCloseButton() {
+
+    }
+
+    public addCloseFocusout(el: HTMLElement) {
+        el.addEventListener("focusout", this.onFocusOutClose);
+    }
+
+    public addCloseFocusoutToAll() {
+        this.addFocusOutCloseToAll(this.divPopup);
+    }
+
+    public show() {
+        this.docBody.appendChild(this.divPopup);
+        const parentBounds = this.parent.getBoundingClientRect();
+        this.divPopup.style.left = parentBounds.x + "px";
+        this.divPopup.style.top = (parentBounds.y + parentBounds.height) + "px";
+        this.divPopup.tabIndex = 0;
+        this.divPopup.focus();
+    }
+
+    public close() {
+        this.delFocusOutCloseFromAll(this.divPopup);
+        this.docBody.removeChild(this.divPopup);
     }
 
 }

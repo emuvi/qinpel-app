@@ -1,6 +1,6 @@
 import { Frame } from "./frame";
 import axios, { AxiosResponse } from "axios";
-import { QinSoul } from "qinpel-res";
+import { QinAction, QinSoul } from "qinpel-res";
 
 export class Manager {
 
@@ -113,7 +113,7 @@ export class Manager {
     public showElement(element: HTMLElement) {
         setTimeout(() => {
             if (element.id != "QinpelPopMenuID1") {
-                this.closePopMenu();
+                this.popMenuClose();
             }
             element.style.zIndex = String(++this.framesTopZ);
             if (!QinSoul.skin.isElementVisibleInScroll(element)) {
@@ -130,7 +130,19 @@ export class Manager {
         }, 360);
     }
 
-    public closePopMenu() {
+    public popMenuAdd(title: string, action: QinAction) {
+
+    }
+
+    public popMenuClear() {
+
+    }
+
+    public popMenuShow() {
+
+    }
+
+    public popMenuClose() {
         // TODO - Get the PopMenu from the olds
         // if (qinpelRefWindow.refPopMenu != null) {
         //     qinpelRefWindow.divBody.removeChild(qinpelRefWindow.refPopMenu.elements.divPopMenu);
@@ -190,7 +202,5 @@ export class Manager {
         }
         return configs;
     }
-
-
 
 }

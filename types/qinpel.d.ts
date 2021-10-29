@@ -46,6 +46,13 @@ export declare class Qinpel {
             toggleDevTools: () => void;
         };
         skin: {
+            styles: {
+                ColorBack: string;
+                ColorMenu: string;
+                ColorFont: string;
+                FontName: string;
+                FontSize: string;
+            };
             getWindowSize: () => import("qinpel-res").QinDimension;
             getWindowSizeStyle: () => import("qinpel-res").QinGrandeur;
             hideAllIFrames: () => void;
@@ -54,10 +61,11 @@ export declare class Qinpel {
             clearSelection: () => void;
             isElementVisibleInScroll: (element: HTMLElement) => boolean;
             applyStyleAsBody: (el: HTMLDivElement) => void;
-            getIconDimension: (size: import("qinpel-res").QinGrandeur) => import("qinpel-res").QinDimension;
-            getIconSmall: () => import("qinpel-res").QinDimension;
-            getIconMedium: () => import("qinpel-res").QinDimension;
-            getIconLarge: () => import("qinpel-res").QinDimension;
+            applyDimensionSize: (el: HTMLElement, size?: import("qinpel-res").QinDimension | import("qinpel-res").QinGrandeur) => void;
+            getDimensionSize: (size: import("qinpel-res").QinGrandeur) => import("qinpel-res").QinDimension;
+            getDimensionSmall: () => import("qinpel-res").QinDimension;
+            getDimensionMedium: () => import("qinpel-res").QinDimension;
+            getDimensionLarge: () => import("qinpel-res").QinDimension;
         };
     };
     constructor(manager: Manager, frame: Frame);

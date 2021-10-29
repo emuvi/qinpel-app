@@ -105,7 +105,7 @@ var Manager = (function () {
         var _this = this;
         setTimeout(function () {
             if (element.id != "QinpelPopMenuID1") {
-                _this.closePopMenu();
+                _this.popMenuClose();
             }
             element.style.zIndex = String(++_this.framesTopZ);
             if (!qinpel_res_1.QinSoul.skin.isElementVisibleInScroll(element)) {
@@ -121,7 +121,13 @@ var Manager = (function () {
             }
         }, 360);
     };
-    Manager.prototype.closePopMenu = function () {
+    Manager.prototype.popMenuAdd = function (title, action) {
+    };
+    Manager.prototype.popMenuClear = function () {
+    };
+    Manager.prototype.popMenuShow = function () {
+    };
+    Manager.prototype.popMenuClose = function () {
     };
     Manager.prototype.getBodyWidth = function () {
         return this.divBody.clientWidth;
