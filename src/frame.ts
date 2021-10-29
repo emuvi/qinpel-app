@@ -1,5 +1,5 @@
 import { Manager } from "./manager";
-import utils, { QinBounds, QinGrandeur } from "./utils";
+import { QinSoul, QinBounds, QinGrandeur } from "qinpel-res";
 import param from "./param";
 import { Qinpel } from "./qinpel";
 import styles from "./styles/frame-styles"
@@ -70,7 +70,7 @@ export class Frame {
             width: 800,
             height: 600,
         };
-        let windowSizeStyle = utils.getWindowSizeStyle();
+        let windowSizeStyle = QinSoul.skin.getWindowSizeStyle();
         const frameStyleID = this.getFrameWindowStyleID(windowSizeStyle);
         const frameBoundsSaved = window.localStorage.getItem(frameStyleID);
         if (frameBoundsSaved) {
@@ -83,7 +83,7 @@ export class Frame {
             if (windowSizeStyle === QinGrandeur.SMALL) {
                 result.posX = 0;
                 result.posY = 0;
-                const size = utils.getWindowSize();
+                const size = QinSoul.skin.getWindowSize();
                 result.width = size.width - 4;
                 result.height = size.height - 4;
             } else if (windowSizeStyle === QinGrandeur.MEDIUM) {
@@ -104,22 +104,22 @@ export class Frame {
         this.divHead.className = "QinpelWindowFrameHead";
         this.imgMenu.src = "./assets/frame-menu.png";
         this.imgMenu.alt = "o";
-        utils.addAction(this.imgMenu, () => this.headMenuAction());
+        QinSoul.arm.addAction(this.imgMenu, () => this.headMenuAction());
         this.divHead.appendChild(this.imgMenu);
         this.divTitle.className = "QinpelWindowFrameHeadTitle";
         this.divTitle.innerText = this.title;
         this.divHead.appendChild(this.divTitle);
         this.imgMinimize.src = "./assets/frame-minimize.png";
         this.imgMinimize.alt = "-";
-        utils.addAction(this.imgMinimize, () => this.headMinimizeAction());
+        QinSoul.arm.addAction(this.imgMinimize, () => this.headMinimizeAction());
         this.divHead.appendChild(this.imgMinimize);
         this.imgMaximize.src = "./assets/frame-maximize.png";
         this.imgMaximize.alt = "+";
-        utils.addAction(this.imgMaximize, () => this.headMaximizeAction());
+        QinSoul.arm.addAction(this.imgMaximize, () => this.headMaximizeAction());
         this.divHead.appendChild(this.imgMaximize);
         this.imgClose.src = "./assets/frame-close.png";
         this.imgClose.alt = "x";
-        utils.addAction(this.imgClose, () => this.headCloseAction());
+        QinSoul.arm.addAction(this.imgClose, () => this.headCloseAction());
         this.divHead.appendChild(this.imgClose);
         this.divFrame.appendChild(this.divHead);
     }
@@ -148,15 +148,15 @@ export class Frame {
     }
 
     private initDraggable() {
-        utils.addMover([this.divHead, this.divStatusText], this.divFrame,
+        QinSoul.arm.addMover([this.divHead, this.divStatusText], this.divFrame,
             {
                 onDouble: () => this.headMaximizeAction(),
                 onEnd: () => {
                     this.manager.showElement(this.divFrame);
-                    utils.clearSelection();
+                    QinSoul.skin.clearSelection();
                 }
             });
-        utils.addResizer([this.imgResize], this.divFrame,
+            QinSoul.arm.addResizer([this.imgResize], this.divFrame,
             {
                 onDouble: () => this.headMaximizeAction(),
                 onEnd: () => {
@@ -164,7 +164,7 @@ export class Frame {
                     this.lastWidth = parseInt(this.divFrame.style.width, 10);
                     this.lastHeight = parseInt(this.divFrame.style.height, 10);
                     this.manager.showElement(this.divFrame);
-                    utils.clearSelection();
+                    QinSoul.skin.clearSelection();
                 }
             });
     }
@@ -238,11 +238,11 @@ export class Frame {
 
     public statusError(error: any, origin: string) {
         this.imgStatusType.src = "./assets/frame-status-error.png";
-        this.divStatusText.innerText = utils.getErrorMessage(error, origin);
+        this.divStatusText.innerText = QinSoul.head.getErrorMessage(error, origin);
     }
 
     public saveFrameBounds() {
-        let windowSizeStyle = utils.getWindowSizeStyle();
+        let windowSizeStyle = QinSoul.skin.getWindowSizeStyle();
         const frameStyleID = this.getFrameWindowStyleID(windowSizeStyle);
         const frameBounds =
             parseInt(this.divFrame.style.left, 10) + "," +
@@ -308,7 +308,7 @@ class FrameDialog {
         styles.applyOnDialogImage(this.imgClose);
         this.imgClose.src = "/run/app/qinpel-app/assets/frame-close.png";
         this.spanClose.appendChild(this.imgClose);
-        utils.addAction(this.spanClose, (_) => {
+        QinSoul.arm.addAction(this.spanClose, (_) => {
             this.close();
         });
     }

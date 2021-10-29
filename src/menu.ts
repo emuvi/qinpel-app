@@ -1,4 +1,5 @@
 import { Qinpel } from "./qinpel";
+import { QinSoul } from "qinpel-res"
 
 // @ts-ignore
 const qinpel = window.frameElement.qinpel as Qinpel;
@@ -28,13 +29,13 @@ class Menu {
                 };
             })
             .catch(err => {
-                this.divBody.innerText = qinpel.util.getErrorMessage(err,
+                this.divBody.innerText = QinSoul.head.getErrorMessage(err,
                     "(ErrCode-000002)");
             });
     }
 
     private listApps(response: string) {
-        return qinpel.util.getTextLines(response);
+        return QinSoul.body.getTextLines(response);
     }
 
     private tryAddApp(name: string) {
@@ -52,14 +53,14 @@ class Menu {
                 })
                 .catch(err => {
                     const divError = document.createElement("div");
-                    divError.innerText = qinpel.util.getErrorMessage(err, "(ErrCode-000001)");
+                    divError.innerText = QinSoul.head.getErrorMessage(err, "(ErrCode-000001)");
                     this.addMenu(this.divApps, divError);
                 });
         }
     }
 
     private initCfgs() {
-        if (qinpel.util.isLocalHost()) {
+        if (QinSoul.foot.isLocalHost()) {
             this.addDevTools();
         }
     }
@@ -67,7 +68,7 @@ class Menu {
     private addDevTools() {
         this.addMenu(this.divConfigs,
             this.newMenu("DevTools", "./assets/menu-devtools.ico", () => {
-                qinpel.util.toggleDevTools();
+                QinSoul.head.toggleDevTools();
             })
         );
     }
@@ -81,7 +82,7 @@ class Menu {
         spanTitle.innerText = title;
         divContent.appendChild(imgIcon);
         divContent.appendChild(spanTitle);
-        qinpel.util.addAction(divContent, action);
+        QinSoul.arm.addAction(divContent, action);
         return divContent;
     }
 
@@ -99,8 +100,7 @@ class Menu {
 }
 
 if (qinpel.manager.needToLog()) {
-    // @ts-ignore
-    window.frameElement.src = "./login.html";
+    (window.frameElement as HTMLIFrameElement).src = "./login.html";
 } else {
     new Menu().putInDocument();
 }

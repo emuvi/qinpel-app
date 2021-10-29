@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Frame = void 0;
-var utils_1 = require("./utils");
+var qinpel_res_1 = require("qinpel-res");
 var param_1 = require("./param");
 var qinpel_1 = require("./qinpel");
 var frame_styles_1 = require("./styles/frame-styles");
@@ -64,7 +64,7 @@ var Frame = (function () {
             width: 800,
             height: 600,
         };
-        var windowSizeStyle = utils_1.default.getWindowSizeStyle();
+        var windowSizeStyle = qinpel_res_1.QinSoul.skin.getWindowSizeStyle();
         var frameStyleID = this.getFrameWindowStyleID(windowSizeStyle);
         var frameBoundsSaved = window.localStorage.getItem(frameStyleID);
         if (frameBoundsSaved) {
@@ -75,14 +75,14 @@ var Frame = (function () {
             result.height = Number(parts[3]);
         }
         else {
-            if (windowSizeStyle === utils_1.QinGrandeur.SMALL) {
+            if (windowSizeStyle === qinpel_res_1.QinGrandeur.SMALL) {
                 result.posX = 0;
                 result.posY = 0;
-                var size = utils_1.default.getWindowSize();
+                var size = qinpel_res_1.QinSoul.skin.getWindowSize();
                 result.width = size.width - 4;
                 result.height = size.height - 4;
             }
-            else if (windowSizeStyle === utils_1.QinGrandeur.MEDIUM) {
+            else if (windowSizeStyle === qinpel_res_1.QinGrandeur.MEDIUM) {
                 result.posX = 48;
                 result.posY = 48;
                 result.width = 500;
@@ -99,22 +99,22 @@ var Frame = (function () {
         this.divHead.className = "QinpelWindowFrameHead";
         this.imgMenu.src = "./assets/frame-menu.png";
         this.imgMenu.alt = "o";
-        utils_1.default.addAction(this.imgMenu, function () { return _this.headMenuAction(); });
+        qinpel_res_1.QinSoul.arm.addAction(this.imgMenu, function () { return _this.headMenuAction(); });
         this.divHead.appendChild(this.imgMenu);
         this.divTitle.className = "QinpelWindowFrameHeadTitle";
         this.divTitle.innerText = this.title;
         this.divHead.appendChild(this.divTitle);
         this.imgMinimize.src = "./assets/frame-minimize.png";
         this.imgMinimize.alt = "-";
-        utils_1.default.addAction(this.imgMinimize, function () { return _this.headMinimizeAction(); });
+        qinpel_res_1.QinSoul.arm.addAction(this.imgMinimize, function () { return _this.headMinimizeAction(); });
         this.divHead.appendChild(this.imgMinimize);
         this.imgMaximize.src = "./assets/frame-maximize.png";
         this.imgMaximize.alt = "+";
-        utils_1.default.addAction(this.imgMaximize, function () { return _this.headMaximizeAction(); });
+        qinpel_res_1.QinSoul.arm.addAction(this.imgMaximize, function () { return _this.headMaximizeAction(); });
         this.divHead.appendChild(this.imgMaximize);
         this.imgClose.src = "./assets/frame-close.png";
         this.imgClose.alt = "x";
-        utils_1.default.addAction(this.imgClose, function () { return _this.headCloseAction(); });
+        qinpel_res_1.QinSoul.arm.addAction(this.imgClose, function () { return _this.headCloseAction(); });
         this.divHead.appendChild(this.imgClose);
         this.divFrame.appendChild(this.divHead);
     };
@@ -142,21 +142,21 @@ var Frame = (function () {
     };
     Frame.prototype.initDraggable = function () {
         var _this = this;
-        utils_1.default.addMover([this.divHead, this.divStatusText], this.divFrame, {
+        qinpel_res_1.QinSoul.arm.addMover([this.divHead, this.divStatusText], this.divFrame, {
             onDouble: function () { return _this.headMaximizeAction(); },
             onEnd: function () {
                 _this.manager.showElement(_this.divFrame);
-                utils_1.default.clearSelection();
+                qinpel_res_1.QinSoul.skin.clearSelection();
             }
         });
-        utils_1.default.addResizer([this.imgResize], this.divFrame, {
+        qinpel_res_1.QinSoul.arm.addResizer([this.imgResize], this.divFrame, {
             onDouble: function () { return _this.headMaximizeAction(); },
             onEnd: function () {
                 _this.maximized = false;
                 _this.lastWidth = parseInt(_this.divFrame.style.width, 10);
                 _this.lastHeight = parseInt(_this.divFrame.style.height, 10);
                 _this.manager.showElement(_this.divFrame);
-                utils_1.default.clearSelection();
+                qinpel_res_1.QinSoul.skin.clearSelection();
             }
         });
     };
@@ -222,10 +222,10 @@ var Frame = (function () {
     };
     Frame.prototype.statusError = function (error, origin) {
         this.imgStatusType.src = "./assets/frame-status-error.png";
-        this.divStatusText.innerText = utils_1.default.getErrorMessage(error, origin);
+        this.divStatusText.innerText = qinpel_res_1.QinSoul.head.getErrorMessage(error, origin);
     };
     Frame.prototype.saveFrameBounds = function () {
-        var windowSizeStyle = utils_1.default.getWindowSizeStyle();
+        var windowSizeStyle = qinpel_res_1.QinSoul.skin.getWindowSizeStyle();
         var frameStyleID = this.getFrameWindowStyleID(windowSizeStyle);
         var frameBounds = parseInt(this.divFrame.style.left, 10) + "," +
             parseInt(this.divFrame.style.top, 10) + "," +
@@ -280,7 +280,7 @@ var FrameDialog = (function () {
         frame_styles_1.default.applyOnDialogImage(this.imgClose);
         this.imgClose.src = "/run/app/qinpel-app/assets/frame-close.png";
         this.spanClose.appendChild(this.imgClose);
-        utils_1.default.addAction(this.spanClose, function (_) {
+        qinpel_res_1.QinSoul.arm.addAction(this.spanClose, function (_) {
             _this.close();
         });
     };

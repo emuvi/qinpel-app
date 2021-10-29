@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = require("../utils");
+var qinpel_res_1 = require("qinpel-res");
 exports.default = {
     applyOnIFrame: function (el) {
         var head = el.contentWindow.document.head;
@@ -30,8 +30,8 @@ exports.default = {
         el.style.flexDirection = "row";
         el.style.flexWrap = "wrap";
         el.style.alignItems = "center";
-        el.style.backgroundColor = utils_1.QinStyles.ColorFont;
-        el.style.color = utils_1.QinStyles.ColorBack;
+        el.style.backgroundColor = qinpel_res_1.QinStyles.ColorFont;
+        el.style.color = qinpel_res_1.QinStyles.ColorBack;
     },
     applyOnDialogPack: function (el) {
         el.style.flex = "1";

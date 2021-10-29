@@ -1,27 +1,13 @@
 import { Manager } from "./manager";
 import { Frame } from "./frame";
-import utils from "./utils";
 import { AxiosResponse } from "axios";
-
-export {
-    QinPoint,
-    QinDimension,
-    QinBounds,
-    QinGrandeur,
-    QinStyles,
-    QinFilesNature,
-    QinFilesOperation,
-    QinFilesDescriptor,
-    QinDragCalls,
-    QinEvent,
-    QinAction,
-} from "./utils";
+import { QinSoul } from "qinpel-res";
 
 export class Qinpel {
 
     public manager: Manager;
     public frame: Frame;
-    public util = utils;
+    public utils = QinSoul;
 
     public constructor(manager: Manager, frame: Frame) {
         this.manager = manager;

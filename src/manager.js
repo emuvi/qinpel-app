@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Manager = void 0;
 var frame_1 = require("./frame");
-var utils_1 = require("./utils");
 var axios_1 = require("axios");
+var qinpel_res_1 = require("qinpel-res");
 var Manager = (function () {
     function Manager() {
         this.divBody = document.createElement("div");
@@ -28,7 +28,7 @@ var Manager = (function () {
         this.imgMenu.alt = "Menu";
         this.divMenu.appendChild(this.imgMenu);
         this.divBody.appendChild(this.divMenu);
-        utils_1.default.addAction(this.divMenu, function (event) {
+        qinpel_res_1.QinSoul.arm.addAction(this.divMenu, function (event) {
             if (event.hasShift) {
                 document.body.requestFullscreen();
             }
@@ -40,19 +40,19 @@ var Manager = (function () {
     };
     Manager.prototype.initDraggable = function () {
         var _this = this;
-        utils_1.default.addScroller(this.divBody, {
+        qinpel_res_1.QinSoul.arm.addScroller(this.divBody, {
             onDouble: function () {
                 _this.divBody.scrollTo(0, 0);
-                utils_1.default.clearSelection();
+                qinpel_res_1.QinSoul.skin.clearSelection();
             },
             onEnd: function () {
-                utils_1.default.clearSelection();
+                qinpel_res_1.QinSoul.skin.clearSelection();
             }
         });
     };
     Manager.prototype.putInDocument = function () {
         document.body.appendChild(this.divBody);
-        utils_1.default.disableSelection(document.body);
+        qinpel_res_1.QinSoul.skin.disableSelection(document.body);
     };
     Manager.prototype.newFrame = function (title, address) {
         var frame = new frame_1.Frame(this, title, address);
@@ -108,7 +108,7 @@ var Manager = (function () {
                 _this.closePopMenu();
             }
             element.style.zIndex = String(++_this.framesTopZ);
-            if (!utils_1.default.isElementVisibleInScroll(element)) {
+            if (!qinpel_res_1.QinSoul.skin.isElementVisibleInScroll(element)) {
                 element.parentElement.scrollTo(element.offsetLeft, element.offsetTop);
             }
             if (element.id.indexOf("QinpelFrameID") === 0) {
@@ -133,7 +133,7 @@ var Manager = (function () {
         return this.token != "";
     };
     Manager.prototype.needToLog = function () {
-        return !utils_1.default.isLocalHost() && !this.hasLogged();
+        return !qinpel_res_1.QinSoul.foot.isLocalHost() && !this.hasLogged();
     };
     Manager.prototype.get = function (address, headers) {
         var configs = this.getAxiosConfig(headers);

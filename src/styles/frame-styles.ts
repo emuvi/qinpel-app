@@ -1,4 +1,4 @@
-import utils, { QinStyles } from "../utils";
+import { QinStyles } from "qinpel-res";
 
 export default {
     applyOnIFrame: (el: HTMLIFrameElement) => {

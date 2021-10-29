@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var qinpel_res_1 = require("qinpel-res");
 var qinpel = window.frameElement.qinpel;
 var Menu = (function () {
     function Menu() {
@@ -26,11 +27,11 @@ var Menu = (function () {
             ;
         })
             .catch(function (err) {
-            _this.divBody.innerText = qinpel.util.getErrorMessage(err, "(ErrCode-000002)");
+            _this.divBody.innerText = qinpel_res_1.QinSoul.head.getErrorMessage(err, "(ErrCode-000002)");
         });
     };
     Menu.prototype.listApps = function (response) {
-        return qinpel.util.getTextLines(response);
+        return qinpel_res_1.QinSoul.body.getTextLines(response);
     };
     Menu.prototype.tryAddApp = function (name) {
         var _this = this;
@@ -46,19 +47,19 @@ var Menu = (function () {
             })
                 .catch(function (err) {
                 var divError = document.createElement("div");
-                divError.innerText = qinpel.util.getErrorMessage(err, "(ErrCode-000001)");
+                divError.innerText = qinpel_res_1.QinSoul.head.getErrorMessage(err, "(ErrCode-000001)");
                 _this.addMenu(_this.divApps, divError);
             });
         }
     };
     Menu.prototype.initCfgs = function () {
-        if (qinpel.util.isLocalHost()) {
+        if (qinpel_res_1.QinSoul.foot.isLocalHost()) {
             this.addDevTools();
         }
     };
     Menu.prototype.addDevTools = function () {
         this.addMenu(this.divConfigs, this.newMenu("DevTools", "./assets/menu-devtools.ico", function () {
-            qinpel.util.toggleDevTools();
+            qinpel_res_1.QinSoul.head.toggleDevTools();
         }));
     };
     Menu.prototype.newMenu = function (title, icon, action) {
@@ -70,7 +71,7 @@ var Menu = (function () {
         spanTitle.innerText = title;
         divContent.appendChild(imgIcon);
         divContent.appendChild(spanTitle);
-        qinpel.util.addAction(divContent, action);
+        qinpel_res_1.QinSoul.arm.addAction(divContent, action);
         return divContent;
     };
     Menu.prototype.addMenu = function (divContainer, divContent) {

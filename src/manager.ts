@@ -1,7 +1,6 @@
 import { Frame } from "./frame";
-import { Qinpel } from "./qinpel";
-import utils from "./utils";
 import axios, { AxiosResponse } from "axios";
+import { QinSoul } from "qinpel-res";
 
 export class Manager {
 
@@ -31,7 +30,7 @@ export class Manager {
         this.imgMenu.alt = "Menu";
         this.divMenu.appendChild(this.imgMenu);
         this.divBody.appendChild(this.divMenu);
-        utils.addAction(this.divMenu, (event) => {
+        QinSoul.arm.addAction(this.divMenu, (event) => {
             if (event.hasShift) {
                 document.body.requestFullscreen();
             } else {
@@ -42,20 +41,20 @@ export class Manager {
     }
 
     private initDraggable() {
-        utils.addScroller(this.divBody, {
+        QinSoul.arm.addScroller(this.divBody, {
             onDouble: () => {
                 this.divBody.scrollTo(0, 0);
-                utils.clearSelection();
+                QinSoul.skin.clearSelection();
             },
             onEnd: () => {
-                utils.clearSelection();
+                QinSoul.skin.clearSelection();
             }
         });
     }
 
     public putInDocument() {
         document.body.appendChild(this.divBody);
-        utils.disableSelection(document.body);
+        QinSoul.skin.disableSelection(document.body);
     }
 
     public newFrame(title: string, address: string) {
@@ -117,7 +116,7 @@ export class Manager {
                 this.closePopMenu();
             }
             element.style.zIndex = String(++this.framesTopZ);
-            if (!utils.isElementVisibleInScroll(element)) {
+            if (!QinSoul.skin.isElementVisibleInScroll(element)) {
                 element.parentElement.scrollTo(element.offsetLeft, element.offsetTop);
             }
             if (element.id.indexOf("QinpelFrameID") === 0) {
@@ -152,7 +151,7 @@ export class Manager {
     }
 
     public needToLog() {
-        return !utils.isLocalHost() && !this.hasLogged();
+        return !QinSoul.foot.isLocalHost() && !this.hasLogged();
     }
 
     public get(address: string, headers?: any): Promise<AxiosResponse<never>> {
