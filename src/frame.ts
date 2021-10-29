@@ -262,16 +262,16 @@ export class Frame {
         this.manager.delFrame(this);
     }
 
-    public getDocBody(): HTMLElement {
-        return this.iframeBody.contentWindow.document.body;
+    public getDocIFrame(): Document {
+        return this.iframeBody.contentWindow.document;
     }
 
     public newDialog(title: string, divContent: HTMLDivElement): FrameDialog {
-        return new FrameDialog(title, this.getDocBody(), divContent);
+        return new FrameDialog(title, this.getDocIFrame(), divContent);
     }
 
     public newPopup(parent: HTMLElement, divContent: HTMLDivElement): FramePopup {
-        return new FramePopup(parent, this.getDocBody(), divContent);
+        return new FramePopup(parent, this.getDocIFrame(), divContent);
     }
 
 }
@@ -279,7 +279,7 @@ export class Frame {
 export class FrameDialog {
 
     private title: string;
-    private docBody: HTMLElement;
+    private docIFrame: Document;
     private divContent: HTMLDivElement;
     private divDialog = document.createElement("div");
     private divTop = document.createElement("div");
@@ -291,9 +291,9 @@ export class FrameDialog {
     private showing = false;
     private docNodes: ChildNode[] = [];
 
-    public constructor(title: string, docBody: HTMLElement, divContent: HTMLDivElement) {
+    public constructor(title: string, docIFrame: Document, divContent: HTMLDivElement) {
         this.title = title;
-        this.docBody = docBody;
+        this.docIFrame = docIFrame;
         this.divContent = divContent;
         this.initDialog();
         this.initTop();
@@ -331,14 +331,14 @@ export class FrameDialog {
             return;
         }
         this.docNodes = [];
-        for (let i = 0; i < this.docBody.childNodes.length; i++) {
-            const child = this.docBody.childNodes[i];
+        for (let i = 0; i < this.docIFrame.body.childNodes.length; i++) {
+            const child = this.docIFrame.body.childNodes[i];
             this.docNodes.push(child);
         }
         for (const child of this.docNodes) {
-            this.docBody.removeChild(child);
+            this.docIFrame.body.removeChild(child);
         }
-        this.docBody.appendChild(this.divDialog);
+        this.docIFrame.body.appendChild(this.divDialog);
         this.showing = true;
     }
 
@@ -346,9 +346,9 @@ export class FrameDialog {
         if (!this.showing) {
             return;
         }
-        this.docBody.removeChild(this.divDialog);
+        this.docIFrame.body.removeChild(this.divDialog);
         for (const child of this.docNodes) {
-            this.docBody.appendChild(child);
+            this.docIFrame.body.appendChild(child);
         }
         this.docNodes = [];
         this.showing = false;
@@ -359,13 +359,13 @@ export class FrameDialog {
 export class FramePopup {
 
     private parent: HTMLElement;
-    private docBody: HTMLElement;
+    private docIFrame: Document;
     private divContent: HTMLDivElement;
     private divPopup = document.createElement("div");
 
-    public constructor(parent: HTMLElement, docBody: HTMLElement, divContent: HTMLDivElement) {
+    public constructor(parent: HTMLElement, docIFrame: Document, divContent: HTMLDivElement) {
         this.parent = parent;
-        this.docBody = docBody;
+        this.docIFrame = docIFrame;
         this.divContent = divContent;
         this.initPopup();
     }
@@ -373,22 +373,14 @@ export class FramePopup {
     private initPopup() {
         this.divPopup.appendChild(this.divContent);
         this.divPopup.style.position = "absolute";
+        this.divPopup.style.backgroundColor = QinStyles.ColorMenu;
         this.divPopup.style.border = "1px solid " + QinStyles.ColorFont;
         this.divPopup.style.padding = "5px";
+        this.addFocusOutCloseToAll(this.divPopup);
     }
 
     private addFocusOutCloseToAll(el: HTMLElement) {
-        el.addEventListener("focusout", this.onFocusOutClose);
-        for (let index = 0; index < el.children.length; index++) {
-            const child = el.children.item(index);
-            if (child instanceof HTMLElement) {
-                this.addFocusOutCloseToAll(child);
-            }
-        }
-    }
-
-    private delFocusOutCloseFromAll(el: HTMLElement) {
-        el.addEventListener("focusout", this.onFocusOutClose);
+        el.addEventListener("focusout", (ev) => this.onFocusOutClose(ev));
         for (let index = 0; index < el.children.length; index++) {
             const child = el.children.item(index);
             if (child instanceof HTMLElement) {
@@ -398,28 +390,17 @@ export class FramePopup {
     }
 
     private onFocusOutClose(ev: FocusEvent) {
+        const divCheck = this.divPopup;
         setTimeout(() => {
-            if (!this.divPopup.contains(document.activeElement)) {
+            if (!divCheck.contains(this.docIFrame.activeElement)) {
                 this.close();
             }
         }, 360);
         return QinSoul.arm.stopEvent(ev);
     }
 
-    public addCloseButton() {
-
-    }
-
-    public addCloseFocusout(el: HTMLElement) {
-        el.addEventListener("focusout", this.onFocusOutClose);
-    }
-
-    public addCloseFocusoutToAll() {
-        this.addFocusOutCloseToAll(this.divPopup);
-    }
-
     public show() {
-        this.docBody.appendChild(this.divPopup);
+        this.docIFrame.body.appendChild(this.divPopup);
         const parentBounds = this.parent.getBoundingClientRect();
         this.divPopup.style.left = parentBounds.x + "px";
         this.divPopup.style.top = (parentBounds.y + parentBounds.height) + "px";
@@ -428,8 +409,7 @@ export class FramePopup {
     }
 
     public close() {
-        this.delFocusOutCloseFromAll(this.divPopup);
-        this.docBody.removeChild(this.divPopup);
+        this.docIFrame.body.removeChild(this.divPopup);
     }
 
 }

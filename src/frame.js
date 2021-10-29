@@ -241,20 +241,20 @@ var Frame = (function () {
         this.manager.delChild(this.divFrame);
         this.manager.delFrame(this);
     };
-    Frame.prototype.getDocBody = function () {
-        return this.iframeBody.contentWindow.document.body;
+    Frame.prototype.getDocIFrame = function () {
+        return this.iframeBody.contentWindow.document;
     };
     Frame.prototype.newDialog = function (title, divContent) {
-        return new FrameDialog(title, this.getDocBody(), divContent);
+        return new FrameDialog(title, this.getDocIFrame(), divContent);
     };
     Frame.prototype.newPopup = function (parent, divContent) {
-        return new FramePopup(parent, this.getDocBody(), divContent);
+        return new FramePopup(parent, this.getDocIFrame(), divContent);
     };
     return Frame;
 }());
 exports.Frame = Frame;
 var FrameDialog = (function () {
-    function FrameDialog(title, docBody, divContent) {
+    function FrameDialog(title, docIFrame, divContent) {
         this.divDialog = document.createElement("div");
         this.divTop = document.createElement("div");
         this.spanTitle = document.createElement("span");
@@ -264,7 +264,7 @@ var FrameDialog = (function () {
         this.showing = false;
         this.docNodes = [];
         this.title = title;
-        this.docBody = docBody;
+        this.docIFrame = docIFrame;
         this.divContent = divContent;
         this.initDialog();
         this.initTop();
@@ -299,25 +299,25 @@ var FrameDialog = (function () {
             return;
         }
         this.docNodes = [];
-        for (var i = 0; i < this.docBody.childNodes.length; i++) {
-            var child = this.docBody.childNodes[i];
+        for (var i = 0; i < this.docIFrame.body.childNodes.length; i++) {
+            var child = this.docIFrame.body.childNodes[i];
             this.docNodes.push(child);
         }
         for (var _i = 0, _a = this.docNodes; _i < _a.length; _i++) {
             var child = _a[_i];
-            this.docBody.removeChild(child);
+            this.docIFrame.body.removeChild(child);
         }
-        this.docBody.appendChild(this.divDialog);
+        this.docIFrame.body.appendChild(this.divDialog);
         this.showing = true;
     };
     FrameDialog.prototype.close = function () {
         if (!this.showing) {
             return;
         }
-        this.docBody.removeChild(this.divDialog);
+        this.docIFrame.body.removeChild(this.divDialog);
         for (var _i = 0, _a = this.docNodes; _i < _a.length; _i++) {
             var child = _a[_i];
-            this.docBody.appendChild(child);
+            this.docIFrame.body.appendChild(child);
         }
         this.docNodes = [];
         this.showing = false;
@@ -326,30 +326,24 @@ var FrameDialog = (function () {
 }());
 exports.FrameDialog = FrameDialog;
 var FramePopup = (function () {
-    function FramePopup(parent, docBody, divContent) {
+    function FramePopup(parent, docIFrame, divContent) {
         this.divPopup = document.createElement("div");
         this.parent = parent;
-        this.docBody = docBody;
+        this.docIFrame = docIFrame;
         this.divContent = divContent;
         this.initPopup();
     }
     FramePopup.prototype.initPopup = function () {
         this.divPopup.appendChild(this.divContent);
         this.divPopup.style.position = "absolute";
+        this.divPopup.style.backgroundColor = qinpel_res_1.QinStyles.ColorMenu;
         this.divPopup.style.border = "1px solid " + qinpel_res_1.QinStyles.ColorFont;
         this.divPopup.style.padding = "5px";
+        this.addFocusOutCloseToAll(this.divPopup);
     };
     FramePopup.prototype.addFocusOutCloseToAll = function (el) {
-        el.addEventListener("focusout", this.onFocusOutClose);
-        for (var index = 0; index < el.children.length; index++) {
-            var child = el.children.item(index);
-            if (child instanceof HTMLElement) {
-                this.addFocusOutCloseToAll(child);
-            }
-        }
-    };
-    FramePopup.prototype.delFocusOutCloseFromAll = function (el) {
-        el.addEventListener("focusout", this.onFocusOutClose);
+        var _this = this;
+        el.addEventListener("focusout", function (ev) { return _this.onFocusOutClose(ev); });
         for (var index = 0; index < el.children.length; index++) {
             var child = el.children.item(index);
             if (child instanceof HTMLElement) {
@@ -359,23 +353,16 @@ var FramePopup = (function () {
     };
     FramePopup.prototype.onFocusOutClose = function (ev) {
         var _this = this;
+        var divCheck = this.divPopup;
         setTimeout(function () {
-            if (!_this.divPopup.contains(document.activeElement)) {
+            if (!divCheck.contains(_this.docIFrame.activeElement)) {
                 _this.close();
             }
         }, 360);
         return qinpel_res_1.QinSoul.arm.stopEvent(ev);
     };
-    FramePopup.prototype.addCloseButton = function () {
-    };
-    FramePopup.prototype.addCloseFocusout = function (el) {
-        el.addEventListener("focusout", this.onFocusOutClose);
-    };
-    FramePopup.prototype.addCloseFocusoutToAll = function () {
-        this.addFocusOutCloseToAll(this.divPopup);
-    };
     FramePopup.prototype.show = function () {
-        this.docBody.appendChild(this.divPopup);
+        this.docIFrame.body.appendChild(this.divPopup);
         var parentBounds = this.parent.getBoundingClientRect();
         this.divPopup.style.left = parentBounds.x + "px";
         this.divPopup.style.top = (parentBounds.y + parentBounds.height) + "px";
@@ -383,8 +370,7 @@ var FramePopup = (function () {
         this.divPopup.focus();
     };
     FramePopup.prototype.close = function () {
-        this.delFocusOutCloseFromAll(this.divPopup);
-        this.docBody.removeChild(this.divPopup);
+        this.docIFrame.body.removeChild(this.divPopup);
     };
     return FramePopup;
 }());

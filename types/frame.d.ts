@@ -41,13 +41,13 @@ export declare class Frame {
     saveFrameBounds(): void;
     show(): void;
     close(): void;
-    getDocBody(): HTMLElement;
+    getDocIFrame(): Document;
     newDialog(title: string, divContent: HTMLDivElement): FrameDialog;
     newPopup(parent: HTMLElement, divContent: HTMLDivElement): FramePopup;
 }
 export declare class FrameDialog {
     private title;
-    private docBody;
+    private docIFrame;
     private divContent;
     private divDialog;
     private divTop;
@@ -57,7 +57,7 @@ export declare class FrameDialog {
     private divPack;
     private showing;
     private docNodes;
-    constructor(title: string, docBody: HTMLElement, divContent: HTMLDivElement);
+    constructor(title: string, docIFrame: Document, divContent: HTMLDivElement);
     private initDialog;
     private initTop;
     private initPack;
@@ -66,17 +66,13 @@ export declare class FrameDialog {
 }
 export declare class FramePopup {
     private parent;
-    private docBody;
+    private docIFrame;
     private divContent;
     private divPopup;
-    constructor(parent: HTMLElement, docBody: HTMLElement, divContent: HTMLDivElement);
+    constructor(parent: HTMLElement, docIFrame: Document, divContent: HTMLDivElement);
     private initPopup;
     private addFocusOutCloseToAll;
-    private delFocusOutCloseFromAll;
     private onFocusOutClose;
-    addCloseButton(): void;
-    addCloseFocusout(el: HTMLElement): void;
-    addCloseFocusoutToAll(): void;
     show(): void;
     close(): void;
 }
