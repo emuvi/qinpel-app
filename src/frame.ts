@@ -376,6 +376,7 @@ export class FramePopup {
         this.divPopup.style.backgroundColor = QinStyles.ColorMenu;
         this.divPopup.style.border = "1px solid " + QinStyles.ColorFont;
         this.divPopup.style.padding = "5px";
+        this.divPopup.style.borderRadius = "3px";
         this.addFocusOutCloseToAll(this.divPopup);
     }
 
@@ -400,6 +401,7 @@ export class FramePopup {
     }
 
     public show() {
+        this.close();
         this.docIFrame.body.appendChild(this.divPopup);
         const parentBounds = this.parent.getBoundingClientRect();
         this.divPopup.style.left = parentBounds.x + "px";
@@ -409,7 +411,17 @@ export class FramePopup {
     }
 
     public close() {
-        this.docIFrame.body.removeChild(this.divPopup);
+        if (this.docIFrame.body.contains(this.divPopup)) {
+            this.docIFrame.body.removeChild(this.divPopup);
+        }
+    }
+
+    public toggle() {
+        if (this.docIFrame.body.contains(this.divPopup)) {
+            this.close();
+        } else {
+            this.show();
+        }
     }
 
 }

@@ -339,6 +339,7 @@ var FramePopup = (function () {
         this.divPopup.style.backgroundColor = qinpel_res_1.QinStyles.ColorMenu;
         this.divPopup.style.border = "1px solid " + qinpel_res_1.QinStyles.ColorFont;
         this.divPopup.style.padding = "5px";
+        this.divPopup.style.borderRadius = "3px";
         this.addFocusOutCloseToAll(this.divPopup);
     };
     FramePopup.prototype.addFocusOutCloseToAll = function (el) {
@@ -362,6 +363,7 @@ var FramePopup = (function () {
         return qinpel_res_1.QinSoul.arm.stopEvent(ev);
     };
     FramePopup.prototype.show = function () {
+        this.close();
         this.docIFrame.body.appendChild(this.divPopup);
         var parentBounds = this.parent.getBoundingClientRect();
         this.divPopup.style.left = parentBounds.x + "px";
@@ -370,7 +372,17 @@ var FramePopup = (function () {
         this.divPopup.focus();
     };
     FramePopup.prototype.close = function () {
-        this.docIFrame.body.removeChild(this.divPopup);
+        if (this.docIFrame.body.contains(this.divPopup)) {
+            this.docIFrame.body.removeChild(this.divPopup);
+        }
+    };
+    FramePopup.prototype.toggle = function () {
+        if (this.docIFrame.body.contains(this.divPopup)) {
+            this.close();
+        }
+        else {
+            this.show();
+        }
     };
     return FramePopup;
 }());

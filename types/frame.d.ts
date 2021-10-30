@@ -75,5 +75,6 @@ export declare class FramePopup {
     private onFocusOutClose;
     show(): void;
     close(): void;
+    toggle(): void;
 }
 //# sourceMappingURL=frame.d.ts.map

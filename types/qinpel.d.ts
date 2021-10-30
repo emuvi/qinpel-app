@@ -41,7 +41,7 @@ export declare class Qinpel {
         };
         head: {
             getDeskAPI: () => any;
-            log: (message: any) => void;
+            log: (message: string) => void;
             getErrorMessage: (error: any, origin?: string) => string;
             toggleDevTools: () => void;
         };
@@ -53,6 +53,10 @@ export declare class Qinpel {
                 FontName: string;
                 FontSize: string;
             };
+            styleAsBody: (el: HTMLDivElement) => void;
+            styleSize: (el: HTMLElement, size?: import("qinpel-res").QinDimension | import("qinpel-res").QinGrandeur) => void;
+            styleFlexMax: (el: HTMLElement) => void;
+            styleFlexMin: (el: HTMLElement) => void;
             getWindowSize: () => import("qinpel-res").QinDimension;
             getWindowSizeStyle: () => import("qinpel-res").QinGrandeur;
             hideAllIFrames: () => void;
@@ -60,8 +64,6 @@ export declare class Qinpel {
             disableSelection: (element: HTMLElement) => void;
             clearSelection: () => void;
             isElementVisibleInScroll: (element: HTMLElement) => boolean;
-            applyStyleAsBody: (el: HTMLDivElement) => void;
-            applyDimensionSize: (el: HTMLElement, size?: import("qinpel-res").QinDimension | import("qinpel-res").QinGrandeur) => void;
             getDimensionSize: (size: import("qinpel-res").QinGrandeur) => import("qinpel-res").QinDimension;
             getDimensionSmall: () => import("qinpel-res").QinDimension;
             getDimensionMedium: () => import("qinpel-res").QinDimension;
