@@ -166,6 +166,24 @@ export class Manager {
         return !QinSoul.foot.isLocalHost() && !this.hasLogged();
     }
 
+    private getAxiosConfig(headers: any) {
+        if (!headers) {
+            headers = {};
+        }
+        headers['Qinpel-Token'] = this.token;
+        if (!headers['Accept-Language']) {
+            if (this.userLang) {
+                headers['Accept-Language'] = this.userLang;
+            } else if (navigator.language) {
+                headers['Accept-Language'] = navigator.language;
+            }
+        }
+        let configs = {
+            headers
+        }
+        return configs;
+    }
+
     public get(address: string, headers?: any): Promise<AxiosResponse<never>> {
         let configs = this.getAxiosConfig(headers);
         return axios.get(address, configs);
@@ -183,24 +201,6 @@ export class Manager {
             }
         }
         return axios.post(address, data, configs);
-    }
-
-    private getAxiosConfig(headers: any) {
-        if (!headers) {
-            headers = {};
-        }
-        headers['Qinpel-Token'] = this.token;
-        if (!headers['Accept-Language']) {
-            if (this.userLang) {
-                headers['Accept-Language'] = this.userLang;
-            } else if (navigator.language) {
-                headers['Accept-Language'] = navigator.language;
-            }
-        }
-        let configs = {
-            headers
-        }
-        return configs;
     }
 
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   fill="none"
+   height="32"
+   viewBox="0 0 32 32"
+   width="32"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="face-compass.svg"
+   inkscape:export-filename="face-compass.png"
+   inkscape:export-xdpi="192"
+   inkscape:export-ydpi="192"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="25.75"
+     inkscape:cx="15.980583"
+     inkscape:cy="19.087379"
+     inkscape:window-width="1920"
+     inkscape:window-height="1013"
+     inkscape:window-x="-9"
+     inkscape:window-y="29"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     clip-rule="evenodd"
+     d="m 3.6815822,14.222222 h 1.6517511 c 0.9818311,0 1.7777777,0.795911 1.7777777,1.777778 0,0.981867 -0.7959288,1.777778 -1.7777777,1.777778 H 3.6815822 C 4.4611556,23.227911 8.772107,27.538844 14.222222,28.3184 v -1.651733 c 0,-0.981867 0.795911,-1.777778 1.777778,-1.777778 0.981867,0 1.777778,0.795911 1.777778,1.777778 V 28.3184 C 23.227911,27.538844 27.538844,23.227911 28.3184,17.777778 h -1.651733 c -0.981867,0 -1.777778,-0.795911 -1.777778,-1.777778 0,-0.981867 0.795911,-1.777778 1.777778,-1.777778 H 28.3184 C 27.538844,8.772107 23.227911,4.4611556 17.777778,3.6815822 v 1.6517511 c 0,0.9818311 -0.795911,1.7777777 -1.777778,1.7777777 -0.981867,0 -1.777778,-0.7959466 -1.777778,-1.7777777 V 3.6815822 C 8.772107,4.4611556 4.4611556,8.772107 3.6815822,14.222222 Z M 0,16 C 0,7.163449 7.163449,0 16,0 24.836622,0 32,7.163449 32,16 32,24.836622 24.836622,32 16,32 7.163449,32 0,24.836622 0,16 Z M 22.5904,9.409582 c 0.502933,0.502862 0.6576,1.257031 0.3936,1.917334 l -3.555556,8.888906 c -0.212088,0.529956 -0.6656,0.926045 -1.219555,1.064356 l -7.111058,1.777778 C 10.492018,23.209422 9.851147,23.032 9.409582,22.5904 8.968018,22.1488 8.790507,21.507911 8.941973,20.902222 l 1.777778,-7.111111 c 0.138453,-0.553955 0.534418,-1.007467 1.064445,-1.219555 l 8.888871,-3.55552 c 0.660266,-0.264125 1.4144,-0.109316 1.917333,0.393546 z m -8.641778,6.125707 -0.838578,3.354667 3.354667,-0.838578 1.677333,-4.193422 z"
+     fill="#360045"
+     fill-rule="evenodd"
+     id="path2"
+     style="stroke-width:1.77778" />
+</svg>

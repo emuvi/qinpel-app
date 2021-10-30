@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   fill="none"
+   height="32"
+   viewBox="0 0 32 32"
+   width="32"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="face-attach.svg"
+   inkscape:export-filename="face-attach.png"
+   inkscape:export-xdpi="192"
+   inkscape:export-ydpi="192"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="25.75"
+     inkscape:cx="15.980583"
+     inkscape:cy="12.873786"
+     inkscape:window-width="1920"
+     inkscape:window-height="1013"
+     inkscape:window-x="-9"
+     inkscape:window-y="29"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     clip-rule="evenodd"
+     d="m 16.826113,2.6030559 c 3.471283,-3.47089246 9.099186,-3.47073246 12.570291,4.444e-4 3.471462,3.4713192 3.471462,9.0994347 0,12.5707007 l -14.2222,14.222201 c -3.471266,3.471461 -9.0993822,3.471461 -12.5707013,0 -3.4711414,-3.471106 -3.4713369,-9.098831 -5.867e-4,-12.570115 1.956e-4,-1.77e-4 -1.955e-4,1.78e-4 0,0 l 6.0696975,-6.075315 c 2.0828065,-2.0827879 5.4601695,-2.0833739 7.5430115,-5.69e-4 2.082841,2.082824 2.082841,5.459708 0,7.542371 l -4.291069,4.296705 c -0.693813,0.694754 -1.819446,0.695465 -2.5141655,0.0018 -0.694702,-0.693865 -0.695448,-1.819552 -0.0016,-2.514129 l 4.2918515,-4.297594 c 0.694399,-0.694221 0.69511,-1.820797 8.89e-4,-2.515018 -0.694043,-0.694043 -1.81925,-0.694221 -2.51356,-5.33e-4 l -6.0696984,6.075368 c -2.0828057,2.082664 -2.0833746,5.460081 -5.866e-4,7.542922 2.0827875,2.082841 5.459672,2.082841 7.542424,0 l 14.222201,-14.2222 c 2.082841,-2.082753 2.082841,-5.4596369 0,-7.5424244 -2.082841,-2.0827879 -5.459547,-2.0827879 -7.542388,0 l -1.474345,1.4731659 c -0.694399,0.6940256 -1.820086,0.6936346 -2.51413,-8.711e-4 -0.694043,-0.6944879 -0.69351,-1.8201217 8.89e-4,-2.5141473 l 1.473776,-1.4727622 c 1.77e-4,-1.422e-4 -1.78e-4,1.422e-4 0,0 z"
+     fill="#360045"
+     fill-rule="evenodd"
+     id="path2"
+     style="stroke-width:1.77778"
+     inkscape:export-filename="face-attach.png"
+     inkscape:export-xdpi="192"
+     inkscape:export-ydpi="192" />
+</svg>

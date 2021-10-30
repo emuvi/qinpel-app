@@ -6,7 +6,7 @@
   "types": "./types",
   "repository": "https://github.com/emuvi/qinpel-app",
   "scripts": {
-    "test": "bash -v test.sh"
+    "start": "bash -v test.sh"
   },
   "keywords": [],
   "author": "Éverton M. Vieira",

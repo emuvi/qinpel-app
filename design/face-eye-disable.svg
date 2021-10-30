@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   fill="none"
+   height="32"
+   viewBox="0 0 32 32"
+   width="32"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="face-eye-disable.svg"
+   inkscape:export-filename="face-eye-disable.png"
+   inkscape:export-xdpi="192"
+   inkscape:export-ydpi="192"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="25.75"
+     inkscape:cx="15.980583"
+     inkscape:cy="22.194175"
+     inkscape:window-width="1920"
+     inkscape:window-height="1013"
+     inkscape:window-x="-9"
+     inkscape:window-y="29"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg6" />
+  <g
+     id="g829"
+     transform="matrix(1.7679568,0,0,1.7679568,-5.2154904,-5.3038794)">
+    <path
+       d="M 20.7,19.3 4.70001,3.3 c -0.4,-0.4 -1,-0.4 -1.4,0 -0.4,0.4 -0.4,1 0,1.4 l 3.3,3.3 c -2.2,1.7 -3.4,3.9 -3.5,4 -0.2,0.3 -0.2,0.7 0,1 0.1,0.2 3.4,6 8.89999,6 1.5,0 2.9,-0.4 4.3,-1.2 l 3,3 c 0.2,0.2 0.5,0.3 0.7,0.3 0.2,0 0.5,-0.1 0.7,-0.3 0.4,-0.5 0.4,-1.1 0,-1.5 z m -10.6,-7.8 2.4,2.4 c -0.7,0.2 -1.4,0 -1.9,-0.5 C 10.2,13 10,12.5 10,12 c 0,-0.2 0,-0.3 0.1,-0.5 z M 12,17 c -3.49999,0 -5.99999,-3.3 -6.79999,-4.5 0.5,-0.7 1.4,-2 2.8,-3.1 l 0.6,0.6 c -0.4,0.6 -0.6,1.3 -0.6,2 0,1.1 0.4,2.1 1.2,2.8 C 9.90001,15.6 10.9,16 12,16 c 0.7,0 1.4,-0.2 2,-0.6 l 0.8,0.8 C 13.9,16.7 13,17 12,17 Z"
+       fill="#360045"
+       id="path2" />
+    <path
+       d="m 12,8 c 3.5,0 6,3.3 6.8,4.5 -0.2,0.2 -0.4,0.5 -0.6,0.9 -0.3,0.4 -0.3,1.1 0.2,1.4 0.2,0.1 0.4,0.2 0.6,0.2 0.3,0 0.6,-0.1 0.8,-0.4 0.7,-0.9 1.1,-1.6 1.1,-1.6 0.2,-0.3 0.2,-0.7 0,-1 -0.1,-0.2 -3.4,-6 -8.9,-6 -0.6,0 -1,0.4 -1,1 0,0.6 0.4,1 1,1 z"
+       fill="#360045"
+       id="path4" />
+  </g>
+</svg>

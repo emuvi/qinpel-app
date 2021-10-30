@@ -54,6 +54,7 @@ export declare class Qinpel {
                 FontSize: string;
             };
             styleAsBody: (el: HTMLDivElement) => void;
+            styleAsEdit: (el: HTMLElement) => void;
             styleSize: (el: HTMLElement, size?: import("qinpel-res").QinDimension | import("qinpel-res").QinGrandeur) => void;
             styleFlexMax: (el: HTMLElement) => void;
             styleFlexMin: (el: HTMLElement) => void;

@@ -1,5 +1,5 @@
-import { Qinpel } from "./qinpel";
 import { QinSoul } from "qinpel-res"
+import { Qinpel } from "../types/qinpel";
 const qinpel = (window.frameElement as any).qinpel as Qinpel;
 
 class Menu {

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   fill="none"
+   height="32"
+   viewBox="0 0 32 32"
+   width="32"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="face-undo.svg"
+   inkscape:export-filename="C:\Code\qinpel-app\design\face-undo.png"
+   inkscape:export-xdpi="192"
+   inkscape:export-ydpi="192"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="25.75"
+     inkscape:cx="15.980583"
+     inkscape:cy="15.980583"
+     inkscape:window-width="1920"
+     inkscape:window-height="1013"
+     inkscape:window-x="-9"
+     inkscape:window-y="29"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     clip-rule="evenodd"
+     d="M 2.8233122,3.9388475e-8 C 3.8628182,3.9388475e-8 4.7055204,0.84270234 4.7055204,1.8822082 V 6.975746 C 9.34778,1.7029844 17.209971,0.25204654 23.527603,3.899559 30.729496,8.05762 33.197071,17.266814 29.039085,24.468707 24.881099,31.6706 15.67183,34.138175 8.469937,29.980189 7.569696,29.460511 7.261239,28.309353 7.780992,27.409093 8.300764,26.508832 9.451904,26.200338 10.352145,26.720204 15.753706,29.838647 22.660469,27.98806 25.7791,22.586499 28.897543,17.184937 27.046956,10.278174 21.645394,7.159638 16.929522,4.4369106 11.066085,5.5020334 7.578222,9.411041 h 4.656131 c 1.039544,0 1.882209,0.842702 1.882209,1.882208 0,1.039506 -0.842665,1.882209 -1.882209,1.882209 H 2.8233122 c -1.0395059,0 -1.88220816,-0.842703 -1.88220816,-1.882209 V 1.8822082 C 0.94110404,0.84270234 1.7838063,3.9388475e-8 2.8233122,3.9388475e-8 Z"
+     fill="#360045"
+     fill-rule="evenodd"
+     id="path2"
+     style="stroke-width:1.88221" />
+</svg>

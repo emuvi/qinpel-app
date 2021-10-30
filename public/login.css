@@ -24,3 +24,39 @@
     margin: 3px;
     padding: 5px;
 }
+
+input {
+    margin: 1px;
+    padding: 3px;
+    outline: none;
+    border: 2px solid #270036;
+    border-radius: 3px;
+    color: #270036;
+    background-color: #ffffff;
+    font-family: Poppins;
+    font-size: 15px;
+}
+
+input:focus {
+    outline: none;
+    background-color: #faefff;
+    border: 2px solid #ae0000;
+}
+
+button {
+    margin: 1px;
+    padding: 3px;
+    outline: none;
+    border: 2px solid #270036;
+    border-radius: 3px;
+    color: #270036;
+    background-color: #ffffff;
+    font-family: Poppins;
+    font-size: 15px;
+}
+
+button:focus {
+    outline: none;
+    background-color: #faefff;
+    border: 2px solid #ae0000;
+}

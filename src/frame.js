@@ -335,11 +335,9 @@ var FramePopup = (function () {
     }
     FramePopup.prototype.initPopup = function () {
         this.divPopup.appendChild(this.divContent);
+        qinpel_res_1.QinSoul.skin.styleAsEdit(this.divPopup);
         this.divPopup.style.position = "absolute";
-        this.divPopup.style.backgroundColor = qinpel_res_1.QinStyles.ColorMenu;
-        this.divPopup.style.border = "1px solid " + qinpel_res_1.QinStyles.ColorFont;
         this.divPopup.style.padding = "5px";
-        this.divPopup.style.borderRadius = "3px";
         this.addFocusOutCloseToAll(this.divPopup);
     };
     FramePopup.prototype.addFocusOutCloseToAll = function (el) {
@@ -367,7 +365,12 @@ var FramePopup = (function () {
         this.docIFrame.body.appendChild(this.divPopup);
         var parentBounds = this.parent.getBoundingClientRect();
         this.divPopup.style.left = parentBounds.x + "px";
-        this.divPopup.style.top = (parentBounds.y + parentBounds.height) + "px";
+        if (this.parent instanceof HTMLDivElement) {
+            this.divPopup.style.top = parentBounds.y + "px";
+        }
+        else {
+            this.divPopup.style.top = (parentBounds.y + parentBounds.height) + "px";
+        }
         this.divPopup.tabIndex = 0;
         this.divPopup.focus();
     };

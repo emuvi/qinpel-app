@@ -372,11 +372,9 @@ export class FramePopup {
 
     private initPopup() {
         this.divPopup.appendChild(this.divContent);
+        QinSoul.skin.styleAsEdit(this.divPopup);
         this.divPopup.style.position = "absolute";
-        this.divPopup.style.backgroundColor = QinStyles.ColorMenu;
-        this.divPopup.style.border = "1px solid " + QinStyles.ColorFont;
         this.divPopup.style.padding = "5px";
-        this.divPopup.style.borderRadius = "3px";
         this.addFocusOutCloseToAll(this.divPopup);
     }
 
@@ -405,7 +403,11 @@ export class FramePopup {
         this.docIFrame.body.appendChild(this.divPopup);
         const parentBounds = this.parent.getBoundingClientRect();
         this.divPopup.style.left = parentBounds.x + "px";
-        this.divPopup.style.top = (parentBounds.y + parentBounds.height) + "px";
+        if (this.parent instanceof HTMLDivElement) {
+            this.divPopup.style.top = parentBounds.y + "px";
+        } else {
+            this.divPopup.style.top = (parentBounds.y + parentBounds.height) + "px";
+        }
         this.divPopup.tabIndex = 0;
         this.divPopup.focus();
     }
