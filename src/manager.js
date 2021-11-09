@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Manager = void 0;
-var frame_1 = require("./frame");
-var axios_1 = require("axios");
-var qinpel_res_1 = require("qinpel-res");
-var Manager = (function () {
-    function Manager() {
+const frame_1 = require("./frame");
+const axios_1 = require("axios");
+const qinpel_res_1 = require("qinpel-res");
+class Manager {
+    constructor() {
         this.divBody = document.createElement("div");
         this.divMenu = document.createElement("div");
         this.imgMenu = document.createElement("img");
@@ -17,150 +17,126 @@ var Manager = (function () {
         this.initMenu();
         this.initDraggable();
     }
-    Manager.prototype.initBody = function () {
+    initBody() {
         this.divBody.className = "QinpelWindowBody";
-    };
-    Manager.prototype.initMenu = function () {
-        var _this = this;
+    }
+    initMenu() {
         this.divMenu.id = "QinpelMenuID0";
         this.divMenu.className = "QinpelWindowMenu";
         this.imgMenu.src = "./assets/qinpel.png";
         this.imgMenu.alt = "Menu";
         this.divMenu.appendChild(this.imgMenu);
         this.divBody.appendChild(this.divMenu);
-        qinpel_res_1.QinSoul.arm.addAction(this.divMenu, function (event) {
+        qinpel_res_1.QinSoul.arm.addAction(this.divMenu, (event) => {
             if (event.hasShift) {
                 document.body.requestFullscreen();
             }
             else {
-                _this.newFrame("Qinpel", "./menu.html");
+                this.newFrame("Qinpel", "./menu.html");
             }
             return false;
         });
-    };
-    Manager.prototype.initDraggable = function () {
-        var _this = this;
+    }
+    initDraggable() {
         qinpel_res_1.QinSoul.arm.addScroller(this.divBody, {
-            onDouble: function () {
-                _this.divBody.scrollTo(0, 0);
+            onDouble: () => {
+                this.divBody.scrollTo(0, 0);
                 qinpel_res_1.QinSoul.skin.clearSelection();
             },
-            onEnd: function () {
+            onEnd: () => {
                 qinpel_res_1.QinSoul.skin.clearSelection();
             }
         });
-    };
-    Manager.prototype.putInDocument = function () {
+    }
+    putInDocument() {
         document.body.appendChild(this.divBody);
         qinpel_res_1.QinSoul.skin.disableSelection(document.body);
-    };
-    Manager.prototype.newFrame = function (title, address) {
-        var frame = new frame_1.Frame(this, title, address);
+    }
+    newFrame(title, address) {
+        let frame = new frame_1.Frame(this, title, address);
         frame.install();
         this.frames.push(frame);
-    };
-    Manager.prototype.getFrame = function (fromTitle) {
-        for (var _i = 0, _a = this.frames; _i < _a.length; _i++) {
-            var frame = _a[_i];
+    }
+    getFrame(fromTitle) {
+        for (const frame of this.frames) {
             if (frame.getTitle() === fromTitle) {
                 return frame;
             }
         }
         return null;
-    };
-    Manager.prototype.addChild = function (child) {
+    }
+    addChild(child) {
         this.divBody.appendChild(child);
-    };
-    Manager.prototype.delChild = function (child) {
+    }
+    delChild(child) {
         this.divBody.removeChild(child);
-    };
-    Manager.prototype.getFrameFromID = function (fromID) {
-        for (var _i = 0, _a = this.frames; _i < _a.length; _i++) {
-            var frame = _a[_i];
+    }
+    getFrameFromID(fromID) {
+        for (const frame of this.frames) {
             if (frame.getID() === fromID) {
                 return frame;
             }
         }
         return null;
-    };
-    Manager.prototype.getFrameIndexFromID = function (fromID) {
-        for (var i = 0; i < this.frames.length; i++) {
+    }
+    getFrameIndexFromID(fromID) {
+        for (let i = 0; i < this.frames.length; i++) {
             if (this.frames[i].getID() === fromID) {
                 return i;
             }
         }
         return -1;
-    };
-    Manager.prototype.delFrame = function (frame) {
-        var index = this.frames.indexOf(frame);
+    }
+    delFrame(frame) {
+        const index = this.frames.indexOf(frame);
         if (index > -1) {
             this.frames.splice(index, 1);
         }
-    };
-    Manager.prototype.showMenu = function () {
+    }
+    showMenu() {
         this.divBody.scrollTo(0, 0);
         this.showElement(this.divMenu);
-    };
-    Manager.prototype.showElement = function (element) {
-        var _this = this;
-        setTimeout(function () {
+    }
+    showElement(element) {
+        setTimeout(() => {
             if (element.id != "QinpelPopMenuID1") {
-                _this.popMenuClose();
+                this.popMenuClose();
             }
-            element.style.zIndex = String(++_this.framesTopZ);
+            element.style.zIndex = String(++this.framesTopZ);
             if (!qinpel_res_1.QinSoul.skin.isElementVisibleInScroll(element)) {
                 element.parentElement.scrollTo(element.offsetLeft, element.offsetTop);
             }
             if (element.id.indexOf("QinpelFrameID") === 0) {
-                var index = _this.getFrameIndexFromID(element.id);
+                const index = this.getFrameIndexFromID(element.id);
                 if (index > 0) {
-                    var frame = _this.frames[index];
-                    _this.frames.splice(index, 1);
-                    _this.frames.unshift(frame);
+                    const frame = this.frames[index];
+                    this.frames.splice(index, 1);
+                    this.frames.unshift(frame);
                 }
             }
         }, 360);
-    };
-    Manager.prototype.popMenuAdd = function (title, action) {
-    };
-    Manager.prototype.popMenuClear = function () {
-    };
-    Manager.prototype.popMenuShow = function () {
-    };
-    Manager.prototype.popMenuClose = function () {
-    };
-    Manager.prototype.getBodyWidth = function () {
+    }
+    popMenuAdd(title, action) {
+    }
+    popMenuClear() {
+    }
+    popMenuShow() {
+    }
+    popMenuClose() {
+    }
+    getBodyWidth() {
         return this.divBody.clientWidth;
-    };
-    Manager.prototype.getBodyHeight = function () {
+    }
+    getBodyHeight() {
         return this.divBody.clientHeight;
-    };
-    Manager.prototype.hasLogged = function () {
+    }
+    hasLogged() {
         return this.token != "";
-    };
-    Manager.prototype.needToLog = function () {
+    }
+    needToLog() {
         return !qinpel_res_1.QinSoul.foot.isLocalHost() && !this.hasLogged();
-    };
-    Manager.prototype.get = function (address, headers) {
-        var configs = this.getAxiosConfig(headers);
-        return axios_1.default.get(address, configs);
-    };
-    Manager.prototype.post = function (address, data, headers) {
-        var configs = this.getAxiosConfig(headers);
-        if (!configs.headers['Content-Type']) {
-            if (typeof data === 'string' || data instanceof String) {
-                configs.headers['Content-Type'] = "text/plain";
-            }
-            else if (data instanceof FormData) {
-                configs.headers['Content-Type'] = "multipart/form-data";
-            }
-            else {
-                configs.headers['Content-Type'] = "application/json";
-            }
-        }
-        return axios_1.default.post(address, data, configs);
-    };
-    Manager.prototype.getAxiosConfig = function (headers) {
+    }
+    getAxiosConfig(headers) {
         if (!headers) {
             headers = {};
         }
@@ -173,12 +149,35 @@ var Manager = (function () {
                 headers['Accept-Language'] = navigator.language;
             }
         }
-        var configs = {
-            headers: headers
+        let configs = {
+            headers
         };
         return configs;
-    };
-    return Manager;
-}());
+    }
+    get(address, headers) {
+        let configs = this.getAxiosConfig(headers);
+        return axios_1.default.get(address, configs);
+    }
+    post(address, data, headers) {
+        let configs = this.getAxiosConfig(headers);
+        if (!configs.headers['Content-Type']) {
+            if (typeof data === 'string' || data instanceof String) {
+                configs.headers['Content-Type'] = "text/plain";
+            }
+            else if (data instanceof FormData) {
+                configs.headers['Content-Type'] = "multipart/form-data";
+            }
+            else {
+                configs.headers['Content-Type'] = "application/json";
+            }
+        }
+        return axios_1.default.post(address, data, configs);
+    }
+    tryLogin(name, pass) {
+        this.post("/login", { name, pass })
+            .then(res => qinpel_res_1.QinSoul.head.log(res.data))
+            .catch(err => qinpel_res_1.QinSoul.head.logError(err));
+    }
+}
 exports.Manager = Manager;
 //# sourceMappingURL=manager.js.map

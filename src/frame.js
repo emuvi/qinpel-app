@@ -1,12 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FramePopup = exports.FrameDialog = exports.Frame = void 0;
-var qinpel_res_1 = require("qinpel-res");
-var param_1 = require("./param");
-var qinpel_1 = require("./qinpel");
-var frame_styles_1 = require("./styles/frame-styles");
-var Frame = (function () {
-    function Frame(manager, title, address) {
+const qinpel_res_1 = require("qinpel-res");
+const param_1 = require("./param");
+const qinpel_1 = require("./qinpel");
+class Frame {
+    constructor(manager, title, address) {
         this.rndID = Math.floor(Math.random() * 1000000);
         this.divFrame = document.createElement("div");
         this.divHead = document.createElement("div");
@@ -33,7 +32,7 @@ var Frame = (function () {
         this.initDivFoot();
         this.initDraggable();
     }
-    Frame.prototype.initFrameTitle = function (title) {
+    initFrameTitle(title) {
         var result = title;
         var attempt = 1;
         while (true) {
@@ -45,30 +44,30 @@ var Frame = (function () {
             }
         }
         return result;
-    };
-    Frame.prototype.initDivFrame = function () {
+    }
+    initDivFrame() {
         this.divFrame.id = "QinpelFrameID" + this.rndID;
         this.divFrame.className = "QinpelWindowFrame";
-        var frameInitBounds = this.loadFrameInitBounds();
+        const frameInitBounds = this.loadFrameInitBounds();
         this.divFrame.style.left = frameInitBounds.posX + "px";
         this.divFrame.style.top = frameInitBounds.posY + "px";
         this.divFrame.style.width = frameInitBounds.width + "px";
         this.divFrame.style.height = frameInitBounds.height + "px";
         this.lastWidth = frameInitBounds.width;
         this.lastHeight = frameInitBounds.height;
-    };
-    Frame.prototype.loadFrameInitBounds = function () {
-        var result = {
+    }
+    loadFrameInitBounds() {
+        const result = {
             posX: 64,
             posY: 64,
             width: 800,
             height: 600,
         };
-        var windowSizeStyle = qinpel_res_1.QinSoul.skin.getWindowSizeStyle();
-        var frameStyleID = this.getFrameWindowStyleID(windowSizeStyle);
-        var frameBoundsSaved = window.localStorage.getItem(frameStyleID);
+        let windowSizeStyle = qinpel_res_1.QinSoul.skin.getWindowSizeStyle();
+        const frameStyleID = this.getFrameWindowStyleID(windowSizeStyle);
+        const frameBoundsSaved = window.localStorage.getItem(frameStyleID);
         if (frameBoundsSaved) {
-            var parts = frameBoundsSaved.split(",");
+            let parts = frameBoundsSaved.split(",");
             result.posX = Number(parts[0]);
             result.posY = Number(parts[1]);
             result.width = Number(parts[2]);
@@ -78,7 +77,7 @@ var Frame = (function () {
             if (windowSizeStyle === qinpel_res_1.QinGrandeur.SMALL) {
                 result.posX = 0;
                 result.posY = 0;
-                var size = qinpel_res_1.QinSoul.skin.getWindowSize();
+                const size = qinpel_res_1.QinSoul.skin.getWindowSize();
                 result.width = size.width - 4;
                 result.height = size.height - 4;
             }
@@ -90,45 +89,43 @@ var Frame = (function () {
             }
         }
         return result;
-    };
-    Frame.prototype.getFrameWindowStyleID = function (windowSizeStyle) {
+    }
+    getFrameWindowStyleID(windowSizeStyle) {
         return "window " + windowSizeStyle + " size of: " + this.title;
-    };
-    Frame.prototype.initDivHead = function () {
-        var _this = this;
+    }
+    initDivHead() {
         this.divHead.className = "QinpelWindowFrameHead";
         this.imgMenu.src = "./assets/frame-menu.png";
         this.imgMenu.alt = "o";
-        qinpel_res_1.QinSoul.arm.addAction(this.imgMenu, function () { return _this.headMenuAction(); });
+        qinpel_res_1.QinSoul.arm.addAction(this.imgMenu, () => this.headMenuAction());
         this.divHead.appendChild(this.imgMenu);
         this.divTitle.className = "QinpelWindowFrameHeadTitle";
         this.divTitle.innerText = this.title;
         this.divHead.appendChild(this.divTitle);
         this.imgMinimize.src = "./assets/frame-minimize.png";
         this.imgMinimize.alt = "-";
-        qinpel_res_1.QinSoul.arm.addAction(this.imgMinimize, function () { return _this.headMinimizeAction(); });
+        qinpel_res_1.QinSoul.arm.addAction(this.imgMinimize, () => this.headMinimizeAction());
         this.divHead.appendChild(this.imgMinimize);
         this.imgMaximize.src = "./assets/frame-maximize.png";
         this.imgMaximize.alt = "+";
-        qinpel_res_1.QinSoul.arm.addAction(this.imgMaximize, function () { return _this.headMaximizeAction(); });
+        qinpel_res_1.QinSoul.arm.addAction(this.imgMaximize, () => this.headMaximizeAction());
         this.divHead.appendChild(this.imgMaximize);
         this.imgClose.src = "./assets/frame-close.png";
         this.imgClose.alt = "x";
-        qinpel_res_1.QinSoul.arm.addAction(this.imgClose, function () { return _this.headCloseAction(); });
+        qinpel_res_1.QinSoul.arm.addAction(this.imgClose, () => this.headCloseAction());
         this.divHead.appendChild(this.imgClose);
         this.divFrame.appendChild(this.divHead);
-    };
-    Frame.prototype.initIFrameBody = function () {
-        var _this = this;
+    }
+    initIFrameBody() {
         this.iframeBody.id = "QinpelInsideFrameID" + this.rndID;
         this.iframeBody.className = "QinpelWindowFrameBody";
         this.iframeBody.src = this.address;
-        this.iframeBody.onload = function (_) {
-            frame_styles_1.default.applyOnIFrame(_this.iframeBody);
+        this.iframeBody.onload = (_) => {
+            styles.applyOnIFrame(this.iframeBody);
         };
         this.divFrame.appendChild(this.iframeBody);
-    };
-    Frame.prototype.initDivFoot = function () {
+    }
+    initDivFoot() {
         this.divFoot.className = "QinpelWindowFrameFoot";
         this.imgStatusType.src = "./assets/frame-status-info.png";
         this.divFoot.appendChild(this.imgStatusType);
@@ -139,42 +136,41 @@ var Frame = (function () {
         this.imgResize.alt = "/";
         this.divFoot.appendChild(this.imgResize);
         this.divFrame.appendChild(this.divFoot);
-    };
-    Frame.prototype.initDraggable = function () {
-        var _this = this;
+    }
+    initDraggable() {
         qinpel_res_1.QinSoul.arm.addMover([this.divHead, this.divStatusText], this.divFrame, {
-            onDouble: function () { return _this.headMaximizeAction(); },
-            onEnd: function () {
-                _this.manager.showElement(_this.divFrame);
+            onDouble: () => this.headMaximizeAction(),
+            onEnd: () => {
+                this.manager.showElement(this.divFrame);
                 qinpel_res_1.QinSoul.skin.clearSelection();
             }
         });
         qinpel_res_1.QinSoul.arm.addResizer([this.imgResize], this.divFrame, {
-            onDouble: function () { return _this.headMaximizeAction(); },
-            onEnd: function () {
-                _this.maximized = false;
-                _this.lastWidth = parseInt(_this.divFrame.style.width, 10);
-                _this.lastHeight = parseInt(_this.divFrame.style.height, 10);
-                _this.manager.showElement(_this.divFrame);
+            onDouble: () => this.headMaximizeAction(),
+            onEnd: () => {
+                this.maximized = false;
+                this.lastWidth = parseInt(this.divFrame.style.width, 10);
+                this.lastHeight = parseInt(this.divFrame.style.height, 10);
+                this.manager.showElement(this.divFrame);
                 qinpel_res_1.QinSoul.skin.clearSelection();
             }
         });
-    };
-    Frame.prototype.getTitle = function () {
+    }
+    getTitle() {
         return this.title;
-    };
-    Frame.prototype.getID = function () {
+    }
+    getID() {
         return this.divFrame.id;
-    };
-    Frame.prototype.install = function () {
+    }
+    install() {
         this.iframeBody.qinpel = new qinpel_1.Qinpel(this.manager, this);
         this.manager.addChild(this.divFrame);
         this.show();
-    };
-    Frame.prototype.headMenuAction = function () {
+    }
+    headMenuAction() {
         this.manager.showMenu();
-    };
-    Frame.prototype.headMinimizeAction = function () {
+    }
+    headMinimizeAction() {
         if (this.minimized) {
             this.divFrame.style.width = this.lastWidth + "px";
             this.divFrame.style.height = this.lastHeight + "px";
@@ -195,8 +191,8 @@ var Frame = (function () {
             this.minimized = true;
         }
         this.manager.showElement(this.divFrame);
-    };
-    Frame.prototype.headMaximizeAction = function () {
+    }
+    headMaximizeAction() {
         if (this.maximized) {
             this.divFrame.style.width = this.lastWidth + "px";
             this.divFrame.style.height = this.lastHeight + "px";
@@ -213,48 +209,50 @@ var Frame = (function () {
             this.maximized = true;
         }
         this.manager.showElement(this.divFrame);
-    };
-    Frame.prototype.headCloseAction = function () {
+    }
+    headCloseAction() {
         this.close();
-    };
-    Frame.prototype.statusInfo = function (message) {
+    }
+    statusInfo(message) {
         this.divStatusText.innerText = message;
-    };
-    Frame.prototype.statusError = function (error, origin) {
+    }
+    statusError(error, origin) {
         this.imgStatusType.src = "./assets/frame-status-error.png";
         this.divStatusText.innerText = qinpel_res_1.QinSoul.head.getErrorMessage(error, origin);
-    };
-    Frame.prototype.saveFrameBounds = function () {
-        var windowSizeStyle = qinpel_res_1.QinSoul.skin.getWindowSizeStyle();
-        var frameStyleID = this.getFrameWindowStyleID(windowSizeStyle);
-        var frameBounds = parseInt(this.divFrame.style.left, 10) + "," +
+    }
+    saveFrameBounds() {
+        let windowSizeStyle = qinpel_res_1.QinSoul.skin.getWindowSizeStyle();
+        const frameStyleID = this.getFrameWindowStyleID(windowSizeStyle);
+        const frameBounds = parseInt(this.divFrame.style.left, 10) + "," +
             parseInt(this.divFrame.style.top, 10) + "," +
             parseInt(this.divFrame.style.width, 10) + "," +
             parseInt(this.divFrame.style.height, 10);
         window.localStorage.setItem(frameStyleID, frameBounds);
-    };
-    Frame.prototype.show = function () {
+    }
+    show() {
         this.manager.showElement(this.divFrame);
-    };
-    Frame.prototype.close = function () {
+    }
+    close() {
         this.saveFrameBounds();
         this.manager.delChild(this.divFrame);
         this.manager.delFrame(this);
-    };
-    Frame.prototype.getDocIFrame = function () {
+    }
+    getIFrame() {
+        return this.iframeBody;
+    }
+    getIFrameDocument() {
         return this.iframeBody.contentWindow.document;
-    };
-    Frame.prototype.newDialog = function (title, divContent) {
-        return new FrameDialog(title, this.getDocIFrame(), divContent);
-    };
-    Frame.prototype.newPopup = function (parent, divContent) {
-        return new FramePopup(parent, this.getDocIFrame(), divContent);
-    };
-    return Frame;
-}());
+    }
+    newDialog(title, divContent) {
+        return new FrameDialog(this, title, divContent);
+    }
+    newPopup(divContent) {
+        return new FramePopup(this, divContent);
+    }
+}
 exports.Frame = Frame;
-var FrameDialog = (function () {
-    function FrameDialog(title, docIFrame, divContent) {
+class FrameDialog {
+    constructor(frame, title, divContent) {
         this.divDialog = document.createElement("div");
         this.divTop = document.createElement("div");
         this.spanTitle = document.createElement("span");
@@ -263,131 +261,206 @@ var FrameDialog = (function () {
         this.divPack = document.createElement("div");
         this.showing = false;
         this.docNodes = [];
+        this.frame = frame;
         this.title = title;
-        this.docIFrame = docIFrame;
         this.divContent = divContent;
         this.initDialog();
         this.initTop();
         this.initPack();
     }
-    FrameDialog.prototype.initDialog = function () {
-        frame_styles_1.default.applyOnDialog(this.divDialog);
-    };
-    FrameDialog.prototype.initTop = function () {
-        var _this = this;
-        frame_styles_1.default.applyOnDialogTop(this.divTop);
+    initDialog() {
+        styles.applyOnDialog(this.divDialog);
+    }
+    initTop() {
+        styles.applyOnDialogTop(this.divTop);
         this.divDialog.appendChild(this.divTop);
-        frame_styles_1.default.applyOnDialogTitle(this.spanTitle);
+        styles.applyOnDialogTitle(this.spanTitle);
         this.spanTitle.innerText = this.title;
         this.divTop.appendChild(this.spanTitle);
-        frame_styles_1.default.applyOnDialogClose(this.spanClose);
+        styles.applyOnDialogClose(this.spanClose);
         this.divTop.appendChild(this.spanClose);
-        frame_styles_1.default.applyOnDialogImage(this.imgClose);
+        styles.applyOnDialogImage(this.imgClose);
         this.imgClose.src = "/run/app/qinpel-app/assets/frame-close.png";
         this.spanClose.appendChild(this.imgClose);
-        qinpel_res_1.QinSoul.arm.addAction(this.spanClose, function (_) {
-            _this.close();
+        qinpel_res_1.QinSoul.arm.addAction(this.spanClose, (_) => {
+            this.close();
         });
-    };
-    FrameDialog.prototype.initPack = function () {
+    }
+    initPack() {
         this.divDialog.appendChild(this.divPack);
-        frame_styles_1.default.applyOnDialogPack(this.divPack);
+        styles.applyOnDialogPack(this.divPack);
         this.divPack.appendChild(this.divContent);
-    };
-    FrameDialog.prototype.show = function () {
+    }
+    show() {
         if (this.showing) {
             return;
         }
         this.docNodes = [];
-        for (var i = 0; i < this.docIFrame.body.childNodes.length; i++) {
-            var child = this.docIFrame.body.childNodes[i];
+        for (let i = 0; i < this.frame.getIFrameDocument().body.childNodes.length; i++) {
+            const child = this.frame.getIFrameDocument().body.childNodes[i];
             this.docNodes.push(child);
         }
-        for (var _i = 0, _a = this.docNodes; _i < _a.length; _i++) {
-            var child = _a[_i];
-            this.docIFrame.body.removeChild(child);
+        for (const child of this.docNodes) {
+            this.frame.getIFrameDocument().body.removeChild(child);
         }
-        this.docIFrame.body.appendChild(this.divDialog);
+        this.frame.getIFrameDocument().body.appendChild(this.divDialog);
         this.showing = true;
-    };
-    FrameDialog.prototype.close = function () {
+    }
+    close() {
         if (!this.showing) {
             return;
         }
-        this.docIFrame.body.removeChild(this.divDialog);
-        for (var _i = 0, _a = this.docNodes; _i < _a.length; _i++) {
-            var child = _a[_i];
-            this.docIFrame.body.appendChild(child);
+        this.frame.getIFrameDocument().body.removeChild(this.divDialog);
+        for (const child of this.docNodes) {
+            this.frame.getIFrameDocument().body.appendChild(child);
         }
         this.docNodes = [];
         this.showing = false;
-    };
-    return FrameDialog;
-}());
-exports.FrameDialog = FrameDialog;
-var FramePopup = (function () {
-    function FramePopup(parent, docIFrame, divContent) {
-        this.divPopup = document.createElement("div");
-        this.parent = parent;
-        this.docIFrame = docIFrame;
-        this.divContent = divContent;
-        this.initPopup();
     }
-    FramePopup.prototype.initPopup = function () {
-        this.divPopup.appendChild(this.divContent);
-        qinpel_res_1.QinSoul.skin.styleAsEdit(this.divPopup);
-        this.divPopup.style.position = "absolute";
-        this.divPopup.style.padding = "5px";
-        this.addFocusOutCloseToAll(this.divPopup);
-    };
-    FramePopup.prototype.addFocusOutCloseToAll = function (el) {
-        var _this = this;
-        el.addEventListener("focusout", function (ev) { return _this.onFocusOutClose(ev); });
-        for (var index = 0; index < el.children.length; index++) {
-            var child = el.children.item(index);
+}
+exports.FrameDialog = FrameDialog;
+class FramePopup {
+    constructor(frame, divContent) {
+        this._divMain = document.createElement("div");
+        this._posLeft = 18;
+        this._posTop = 18;
+        this._frame = frame;
+        this._divContent = divContent;
+        this.initMain();
+    }
+    initMain() {
+        this._divMain.appendChild(this._divContent);
+        qinpel_res_1.QinSoul.skin.styleAsEdit(this._divMain);
+        this._divMain.style.position = "absolute";
+        this._divMain.style.padding = "5px";
+        this._divMain.style.overflow = "auto";
+        this.addFocusOutCloseToAll(this._divMain);
+    }
+    addFocusOutCloseToAll(el) {
+        el.addEventListener("focusout", (ev) => this.onFocusOutClose(ev));
+        for (let index = 0; index < el.children.length; index++) {
+            const child = el.children.item(index);
             if (child instanceof HTMLElement) {
                 this.addFocusOutCloseToAll(child);
             }
         }
-    };
-    FramePopup.prototype.onFocusOutClose = function (ev) {
-        var _this = this;
-        var divCheck = this.divPopup;
-        setTimeout(function () {
-            if (!divCheck.contains(_this.docIFrame.activeElement)) {
-                _this.close();
+    }
+    onFocusOutClose(ev) {
+        setTimeout(() => {
+            if (!this._divMain.contains(this._frame.getIFrameDocument().activeElement)) {
+                this.close();
             }
         }, 360);
         return qinpel_res_1.QinSoul.arm.stopEvent(ev);
-    };
-    FramePopup.prototype.show = function () {
+    }
+    show() {
         this.close();
-        this.docIFrame.body.appendChild(this.divPopup);
-        var parentBounds = this.parent.getBoundingClientRect();
-        this.divPopup.style.left = parentBounds.x + "px";
-        if (this.parent instanceof HTMLDivElement) {
-            this.divPopup.style.top = parentBounds.y + "px";
+        this._frame.getIFrameDocument().body.appendChild(this._divMain);
+        this._maxWidth = this._frame.getIFrame().clientWidth - (this._posLeft * 3);
+        this._maxHeight = this._frame.getIFrame().clientHeight - (this._posTop * 3);
+        this._divMain.style.left = this._posLeft + "px";
+        this._divMain.style.top = this._posTop + "px";
+        this._divMain.style.maxWidth = this._maxWidth + "px";
+        this._divMain.style.maxHeight = this._maxHeight + "px";
+        this._divMain.tabIndex = 0;
+        this._divMain.focus();
+    }
+    close() {
+        if (this._frame.getIFrameDocument().body.contains(this._divMain)) {
+            this._frame.getIFrameDocument().body.removeChild(this._divMain);
         }
-        else {
-            this.divPopup.style.top = (parentBounds.y + parentBounds.height) + "px";
-        }
-        this.divPopup.tabIndex = 0;
-        this.divPopup.focus();
-    };
-    FramePopup.prototype.close = function () {
-        if (this.docIFrame.body.contains(this.divPopup)) {
-            this.docIFrame.body.removeChild(this.divPopup);
-        }
-    };
-    FramePopup.prototype.toggle = function () {
-        if (this.docIFrame.body.contains(this.divPopup)) {
+    }
+    toggle() {
+        if (this._frame.getIFrameDocument().body.contains(this._divMain)) {
             this.close();
         }
         else {
             this.show();
         }
-    };
-    return FramePopup;
-}());
+    }
+    get frame() {
+        return this._frame;
+    }
+    get divContent() {
+        return this._divContent;
+    }
+    get divMain() {
+        return this._divMain;
+    }
+    get posLeft() {
+        return this._posLeft;
+    }
+    get posTop() {
+        return this._posTop;
+    }
+    get maxWidth() {
+        return this._maxWidth;
+    }
+    get maxHeight() {
+        return this._maxHeight;
+    }
+}
 exports.FramePopup = FramePopup;
+const styles = {
+    applyOnIFrame: (el) => {
+        const head = el.contentWindow.document.head;
+        const defaultCSS = document.createElement('link');
+        defaultCSS.id = "QinpelIFrameDefaultCSS";
+        defaultCSS.rel = "stylesheet";
+        defaultCSS.type = "text/css";
+        defaultCSS.href = "/run/app/qinpel-app/default.css";
+        defaultCSS.media = "all";
+        head.appendChild(defaultCSS);
+    },
+    applyOnDialog: (el) => {
+        el.style.position = "absolute";
+        el.style.top = "0px";
+        el.style.right = "0px";
+        el.style.bottom = "0px";
+        el.style.left = "0px";
+        el.style.display = "flex";
+        el.style.flexDirection = "column";
+    },
+    applyOnDialogTop: (el) => {
+        el.style.flex = "0";
+        el.style.padding = "3px";
+        el.style.margin = "0px";
+        el.style.border = "0px";
+        el.style.display = "flex";
+        el.style.flexDirection = "row";
+        el.style.flexWrap = "wrap";
+        el.style.alignItems = "center";
+        el.style.backgroundColor = qinpel_res_1.QinStyles.ColorFont;
+        el.style.color = qinpel_res_1.QinStyles.ColorBack;
+    },
+    applyOnDialogPack: (el) => {
+        el.style.flex = "1";
+        el.style.overflow = "auto";
+        el.style.display = "flex";
+        el.style.justifyContent = "center";
+        el.style.alignItems = "center";
+        el.style.padding = "0px";
+        el.style.margin = "0px";
+        el.style.border = "0px";
+    },
+    applyOnDialogTitle: (el) => {
+        el.style.flex = "1";
+        el.style.textAlign = "center";
+        el.style.fontWeight = "bold";
+    },
+    applyOnDialogClose: (el) => {
+        el.style.flex = "0";
+        el.style.padding = "0px";
+        el.style.margin = "0px";
+        el.style.border = "0px";
+        el.style.display = "flex";
+        el.style.justifyContent = "center";
+        el.style.alignItems = "center";
+    },
+    applyOnDialogImage: (el) => {
+        el.style.padding = "0px";
+        el.style.margin = "0px";
+        el.style.border = "0px";
+    },
+};
 //# sourceMappingURL=frame.js.map

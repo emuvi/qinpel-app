@@ -41,13 +41,14 @@ export declare class Frame {
     saveFrameBounds(): void;
     show(): void;
     close(): void;
-    getDocIFrame(): Document;
+    getIFrame(): HTMLIFrameElement;
+    getIFrameDocument(): Document;
     newDialog(title: string, divContent: HTMLDivElement): FrameDialog;
-    newPopup(parent: HTMLElement, divContent: HTMLDivElement): FramePopup;
+    newPopup(divContent: HTMLDivElement): FramePopup;
 }
 export declare class FrameDialog {
+    private frame;
     private title;
-    private docIFrame;
     private divContent;
     private divDialog;
     private divTop;
@@ -57,7 +58,7 @@ export declare class FrameDialog {
     private divPack;
     private showing;
     private docNodes;
-    constructor(title: string, docIFrame: Document, divContent: HTMLDivElement);
+    constructor(frame: Frame, title: string, divContent: HTMLDivElement);
     private initDialog;
     private initTop;
     private initPack;
@@ -65,16 +66,26 @@ export declare class FrameDialog {
     close(): void;
 }
 export declare class FramePopup {
-    private parent;
-    private docIFrame;
-    private divContent;
-    private divPopup;
-    constructor(parent: HTMLElement, docIFrame: Document, divContent: HTMLDivElement);
-    private initPopup;
+    private _frame;
+    private _divContent;
+    private _divMain;
+    private _posLeft;
+    private _posTop;
+    private _maxWidth;
+    private _maxHeight;
+    constructor(frame: Frame, divContent: HTMLDivElement);
+    private initMain;
     private addFocusOutCloseToAll;
     private onFocusOutClose;
     show(): void;
     close(): void;
     toggle(): void;
+    get frame(): Frame;
+    get divContent(): HTMLDivElement;
+    get divMain(): HTMLDivElement;
+    get posLeft(): number;
+    get posTop(): number;
+    get maxWidth(): number;
+    get maxHeight(): number;
 }
 //# sourceMappingURL=frame.d.ts.map

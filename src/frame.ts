@@ -2,7 +2,6 @@ import { Manager } from "./manager";
 import { QinSoul, QinBounds, QinGrandeur, QinStyles } from "qinpel-res";
 import param from "./param";
 import { Qinpel } from "./qinpel";
-import styles from "./styles/frame-styles"
 
 export class Frame {
     private manager: Manager;
@@ -262,24 +261,28 @@ export class Frame {
         this.manager.delFrame(this);
     }
 
-    public getDocIFrame(): Document {
+    public getIFrame(): HTMLIFrameElement {
+        return this.iframeBody;
+    }
+
+    public getIFrameDocument(): Document {
         return this.iframeBody.contentWindow.document;
     }
 
     public newDialog(title: string, divContent: HTMLDivElement): FrameDialog {
-        return new FrameDialog(title, this.getDocIFrame(), divContent);
+        return new FrameDialog(this, title, divContent);
     }
 
-    public newPopup(parent: HTMLElement, divContent: HTMLDivElement): FramePopup {
-        return new FramePopup(parent, this.getDocIFrame(), divContent);
+    public newPopup(divContent: HTMLDivElement): FramePopup {
+        return new FramePopup(this, divContent);
     }
 
 }
 
 export class FrameDialog {
 
+    private frame: Frame;
     private title: string;
-    private docIFrame: Document;
     private divContent: HTMLDivElement;
     private divDialog = document.createElement("div");
     private divTop = document.createElement("div");
@@ -291,9 +294,9 @@ export class FrameDialog {
     private showing = false;
     private docNodes: ChildNode[] = [];
 
-    public constructor(title: string, docIFrame: Document, divContent: HTMLDivElement) {
+    public constructor(frame: Frame, title: string, divContent: HTMLDivElement) {
+        this.frame = frame;
         this.title = title;
-        this.docIFrame = docIFrame;
         this.divContent = divContent;
         this.initDialog();
         this.initTop();
@@ -331,14 +334,14 @@ export class FrameDialog {
             return;
         }
         this.docNodes = [];
-        for (let i = 0; i < this.docIFrame.body.childNodes.length; i++) {
-            const child = this.docIFrame.body.childNodes[i];
+        for (let i = 0; i < this.frame.getIFrameDocument().body.childNodes.length; i++) {
+            const child = this.frame.getIFrameDocument().body.childNodes[i];
             this.docNodes.push(child);
         }
         for (const child of this.docNodes) {
-            this.docIFrame.body.removeChild(child);
+            this.frame.getIFrameDocument().body.removeChild(child);
         }
-        this.docIFrame.body.appendChild(this.divDialog);
+        this.frame.getIFrameDocument().body.appendChild(this.divDialog);
         this.showing = true;
     }
 
@@ -346,9 +349,9 @@ export class FrameDialog {
         if (!this.showing) {
             return;
         }
-        this.docIFrame.body.removeChild(this.divDialog);
+        this.frame.getIFrameDocument().body.removeChild(this.divDialog);
         for (const child of this.docNodes) {
-            this.docIFrame.body.appendChild(child);
+            this.frame.getIFrameDocument().body.appendChild(child);
         }
         this.docNodes = [];
         this.showing = false;
@@ -358,24 +361,28 @@ export class FrameDialog {
 
 export class FramePopup {
 
-    private parent: HTMLElement;
-    private docIFrame: Document;
-    private divContent: HTMLDivElement;
-    private divPopup = document.createElement("div");
+    private _frame: Frame;
+    private _divContent: HTMLDivElement;
+    private _divMain: HTMLDivElement = document.createElement("div");
 
-    public constructor(parent: HTMLElement, docIFrame: Document, divContent: HTMLDivElement) {
-        this.parent = parent;
-        this.docIFrame = docIFrame;
-        this.divContent = divContent;
-        this.initPopup();
+    private _posLeft: number = 18;
+    private _posTop: number = 18;
+    private _maxWidth: number;
+    private _maxHeight: number;
+
+    public constructor(frame: Frame, divContent: HTMLDivElement) {
+        this._frame = frame;
+        this._divContent = divContent;
+        this.initMain();
     }
 
-    private initPopup() {
-        this.divPopup.appendChild(this.divContent);
-        QinSoul.skin.styleAsEdit(this.divPopup);
-        this.divPopup.style.position = "absolute";
-        this.divPopup.style.padding = "5px";
-        this.addFocusOutCloseToAll(this.divPopup);
+    private initMain() {
+        this._divMain.appendChild(this._divContent);
+        QinSoul.skin.styleAsEdit(this._divMain);
+        this._divMain.style.position = "absolute";
+        this._divMain.style.padding = "5px";
+        this._divMain.style.overflow = "auto";
+        this.addFocusOutCloseToAll(this._divMain);
     }
 
     private addFocusOutCloseToAll(el: HTMLElement) {
@@ -389,9 +396,8 @@ export class FramePopup {
     }
 
     private onFocusOutClose(ev: FocusEvent) {
-        const divCheck = this.divPopup;
         setTimeout(() => {
-            if (!divCheck.contains(this.docIFrame.activeElement)) {
+            if (!this._divMain.contains(this._frame.getIFrameDocument().activeElement)) {
                 this.close();
             }
         }, 360);
@@ -400,30 +406,148 @@ export class FramePopup {
 
     public show() {
         this.close();
-        this.docIFrame.body.appendChild(this.divPopup);
-        const parentBounds = this.parent.getBoundingClientRect();
-        this.divPopup.style.left = parentBounds.x + "px";
-        if (this.parent instanceof HTMLDivElement) {
-            this.divPopup.style.top = parentBounds.y + "px";
-        } else {
-            this.divPopup.style.top = (parentBounds.y + parentBounds.height) + "px";
-        }
-        this.divPopup.tabIndex = 0;
-        this.divPopup.focus();
+        this._frame.getIFrameDocument().body.appendChild(this._divMain);
+        this._maxWidth = this._frame.getIFrame().clientWidth - (this._posLeft * 3);
+        this._maxHeight = this._frame.getIFrame().clientHeight - (this._posTop * 3);
+        this._divMain.style.left = this._posLeft + "px";
+        this._divMain.style.top = this._posTop + "px";
+        this._divMain.style.maxWidth = this._maxWidth + "px";
+        this._divMain.style.maxHeight = this._maxHeight + "px";
+        this._divMain.tabIndex = 0;
+        this._divMain.focus();
     }
 
     public close() {
-        if (this.docIFrame.body.contains(this.divPopup)) {
-            this.docIFrame.body.removeChild(this.divPopup);
+        if (this._frame.getIFrameDocument().body.contains(this._divMain)) {
+            this._frame.getIFrameDocument().body.removeChild(this._divMain);
         }
     }
 
     public toggle() {
-        if (this.docIFrame.body.contains(this.divPopup)) {
+        if (this._frame.getIFrameDocument().body.contains(this._divMain)) {
             this.close();
         } else {
             this.show();
         }
     }
 
+    /**
+     * Getter frame
+     * @return {Frame}
+     */
+	public get frame(): Frame {
+		return this._frame;
+	}
+
+    /**
+     * Getter divContent
+     * @return {HTMLDivElement}
+     */
+	public get divContent(): HTMLDivElement {
+		return this._divContent;
+	}
+
+    /**
+     * Getter divMain
+     * @return {HTMLDivElement }
+     */
+	public get divMain(): HTMLDivElement  {
+		return this._divMain;
+	}
+
+    /**
+     * Getter posLeft
+     * @return {number}
+     */
+	public get posLeft(): number {
+		return this._posLeft;
+	}
+
+    /**
+     * Getter posTop
+     * @return {number}
+     */
+	public get posTop(): number {
+		return this._posTop;
+	}
+
+    /**
+     * Getter maxWidth
+     * @return {number}
+     */
+	public get maxWidth(): number {
+		return this._maxWidth;
+	}
+
+    /**
+     * Getter maxHeight
+     * @return {number}
+     */
+	public get maxHeight(): number {
+		return this._maxHeight;
+	}
+
+}
+
+const styles = {
+    applyOnIFrame: (el: HTMLIFrameElement) => {
+        const head = el.contentWindow.document.head;
+        const defaultCSS  = document.createElement('link');
+        defaultCSS.id   = "QinpelIFrameDefaultCSS";
+        defaultCSS.rel  = "stylesheet";
+        defaultCSS.type = "text/css";
+        defaultCSS.href = "/run/app/qinpel-app/default.css";
+        defaultCSS.media = "all";
+        head.appendChild(defaultCSS);
+    },
+    applyOnDialog: (el: HTMLDivElement) => {
+        el.style.position = "absolute";
+        el.style.top = "0px";
+        el.style.right = "0px";
+        el.style.bottom = "0px";
+        el.style.left = "0px";
+        el.style.display = "flex";
+        el.style.flexDirection = "column";
+    },
+    applyOnDialogTop: (el: HTMLDivElement) => {
+        el.style.flex = "0";
+        el.style.padding = "3px";
+        el.style.margin = "0px";
+        el.style.border = "0px";
+        el.style.display = "flex";
+        el.style.flexDirection = "row";
+        el.style.flexWrap = "wrap";
+        el.style.alignItems = "center";
+        el.style.backgroundColor = QinStyles.ColorFont;
+        el.style.color = QinStyles.ColorBack;
+    },
+    applyOnDialogPack: (el: HTMLDivElement) => {
+        el.style.flex = "1";
+        el.style.overflow = "auto";
+        el.style.display = "flex";
+        el.style.justifyContent = "center";
+        el.style.alignItems = "center";
+        el.style.padding = "0px";
+        el.style.margin = "0px";
+        el.style.border = "0px";
+    },
+    applyOnDialogTitle: (el: HTMLSpanElement) => {
+        el.style.flex = "1";
+        el.style.textAlign = "center";
+        el.style.fontWeight = "bold";
+    },
+    applyOnDialogClose: (el: HTMLSpanElement) => {
+        el.style.flex = "0";
+        el.style.padding = "0px";
+        el.style.margin = "0px";
+        el.style.border = "0px";
+        el.style.display = "flex";
+        el.style.justifyContent = "center";
+        el.style.alignItems = "center";
+    },
+    applyOnDialogImage: (el: HTMLImageElement) => {
+        el.style.padding = "0px";
+        el.style.margin = "0px";
+        el.style.border = "0px";
+    },
 }

@@ -42,6 +42,7 @@ export declare class Qinpel {
         head: {
             getDeskAPI: () => any;
             log: (message: string) => void;
+            logError: (error: any) => void;
             getErrorMessage: (error: any, origin?: string) => string;
             toggleDevTools: () => void;
         };
@@ -53,8 +54,9 @@ export declare class Qinpel {
                 FontName: string;
                 FontSize: string;
             };
-            styleAsBody: (el: HTMLDivElement) => void;
+            styleAsBody: (el: HTMLElement) => void;
             styleAsEdit: (el: HTMLElement) => void;
+            styleMaxSizeForNotOverFlow: (el: HTMLElement, parent?: HTMLElement) => void;
             styleSize: (el: HTMLElement, size?: import("qinpel-res").QinDimension | import("qinpel-res").QinGrandeur) => void;
             styleFlexMax: (el: HTMLElement) => void;
             styleFlexMin: (el: HTMLElement) => void;

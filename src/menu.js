@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var qinpel_res_1 = require("qinpel-res");
-var qinpel = window.frameElement.qinpel;
-var Menu = (function () {
-    function Menu() {
+const qinpel_res_1 = require("qinpel-res");
+const qinpel = window.frameElement.qinpel;
+class Menu {
+    constructor() {
         this.divBody = document.createElement("div");
         this.divApps = document.createElement("div");
         this.divConfigs = document.createElement("div");
@@ -11,80 +11,77 @@ var Menu = (function () {
         this.initApps();
         this.initCfgs();
     }
-    Menu.prototype.initBody = function () {
+    initBody() {
         this.divBody.id = "QinpelMenuDivBody";
         this.divBody.appendChild(this.divApps);
         this.divBody.appendChild(this.divConfigs);
-    };
-    Menu.prototype.initApps = function () {
-        var _this = this;
+    }
+    initApps() {
         qinpel.get("/list/app")
-            .then(function (res) {
-            for (var _i = 0, _a = _this.listApps(res.data); _i < _a.length; _i++) {
-                var name_1 = _a[_i];
-                _this.tryAddApp(name_1);
+            .then(res => {
+            for (let name of this.listApps(res.data)) {
+                this.tryAddApp(name);
             }
             ;
         })
-            .catch(function (err) {
-            _this.divBody.innerText = qinpel_res_1.QinSoul.head.getErrorMessage(err, "(ErrCode-000002)");
+            .catch(err => {
+            this.divBody.innerText = qinpel_res_1.QinSoul.head.getErrorMessage(err, "(ErrCode-000002)");
         });
-    };
-    Menu.prototype.listApps = function (response) {
+    }
+    listApps(response) {
         return qinpel_res_1.QinSoul.body.getTextLines(response);
-    };
-    Menu.prototype.tryAddApp = function (name) {
-        var _this = this;
+    }
+    tryAddApp(name) {
         if (name && name != "qinpel-app") {
             qinpel.get("/run/app/" + name + "/title.txt")
-                .then(function (res) {
-                var title = res.data;
-                var icon = "../" + name + "/favicon.ico";
-                _this.addMenu(_this.divApps, _this.newMenu(title, icon, function () {
+                .then(res => {
+                const title = res.data;
+                const icon = "../" + name + "/favicon.ico";
+                this.addMenu(this.divApps, this.newMenu(title, icon, () => {
                     qinpel.manager.newFrame(title, "../" + name + "/index.html");
                     qinpel.frame.headCloseAction();
                 }));
             })
-                .catch(function (err) {
-                var divError = document.createElement("div");
+                .catch(err => {
+                const divError = document.createElement("div");
                 divError.innerText = qinpel_res_1.QinSoul.head.getErrorMessage(err, "(ErrCode-000001)");
-                _this.addMenu(_this.divApps, divError);
+                this.addMenu(this.divApps, divError);
             });
         }
-    };
-    Menu.prototype.initCfgs = function () {
+    }
+    initCfgs() {
         if (qinpel_res_1.QinSoul.foot.isLocalHost()) {
             this.addDevTools();
         }
-    };
-    Menu.prototype.addDevTools = function () {
-        this.addMenu(this.divConfigs, this.newMenu("DevTools", "./assets/menu-devtools.ico", function () {
+    }
+    addDevTools() {
+        this.addMenu(this.divConfigs, this.newMenu("DevTools", "./assets/menu-devtools.ico", () => {
             qinpel_res_1.QinSoul.head.toggleDevTools();
+            qinpel.frame.headCloseAction();
         }));
-    };
-    Menu.prototype.newMenu = function (title, icon, action) {
-        var divContent = document.createElement("div");
+    }
+    newMenu(title, icon, action) {
+        const divContent = document.createElement("div");
         divContent.className = "QinpelMenuDivMenuContent";
-        var imgIcon = document.createElement("img");
+        const imgIcon = document.createElement("img");
         imgIcon.src = icon;
-        var spanTitle = document.createElement("span");
+        const spanTitle = document.createElement("span");
         spanTitle.innerText = title;
         divContent.appendChild(imgIcon);
         divContent.appendChild(spanTitle);
         qinpel_res_1.QinSoul.arm.addAction(divContent, action);
         return divContent;
-    };
-    Menu.prototype.addMenu = function (divContainer, divContent) {
-        var divMenu = document.createElement("div");
+    }
+    addMenu(divContainer, divContent) {
+        const divMenu = document.createElement("div");
         divMenu.className = 'QinpelMenuDivMenu';
         divMenu.appendChild(divContent);
         divContainer.appendChild(divMenu);
-    };
-    Menu.prototype.putInDocument = function () {
+    }
+    putInDocument() {
         document.body.appendChild(this.divBody);
-    };
-    return Menu;
-}());
+    }
+}
 if (qinpel.manager.needToLog()) {
     window.frameElement.src = "./login.html";
 }

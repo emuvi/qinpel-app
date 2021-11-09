@@ -1,11 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var qinpel = window.frameElement.qinpel;
+const qinpel = window.frameElement.qinpel;
 qinpel.frame.statusInfo("You must inform your user and pass to enter.");
-var buttonEnter = document.getElementById("loginEnter");
-qinpel.utils.arm.addAction(buttonEnter, function (qinEvent) {
-    if (qinEvent.isEnterOrSpaceOrPointer()) {
-        qinpel.frame.statusInfo("OI neginho!");
+const inputUser = document.getElementById("loginUser");
+const inputPass = document.getElementById("loginPass");
+const buttonEnter = document.getElementById("loginEnter");
+qinpel.utils.arm.addAction(buttonEnter, (qinEvent) => {
+    if (qinEvent.isPrimary()) {
+        qinpel.manager.tryLogin(inputUser.value, inputPass.value);
     }
 });
 //# sourceMappingURL=login.js.map

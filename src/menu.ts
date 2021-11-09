@@ -1,5 +1,5 @@
 import { QinSoul } from "qinpel-res"
-import { Qinpel } from "../types/qinpel";
+import { Qinpel } from "./qinpel";
 const qinpel = (window.frameElement as any).qinpel as Qinpel;
 
 class Menu {
@@ -67,6 +67,7 @@ class Menu {
         this.addMenu(this.divConfigs,
             this.newMenu("DevTools", "./assets/menu-devtools.ico", () => {
                 QinSoul.head.toggleDevTools();
+                qinpel.frame.headCloseAction();
             })
         );
     }

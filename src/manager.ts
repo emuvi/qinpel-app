@@ -203,4 +203,10 @@ export class Manager {
         return axios.post(address, data, configs);
     }
 
+    public tryLogin(name: string, pass: string) {
+        this.post("/login", { name, pass })
+            .then(res => QinSoul.head.log(res.data))
+            .catch(err => QinSoul.head.logError(err));
+    }
+
 }

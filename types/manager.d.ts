@@ -31,8 +31,9 @@ export declare class Manager {
     getBodyHeight(): number;
     hasLogged(): boolean;
     needToLog(): boolean;
+    private getAxiosConfig;
     get(address: string, headers?: any): Promise<AxiosResponse<never>>;
     post(address: string, data: any, headers?: any): Promise<AxiosResponse<any>>;
-    private getAxiosConfig;
+    tryLogin(name: string, pass: string): void;
 }
 //# sourceMappingURL=manager.d.ts.map
