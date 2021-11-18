@@ -6,13 +6,18 @@
 }
 
 @font-face {
-    font-family: Poppins;
-    src: url("/run/app/qinpel-app/assets/poppins.ttf");
+    font-family: SourceSansPro;
+    src: url("/run/app/qinpel-app/assets/SourceSansPro.ttf");
+}
+
+@font-face {
+    font-family: SourceSerifPro;
+    src: url("/run/app/qinpel-app/assets/SourceSerifPro.ttf");
 }
 
 body {
     color: #270036;
     background-color: #f1f1f1;
-    font-family: Poppins;
-    font-size: 15px;
+    font-family: SourceSansPro;
+    font-size: 16px;
 }

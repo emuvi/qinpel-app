@@ -74,7 +74,7 @@
 
 .QinpelWindowFrameHeadTitle {
     flex: 1;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .QinpelWindowFrameBody {
@@ -98,5 +98,5 @@
     flex: 1;
     white-space: nowrap;
     overflow: hidden;
-    font-size: 12px;
+    font-size: 14px;
 }
