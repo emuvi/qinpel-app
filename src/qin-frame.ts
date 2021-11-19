@@ -3,10 +3,14 @@ import { QinSoul, QinBounds, QinGrandeur, QinStyles } from "qinpel-res";
 import { QinManager } from "./qin-manager";
 import { Qinpel } from "./qinpel";
 
+export type QinWaiter = (result: any) => void;
+
 export class QinFrame {
     private manager: QinManager;
     private title: string;
-    private address: string;
+    private appName: string;
+    private options: any;
+    private waiters: QinWaiter[] = [];
     private rndID = Math.floor(Math.random() * 1000000);
     private divFrame = document.createElement("div");
     private divHead = document.createElement("div");
@@ -26,10 +30,11 @@ export class QinFrame {
     private lastWidth = -1;
     private lastHeight = -1;
 
-    public constructor(manager: QinManager, title: string, address: string) {
+    public constructor(manager: QinManager, title: string, appName: string, options?: any) {
         this.manager = manager;
         this.title = this.initFrameTitle(title);
-        this.address = address;
+        this.appName = appName;
+        this.options = options ? options : {};
         this.initDivFrame();
         this.initDivHead();
         this.initIFrameBody();
@@ -126,7 +131,11 @@ export class QinFrame {
     private initIFrameBody() {
         this.iframeBody.id = "QinpelInsideFrameID" + this.rndID;
         this.iframeBody.className = "QinpelWindowFrameBody";
-        this.iframeBody.src = this.address;
+        let address = this.appName;
+        if (!address.startsWith("/run/app/")) {
+            address = "/run/app/" + address + "/index.html";
+        }
+        this.iframeBody.src = address;
         this.iframeBody.onload = (_) => {
             styles.applyOnIFrame(this.iframeBody);
         }
@@ -168,8 +177,55 @@ export class QinFrame {
             });
     }
 
+    public getManager(): QinManager {
+        return this.manager;
+    }
+
     public getTitle(): string {
         return this.title;
+    }
+
+    public getAppName(): string {
+        return this.appName;
+    }
+
+    public getOptions(): any {
+        return this.options;
+    }
+
+    public setOptions(options: any) {
+        this.options = options;
+    }
+
+    public putOptions(options: any) {
+        if (!this.options) {
+            this.options = {};
+        }
+        if (options) {
+            Object.assign(this.options, options);
+        }
+    }
+
+    public cleanOptions() {
+        this.options = {};
+    }
+
+    public addWaiter(waiter: QinWaiter) {
+        this.waiters.push(waiter);
+    }
+
+    public hasWaiters(): boolean {
+        return this.waiters.length > 0;
+    }
+
+    public sendWaiters(withResult: any) {
+        for (const waiter of this.waiters) {
+            waiter(withResult);
+        }
+    }
+
+    public cleanWaiters() {
+        this.waiters = [];
     }
 
     public getID(): string {
@@ -188,43 +244,11 @@ export class QinFrame {
     }
 
     public headMinimizeAction() {
-        if (this.minimized) {
-            this.divFrame.style.width = this.lastWidth + "px";
-            this.divFrame.style.height = this.lastHeight + "px";
-            this.iframeBody.style.display = "";
-            this.divFoot.style.display = "";
-            this.minimized = false;
-        } else {
-            if (this.maximized) {
-                this.headMaximizeAction();
-            }
-            this.lastWidth = parseInt(this.divFrame.style.width, 10);
-            this.lastHeight = parseInt(this.divFrame.style.height, 10);
-            this.iframeBody.style.display = "none";
-            this.divFoot.style.display = "none";
-            this.divFrame.style.width = param.MINIMIZED_WIDTH + "px";
-            this.divFrame.style.height = this.divHead.clientHeight + "px";
-            this.minimized = true;
-        }
-        this.manager.showElement(this.divFrame);
+        this.minimize();
     }
 
     public headMaximizeAction() {
-        if (this.maximized) {
-            this.divFrame.style.width = this.lastWidth + "px";
-            this.divFrame.style.height = this.lastHeight + "px";
-            this.maximized = false;
-        } else {
-            if (this.minimized) {
-                this.headMinimizeAction();
-            }
-            this.lastWidth = parseInt(this.divFrame.style.width, 10);
-            this.lastHeight = parseInt(this.divFrame.style.height, 10);
-            this.divFrame.style.width = this.manager.getBodyWidth() - 4 + "px";
-            this.divFrame.style.height = this.manager.getBodyHeight() - 4 + "px";
-            this.maximized = true;
-        }
-        this.manager.showElement(this.divFrame);
+        this.maximized();
     }
 
     public headCloseAction() {
@@ -252,6 +276,46 @@ export class QinFrame {
     }
 
     public show() {
+        this.manager.showElement(this.divFrame);
+    }
+
+    public minimize() {
+        if (this.minimized) {
+            this.divFrame.style.width = this.lastWidth + "px";
+            this.divFrame.style.height = this.lastHeight + "px";
+            this.iframeBody.style.display = "";
+            this.divFoot.style.display = "";
+            this.minimized = false;
+        } else {
+            if (this.maximized) {
+                this.headMaximizeAction();
+            }
+            this.lastWidth = parseInt(this.divFrame.style.width, 10);
+            this.lastHeight = parseInt(this.divFrame.style.height, 10);
+            this.iframeBody.style.display = "none";
+            this.divFoot.style.display = "none";
+            this.divFrame.style.width = param.MINIMIZED_WIDTH + "px";
+            this.divFrame.style.height = this.divHead.clientHeight + "px";
+            this.minimized = true;
+        }
+        this.manager.showElement(this.divFrame);
+    }
+
+    public maximize() {
+        if (this.maximized) {
+            this.divFrame.style.width = this.lastWidth + "px";
+            this.divFrame.style.height = this.lastHeight + "px";
+            this.maximized = false;
+        } else {
+            if (this.minimized) {
+                this.headMinimizeAction();
+            }
+            this.lastWidth = parseInt(this.divFrame.style.width, 10);
+            this.lastHeight = parseInt(this.divFrame.style.height, 10);
+            this.divFrame.style.width = this.manager.getBodyWidth() - 4 + "px";
+            this.divFrame.style.height = this.manager.getBodyHeight() - 4 + "px";
+            this.maximized = true;
+        }
         this.manager.showElement(this.divFrame);
     }
 

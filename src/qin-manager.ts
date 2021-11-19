@@ -35,7 +35,7 @@ export class QinManager {
             if (event.hasShift) {
                 document.body.requestFullscreen();
             } else {
-                this.newFrame("Qinpel", "./menu.html");
+                this.newFrame("Qinpel", "/run/app/qinpel-app/menu.html");
             }
             return false;
         });
@@ -58,10 +58,11 @@ export class QinManager {
         QinSoul.skin.disableSelection(document.body);
     }
 
-    public newFrame(title: string, address: string) {
-        let frame = new QinFrame(this, title, address);
-        frame.install();
-        this.frames.push(frame);
+    public newFrame(title: string, appName: string, options?: any): QinFrame {
+        let result = new QinFrame(this, title, appName, options);
+        result.install();
+        this.frames.push(result);
+        return result;
     }
 
     public getFrame(fromTitle: string): QinFrame {
@@ -136,11 +137,11 @@ export class QinManager {
     }
 
     public popMenuClear() {
-
+        // TODO - Manager PopupMenu
     }
 
     public popMenuShow() {
-
+        // TODO - Manager PopupMenu
     }
 
     public popMenuClose() {

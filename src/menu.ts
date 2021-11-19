@@ -44,7 +44,7 @@ class Menu {
                     const icon = "../" + name + "/favicon.ico";
                     this.addMenu(this.divApps,
                         this.newMenu(title, icon, () => {
-                            qinpel.manager.newFrame(title, "../" + name + "/index.html");
+                            qinpel.manager.newFrame(title, name);
                             qinpel.frame.headCloseAction();
                         })
                     );
