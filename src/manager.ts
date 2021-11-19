@@ -206,7 +206,7 @@ export class Manager {
     public tryLogin(name: string, pass: string) {
         this.post("/login", { name, pass })
             .then(res => QinSoul.head.log(res.data))
-            .catch(err => QinSoul.head.logError(err));
+            .catch(err => QinSoul.head.logError(err, "{qinpel-app}(ErrCode-000001)"));
     }
 
 }

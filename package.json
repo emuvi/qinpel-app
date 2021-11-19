@@ -2,7 +2,7 @@
   "name": "qinpel-app",
   "version": "0.1.0",
   "description": "",
-  "main": "main.js",
+  "main": "./build/main.js",
   "types": "./types",
   "repository": "https://github.com/emuvi/qinpel-app",
   "scripts": {

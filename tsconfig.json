@@ -5,9 +5,10 @@
         "moduleResolution": "node",
         "sourceMap": true,
         "declaration": true,
-        "declarationDir": "./types",
+        "declarationDir": "types",
         "declarationMap": true,
-        "removeComments": true
+        "removeComments": true,
+        "outDir": "build"
     },
     "files": [
         "src/main.ts",
