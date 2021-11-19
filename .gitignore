@@ -2,3 +2,4 @@ node_modules/
 build/
 types/
 *.log
+package-lock.json
