@@ -189,8 +189,8 @@ export class QinFrame {
         return this.appName;
     }
 
-    public getOptions(): any {
-        return this.options;
+    public getOption(name: string): any {
+        return this.options[name];
     }
 
     public setOptions(options: any) {
