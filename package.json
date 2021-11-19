@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "",
   "main": "./build/main.js",
-  "types": "./types",
+  "types": "./types/main.d.ts",
   "repository": "https://github.com/emuvi/qinpel-app",
   "scripts": {
     "start": "bash -v test.sh"
