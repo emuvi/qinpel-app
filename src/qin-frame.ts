@@ -1,10 +1,10 @@
-import { Manager } from "./manager";
 import { QinSoul, QinBounds, QinGrandeur, QinStyles } from "qinpel-res";
-import param from "./param";
+
+import { QinManager } from "./qin-manager";
 import { Qinpel } from "./qinpel";
 
-export class Frame {
-    private manager: Manager;
+export class QinFrame {
+    private manager: QinManager;
     private title: string;
     private address: string;
     private rndID = Math.floor(Math.random() * 1000000);
@@ -26,7 +26,7 @@ export class Frame {
     private lastWidth = -1;
     private lastHeight = -1;
 
-    public constructor(manager: Manager, title: string, address: string) {
+    public constructor(manager: QinManager, title: string, address: string) {
         this.manager = manager;
         this.title = this.initFrameTitle(title);
         this.address = address;
@@ -269,19 +269,19 @@ export class Frame {
         return this.iframeBody.contentWindow.document;
     }
 
-    public newDialog(title: string, divContent: HTMLDivElement): FrameDialog {
-        return new FrameDialog(this, title, divContent);
+    public newDialog(title: string, divContent: HTMLDivElement): QinFrameDialog {
+        return new QinFrameDialog(this, title, divContent);
     }
 
-    public newPopup(divContent: HTMLDivElement): FramePopup {
-        return new FramePopup(this, divContent);
+    public newPopup(divContent: HTMLDivElement): QinFramePopup {
+        return new QinFramePopup(this, divContent);
     }
 
 }
 
-export class FrameDialog {
+export class QinFrameDialog {
 
-    private frame: Frame;
+    private frame: QinFrame;
     private title: string;
     private divContent: HTMLDivElement;
     private divDialog = document.createElement("div");
@@ -294,7 +294,7 @@ export class FrameDialog {
     private showing = false;
     private docNodes: ChildNode[] = [];
 
-    public constructor(frame: Frame, title: string, divContent: HTMLDivElement) {
+    public constructor(frame: QinFrame, title: string, divContent: HTMLDivElement) {
         this.frame = frame;
         this.title = title;
         this.divContent = divContent;
@@ -359,9 +359,9 @@ export class FrameDialog {
 
 }
 
-export class FramePopup {
+export class QinFramePopup {
 
-    private _frame: Frame;
+    private _frame: QinFrame;
     private _divContent: HTMLDivElement;
     private _divMain: HTMLDivElement = document.createElement("div");
 
@@ -370,7 +370,7 @@ export class FramePopup {
     private _maxWidth: number;
     private _maxHeight: number;
 
-    public constructor(frame: Frame, divContent: HTMLDivElement) {
+    public constructor(frame: QinFrame, divContent: HTMLDivElement) {
         this._frame = frame;
         this._divContent = divContent;
         this.initMain();
@@ -433,9 +433,9 @@ export class FramePopup {
 
     /**
      * Getter frame
-     * @return {Frame}
+     * @return {QinFrame}
      */
-	public get frame(): Frame {
+	public get frame(): QinFrame {
 		return this._frame;
 	}
 
@@ -551,3 +551,9 @@ const styles = {
         el.style.border = "0px";
     },
 }
+
+const param = {
+    POP_MENU_MAX_HEIGHT: 270,
+    POP_MENU_WIDTH: 180,
+    MINIMIZED_WIDTH: 180,
+};

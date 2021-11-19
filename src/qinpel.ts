@@ -1,15 +1,15 @@
-import { Manager } from "./manager";
-import { Frame } from "./frame";
+import { QinManager } from "./qin-manager";
+import { QinFrame } from "./qin-frame";
 import { AxiosResponse } from "axios";
 import { QinSoul } from "qinpel-res";
 
 export class Qinpel {
 
-    public manager: Manager;
-    public frame: Frame;
+    public manager: QinManager;
+    public frame: QinFrame;
     public utils = QinSoul;
 
-    public constructor(manager: Manager, frame: Frame) {
+    public constructor(manager: QinManager, frame: QinFrame) {
         this.manager = manager;
         this.frame = frame;
     }

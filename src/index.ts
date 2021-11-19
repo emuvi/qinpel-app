@@ -1,5 +1,5 @@
-import { Manager } from "./manager";
+import { QinManager } from "./qin-manager";
 
-const manager = new Manager();
+const manager = new QinManager();
 manager.putInDocument();
 export default manager;

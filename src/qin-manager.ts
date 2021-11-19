@@ -1,13 +1,14 @@
-import { Frame } from "./frame";
 import axios, { AxiosResponse } from "axios";
 import { QinAction, QinSoul } from "qinpel-res";
 
-export class Manager {
+import { QinFrame } from "./qin-frame";
+
+export class QinManager {
 
     private divBody = document.createElement("div");
     private divMenu = document.createElement("div");
     private imgMenu = document.createElement("img");
-    private frames: Frame[] = [];
+    private frames: QinFrame[] = [];
     private framesTopZ = 1;
 
     private token = "";
@@ -58,12 +59,12 @@ export class Manager {
     }
 
     public newFrame(title: string, address: string) {
-        let frame = new Frame(this, title, address);
+        let frame = new QinFrame(this, title, address);
         frame.install();
         this.frames.push(frame);
     }
 
-    public getFrame(fromTitle: string): Frame {
+    public getFrame(fromTitle: string): QinFrame {
         for (const frame of this.frames) {
             if (frame.getTitle() === fromTitle) {
                 return frame;
@@ -80,7 +81,7 @@ export class Manager {
         this.divBody.removeChild(child);
     }
 
-    public getFrameFromID(fromID: string): Frame {
+    public getFrameFromID(fromID: string): QinFrame {
         for (const frame of this.frames) {
             if (frame.getID() === fromID) {
                 return frame;
@@ -98,7 +99,7 @@ export class Manager {
         return -1;
     }
 
-    public delFrame(frame: Frame) {
+    public delFrame(frame: QinFrame) {
         const index = this.frames.indexOf(frame);
         if (index > -1) {
             this.frames.splice(index, 1);
