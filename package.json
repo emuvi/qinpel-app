@@ -1,7 +1,7 @@
 {
   "name": "qinpel-app",
   "version": "0.1.0",
-  "description": "",
+  "description": "QinpelApp - Qinpel Application Platform.",
   "main": "./build/main.js",
   "types": "./types/main.d.ts",
   "repository": "https://github.com/emuvi/qinpel-app",

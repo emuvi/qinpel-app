@@ -30,6 +30,8 @@ export class QinFrame {
     private lastWidth = -1;
     private lastHeight = -1;
 
+    private statusRecords: StatusRecord[] = [];
+
     public constructor(manager: QinManager, title: string, appName: string, options?: any) {
         this.manager = manager;
         this.title = this.initFrameTitle(title);
@@ -248,7 +250,7 @@ export class QinFrame {
     }
 
     public headMaximizeAction() {
-        this.maximized();
+        this.maximize();
     }
 
     public headCloseAction() {
@@ -256,12 +258,31 @@ export class QinFrame {
     }
 
     public statusInfo(message: string) {
-        this.divStatusText.innerText = message;
+        let rec = {
+            kind: StatusKind.INFO,
+            message: message
+        }
+        this.statusRecords.push(rec);
+        this.divStatusText.innerText = this.getDisplayStatusMessage(message);
     }
 
     public statusError(error: any, origin: string) {
+        let message = QinSoul.head.getErrorMessage(error, origin);
+        let rec = {
+            kind: StatusKind.ERROR,
+            message: message
+        }
+        this.statusRecords.push(rec);
         this.imgStatusType.src = "./assets/frame-status-error.png";
-        this.divStatusText.innerText = QinSoul.head.getErrorMessage(error, origin);
+        this.divStatusText.innerText = this.getDisplayStatusMessage(message);
+    }
+
+    private getDisplayStatusMessage(message: string): string {  
+        if (message.length > FaceConfigs.STATUS_MESSAGE_MAX_LENGTH) {
+            return message.substring(0, FaceConfigs.STATUS_MESSAGE_MAX_LENGTH);
+        } else {
+            return message;
+        }
     }
 
     public saveFrameBounds() {
@@ -294,7 +315,7 @@ export class QinFrame {
             this.lastHeight = parseInt(this.divFrame.style.height, 10);
             this.iframeBody.style.display = "none";
             this.divFoot.style.display = "none";
-            this.divFrame.style.width = param.MINIMIZED_WIDTH + "px";
+            this.divFrame.style.width = FaceConfigs.MINIMIZED_WIDTH + "px";
             this.divFrame.style.height = this.divHead.clientHeight + "px";
             this.minimized = true;
         }
@@ -616,8 +637,18 @@ const styles = {
     },
 }
 
-const param = {
+enum StatusKind {
+    INFO, ERROR
+}
+
+type StatusRecord = {
+    kind: StatusKind,
+    message: string,
+}
+
+const FaceConfigs = {
     POP_MENU_MAX_HEIGHT: 270,
     POP_MENU_WIDTH: 180,
     MINIMIZED_WIDTH: 180,
+    STATUS_MESSAGE_MAX_LENGTH: 180,
 };
