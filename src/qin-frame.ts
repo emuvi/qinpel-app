@@ -1,9 +1,8 @@
+import { QinWaiter } from "qinpel-res";
 import { QinSoul, QinBounds, QinGrandeur, QinStyles } from "qinpel-res";
 
 import { QinManager } from "./qin-manager";
 import { Qinpel } from "./qinpel";
-
-export type QinWaiter = (result: any) => void;
 
 export class QinFrame {
     private manager: QinManager;
