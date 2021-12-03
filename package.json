@@ -1,16 +1,15 @@
 {
   "name": "qinpel-app",
   "version": "0.1.0",
-  "description": "QinpelApp - Qinpel Application Platform.",
+  "description": "Qinpel Application - Main manager of Qinpel (Quick Interface for Pointel) Platform.",
+  "repository": "https://github.com/emuvi/qinpel-app",
+  "author": "Éverton M. Vieira",
+  "license": "LGPL-3.0-only",
   "main": "./build/main.js",
   "types": "./types/main.d.ts",
-  "repository": "https://github.com/emuvi/qinpel-app",
   "scripts": {
     "start": "bash -v test.sh"
   },
-  "keywords": [],
-  "author": "Éverton M. Vieira",
-  "license": "LGPL-3.0-only",
   "dependencies": {
     "axios": "^0.22.0",
     "qinpel-res": "file:../qinpel-res"
