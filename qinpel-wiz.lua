@@ -1,1 +1,0 @@
-print("QinpelApp Wizard")
