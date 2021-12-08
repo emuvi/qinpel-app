@@ -37,7 +37,7 @@ class Menu {
     }
 
     private tryAddApp(name: string) {
-        if (name && name != "qinpel-app") {
+        if (name != "" && name != "qinpel-app") {
             qinpel.get("/run/app/" + name + "/title.txt")
                 .then(res => {
                     const title = res.data;

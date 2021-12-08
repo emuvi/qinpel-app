@@ -11,8 +11,8 @@ export class QinManager {
     private frames: QinFrame[] = [];
     private framesTopZ = 1;
 
-    private token = "";
     private userLang = "";
+    private userToken = "";
 
     public constructor() {
         this.initBody();
@@ -107,11 +107,6 @@ export class QinManager {
         }
     }
 
-    public showMenu() {
-        this.divBody.scrollTo(0, 0);
-        this.showElement(this.divMenu);
-    }
-
     public showElement(element: HTMLElement) {
         setTimeout(() => {
             if (element.id != "QinpelPopMenuID1") {
@@ -132,24 +127,25 @@ export class QinManager {
         }, 360);
     }
 
-    public popMenuAdd(title: string, action: QinAction) {
-
+    public showMenu() {
+        this.divBody.scrollTo(0, 0);
+        this.showElement(this.divMenu);
     }
 
-    public popMenuClear() {
-        // TODO - Manager PopupMenu
+    public showPopMenu() {
+        // TODO - Show PopupMenu
     }
 
-    public popMenuShow() {
-        // TODO - Manager PopupMenu
-    }
-
-    public popMenuClose() {
+    private popMenuClose() {
         // TODO - Get the PopMenu from the olds
         // if (qinpelRefWindow.refPopMenu != null) {
         //     qinpelRefWindow.divBody.removeChild(qinpelRefWindow.refPopMenu.elements.divPopMenu);
         //     qinpelRefWindow.refPopMenu = null;
         // }
+    }
+
+    public showAlert(message: string) {
+        // TODO - Show Alert
     }
 
     public getBodyWidth() {
@@ -161,7 +157,7 @@ export class QinManager {
     }
 
     public hasLogged() {
-        return this.token != "";
+        return this.userToken != "";
     }
 
     public needToLog() {
@@ -172,7 +168,7 @@ export class QinManager {
         if (!headers) {
             headers = {};
         }
-        headers['Qinpel-Token'] = this.token;
+        headers['Qinpel-Token'] = this.userToken;
         if (!headers['Accept-Language']) {
             if (this.userLang) {
                 headers['Accept-Language'] = this.userLang;
@@ -205,10 +201,16 @@ export class QinManager {
         return axios.post(address, data, configs);
     }
 
-    public tryLogin(name: string, pass: string) {
-        this.post("/login", { name, pass })
-            .then(res => QinSoul.head.log(res.data))
-            .catch(err => QinSoul.head.logError(err, "{qinpel-app}(ErrCode-000001)"));
+    public tryLogin(name: string, pass: string): Promise<string> {
+        return new Promise((resolve, reject) => {
+            this.post("/enter", { name, pass })
+                .then(res => {
+                    this.userLang = res.data.lang;
+                    this.userToken = res.data.token;
+                    resolve(this.userLang)
+                })
+                .catch(err => reject(err));
+        });
     }
 
 }

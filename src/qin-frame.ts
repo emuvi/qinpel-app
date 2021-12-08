@@ -361,6 +361,10 @@ export class QinFrame {
         return new QinFramePopup(this, divContent);
     }
 
+    public navigate(url: string) {
+        this.iframeBody.src = url;
+    }
+
 }
 
 export class QinFrameDialog {
