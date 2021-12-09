@@ -603,8 +603,8 @@ const styles = {
         el.style.flexDirection = "row";
         el.style.flexWrap = "wrap";
         el.style.alignItems = "center";
-        el.style.backgroundColor = QinStyles.ColorFont;
-        el.style.color = QinStyles.ColorBack;
+        el.style.backgroundColor = QinStyles.ColorForeground;
+        el.style.color = QinStyles.ColorBackground;
     },
     applyOnDialogPack: (el: HTMLDivElement) => {
         el.style.flex = "1";
