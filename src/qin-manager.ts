@@ -145,7 +145,8 @@ export class QinManager {
     }
 
     public showAlert(message: string) {
-        // TODO - Show Alert
+        alert(message);
+        // TODO - Show Better Alert
     }
 
     public getBodyWidth() {
@@ -201,7 +202,7 @@ export class QinManager {
         return axios.post(address, data, configs);
     }
 
-    public tryLogin(name: string, pass: string): Promise<string> {
+    public tryEnter(name: string, pass: string): Promise<string> {
         return new Promise((resolve, reject) => {
             this.post("/enter", { name, pass })
                 .then(res => {

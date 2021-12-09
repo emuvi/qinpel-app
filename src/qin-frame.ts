@@ -194,14 +194,11 @@ export class QinFrame {
         return this.options[name];
     }
 
-    public setOptions(options: any) {
-        this.options = options;
+    public setOption(name: string, value: any) {
+        this.options[name] = value;
     }
 
     public putOptions(options: any) {
-        if (!this.options) {
-            this.options = {};
-        }
         if (options) {
             Object.assign(this.options, options);
         }
