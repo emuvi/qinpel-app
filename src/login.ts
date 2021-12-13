@@ -9,7 +9,7 @@ qinpel.utils.arm.addAction(buttonEnter, (qinEvent) => {
         const user = inputUser.value;
         qinpel.manager.tryEnter(user, inputPass.value)
             .then(_ => {
-                qinpel.frame.statusInfo("Successful entry of " + user)
+                qinpel.frame.statusInfo("Successful entry with user " + user)
                 qinpel.frame.navigate("./menu.html");
             })
             .catch(err => {
