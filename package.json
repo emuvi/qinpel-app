@@ -1,7 +1,7 @@
 {
   "name": "qinpel-app",
   "version": "0.1.0",
-  "description": "Qinpel Application - Main manager of Qinpel (Quick Interface for Pointel) Platform.",
+  "description": "QinpelApp is a manager application for graphical user interfaces of the Pointel platform. Is the frontend of the Qinpel, the Quick Interface for Power Intelligence.",
   "repository": "https://github.com/emuvi/qinpel-app",
   "author": "Éverton M. Vieira",
   "license": "LGPL-3.0-only",
