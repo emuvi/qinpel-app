@@ -7,11 +7,6 @@
   "license": "LGPL-3.0-only",
   "main": "./build/main.js",
   "types": "./types/main.d.ts",
-  "scripts": {
-    "build": "bash -v build.sh",
-    "test-dsk": "bash -v test-dsk.sh",
-    "test-srv": "bash -v test-srv.sh"
-  },
   "dependencies": {
     "axios": "^0.22.0",
     "qinpel-res": "file:../qinpel-res"
