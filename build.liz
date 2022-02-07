@@ -1,0 +1,3 @@
+liz.run("clean")
+npm install
+tsc -p tsconfig.json
