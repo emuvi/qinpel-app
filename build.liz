@@ -1,3 +1,5 @@
-liz.run("clean")
-npm install
-tsc -p tsconfig.json
+#!/bin/liz
+print("Building...")
+liz.cmd("npm", {"install"})
+liz.cmd("tsc", {"-p", "tsconfig.json"})
+print("Done Build!")
