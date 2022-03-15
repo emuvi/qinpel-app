@@ -1,0 +1,40 @@
+#!/bin/liz
+
+local wd = Liz.wd()
+local project = Liz.path_name(wd)
+print("Testing " .. project .. " ...")
+Liz.run("build")
+if Liz.is_win() then
+    Ext = ".cmd"
+else
+    Ext = ""
+end
+Srcs = Liz.path_list_files_ext("public", "js");
+for _, src in pairs(Srcs) do
+    local src_name = Liz.path_name(src)
+    local build = "build/" .. src_name
+    if Liz.has(build) then
+        print("Browserifing " .. build .. " ...")
+        Liz.cmd("browserify" .. Ext, {build, "--debug", "-o", src})
+    end
+end
+
+local dev_path = Liz.path_parent_find(wd, "Devs")
+if dev_path == "" then
+    print("Could not found the Devs path.")
+    return
+end
+local tst_path = Liz.path_join(dev_path, "Test")
+local app_dest = Liz.path_join(tst_path, "app")
+local pro_dest = Liz.path_join(app_dest, project)
+Liz.rm(pro_dest)
+Liz.mkdir(pro_dest)
+Liz.cp("public", pro_dest)
+
+if Liz.has("test.liz") then
+    print("Testing specifics...")
+    Liz.run_wd("test.liz")
+    print("Done test specifics...")
+end
+
+print("Done test application")

@@ -35,7 +35,7 @@ export class QinManager {
             if (event.hasShift) {
                 document.body.requestFullscreen();
             } else {
-                this.newFrame("Qinpel", "/run/app/qinpel-app/menu.html");
+                this.newFrame("Qinpel", "/app/qinpel-app/menu.html");
             }
             return false;
         });

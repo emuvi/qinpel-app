@@ -7,12 +7,12 @@
 
 @font-face {
     font-family: SourceSansPro;
-    src: url("/run/app/qinpel-app/assets/SourceSansPro.ttf");
+    src: url("/app/qinpel-app/assets/SourceSansPro.ttf");
 }
 
 @font-face {
     font-family: SourceSerifPro;
-    src: url("/run/app/qinpel-app/assets/SourceSerifPro.ttf");
+    src: url("/app/qinpel-app/assets/SourceSerifPro.ttf");
 }
 
 body {

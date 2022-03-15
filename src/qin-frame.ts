@@ -133,8 +133,8 @@ export class QinFrame {
         this.iframeBody.id = "QinpelInsideFrameID" + this.rndID;
         this.iframeBody.className = "QinpelWindowFrameBody";
         let address = this.appName;
-        if (!address.startsWith("/run/app/")) {
-            address = "/run/app/" + address + "/index.html";
+        if (!address.startsWith("/app/")) {
+            address = "/app/" + address + "/index.html";
         }
         this.iframeBody.src = address;
         this.iframeBody.onload = (_) => {
@@ -401,7 +401,7 @@ export class QinFrameDialog {
         styles.applyOnDialogClose(this.spanClose);
         this.divTop.appendChild(this.spanClose);
         styles.applyOnDialogImage(this.imgClose);
-        this.imgClose.src = "/run/app/qinpel-app/assets/frame-close.png";
+        this.imgClose.src = "/app/qinpel-app/assets/frame-close.png";
         this.spanClose.appendChild(this.imgClose);
         QinSoul.arm.addAction(this.spanClose, (_) => {
             this.close();
@@ -581,7 +581,7 @@ const styles = {
         defaultCSS.id   = "QinpelIFrameDefaultCSS";
         defaultCSS.rel  = "stylesheet";
         defaultCSS.type = "text/css";
-        defaultCSS.href = "/run/app/qinpel-app/default.css";
+        defaultCSS.href = "/app/qinpel-app/default.css";
         defaultCSS.media = "all";
         head.appendChild(defaultCSS);
     },

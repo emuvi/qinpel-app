@@ -20,7 +20,7 @@ class Menu {
     }
 
     public initApps() {
-        qinpel.get("/list/app")
+        qinpel.get("/list/apps")
             .then(res => {
                 for (let name of this.listApps(res.data)) {
                     this.tryAddApp(name);
@@ -38,7 +38,7 @@ class Menu {
 
     private tryAddApp(name: string) {
         if (name != "" && name != "qinpel-app") {
-            qinpel.get("/run/app/" + name + "/title.txt")
+            qinpel.get("/app/" + name + "/title.txt")
                 .then(res => {
                     const title = res.data;
                     const icon = "../" + name + "/favicon.ico";
