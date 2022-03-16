@@ -8,8 +8,8 @@
    width="32"
    height="32"
    inkscape:export-filename="face-cog.png"
-   inkscape:export-xdpi="192"
-   inkscape:export-ydpi="192"
+   inkscape:export-xdpi="144"
+   inkscape:export-ydpi="144"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -37,6 +37,7 @@
      width="32px" />
   <path
      d="m 14,0 h 4 L 19,6 20.707,6.707 26,3.293 28.707,6 25.293,11.293 26,13 l 6,1 v 4 L 26,19 25.293,20.707 28.707,26 26,28.707 20.707,25.293 19,26 18,32 H 14 L 13,26 11.293,25.293 6,28.707 3.293,26 6.707,20.707 6,19 0,18 V 14 L 6,13 6.707,11.293 3.293,6 6,3.293 11.293,6.707 13,6 Z m 2,10 a 6,6 0 0 0 0,12 6,6 0 0 0 0,-12"
+     fill="#180027"
      id="path2"
-     style="fill:#360045;fill-opacity:1;stroke-width:0.999995" />
+     style="stroke-width:0.999995" />
 </svg>

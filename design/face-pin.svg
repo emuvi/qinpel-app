@@ -8,8 +8,8 @@
    id="svg4"
    sodipodi:docname="face-pin.svg"
    inkscape:export-filename="face-pin.png"
-   inkscape:export-xdpi="192"
-   inkscape:export-ydpi="192"
+   inkscape:export-xdpi="144"
+   inkscape:export-ydpi="144"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -38,7 +38,7 @@
   <path
      clip-rule="evenodd"
      d="m 14.4,3.2 c -0.88368,0 -1.6,0.716352 -1.6,1.6 v 9.6 c 0,0.88368 -0.716352,1.6 -1.6,1.6 H 9.6 C 8.716352,16 8,16.71632 8,17.6 v 1.6 H 24 V 17.6 C 24,16.71632 23.28368,16 22.4,16 h -1.6 c -0.88368,0 -1.6,-0.71632 -1.6,-1.6 V 4.8 C 19.2,3.916352 18.48368,3.2 17.6,3.2 Z M 9.6,4.8 C 9.6,2.14904 11.74904,0 14.4,0 h 3.2 c 2.65104,0 4.8,2.14904 4.8,4.8 v 8 c 2.65104,0 4.8,2.14896 4.8,4.8 v 3.2 c 0,0.88368 -0.71632,1.6 -1.6,1.6 h -8 v 8 c 0,0.88368 -0.71632,1.6 -1.6,1.6 -0.88368,0 -1.6,-0.71632 -1.6,-1.6 v -8 h -8 c -0.883648,0 -1.6,-0.71632 -1.6,-1.6 v -3.2 c 0,-2.65104 2.14904,-4.8 4.8,-4.8 z"
-     fill="#360045"
+     fill="#180027"
      fill-rule="evenodd"
      id="path2"
      style="stroke-width:1.6" />

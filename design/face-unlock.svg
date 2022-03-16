@@ -8,8 +8,8 @@
    id="svg4"
    sodipodi:docname="face-unlock.svg"
    inkscape:export-filename="face-unlock.png"
-   inkscape:export-xdpi="192"
-   inkscape:export-ydpi="192"
+   inkscape:export-xdpi="144"
+   inkscape:export-ydpi="144"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -38,7 +38,7 @@
   <path
      clip-rule="evenodd"
      d="m 16,3.2 c -3.534624,0 -6.4,2.865376 -6.4,6.4 v 3.2 H 28.8 V 27.2 C 28.8,29.85104 26.65104,32 24,32 H 8 C 5.34904,32 3.2,29.85104 3.2,27.2 V 12.8 H 6.4 V 9.6 C 6.4,4.298064 10.698064,0 16,0 20.64624,0 24.5184,3.299136 25.408,7.681712 25.58384,8.547696 25.02432,9.39224 24.15824,9.568016 23.29232,9.743808 22.44768,9.184288 22.272,8.318288 21.67904,5.397696 19.0944,3.2 16,3.2 Z M 6.4,16 v 11.2 c 0,0.88368 0.716352,1.6 1.6,1.6 h 16 c 0.88368,0 1.6,-0.71632 1.6,-1.6 V 16 Z m 9.6,3.2 c 0.88368,0 1.6,0.71632 1.6,1.6 V 24 c 0,0.88368 -0.71632,1.6 -1.6,1.6 -0.88368,0 -1.6,-0.71632 -1.6,-1.6 v -3.2 c 0,-0.88368 0.71632,-1.6 1.6,-1.6 z"
-     fill="#360045"
+     fill="#180027"
      fill-rule="evenodd"
      id="path2"
      style="stroke-width:1.6" />

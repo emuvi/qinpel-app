@@ -9,8 +9,8 @@
    sodipodi:docname="face-arrow-down.svg"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    inkscape:export-filename="face-arrow-down.png"
-   inkscape:export-xdpi="192"
-   inkscape:export-ydpi="192"
+   inkscape:export-xdpi="144"
+   inkscape:export-ydpi="144"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -27,19 +27,18 @@
      inkscape:pagecheckerboard="0"
      showgrid="false"
      inkscape:zoom="12.138666"
-     inkscape:cx="11.98649"
-     inkscape:cy="14.293169"
-     inkscape:window-width="1920"
-     inkscape:window-height="1013"
-     inkscape:window-x="-9"
-     inkscape:window-y="29"
+     inkscape:cx="11.945299"
+     inkscape:cy="14.334359"
+     inkscape:window-width="3840"
+     inkscape:window-height="2080"
+     inkscape:window-x="2869"
+     inkscape:window-y="35"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg4" />
   <path
      clip-rule="evenodd"
      d="m 2.2984935,16.52071 c 0.6942756,-0.69422 1.8198934,-0.69422 2.514169,0 l 9.4095825,9.409583 V 1.7777779 c 0,-0.98186668 0.795911,-1.777777775 1.777778,-1.777777775 0.981867,0 1.777778,0.795911095 1.777778,1.777777775 V 25.930293 l 9.409598,-9.409582 c 0.694223,-0.69422 1.819913,-0.69422 2.514134,0 0.694222,0.694224 0.694222,1.819911 0,2.514135 L 17.25709,31.479307 c -0.694223,0.694257 -1.819911,0.694257 -2.514134,0 L 2.2984935,19.034845 c -0.6942577,-0.694224 -0.6942577,-1.819911 0,-2.514135 z"
-     fill="#000000"
      fill-rule="evenodd"
      id="path2"
-     style="fill:#360045;fill-opacity:1;stroke-width:1.77778" />
+     style="fill:#180027;fill-opacity:1;stroke-width:1.77778" />
 </svg>

@@ -9,8 +9,8 @@
    sodipodi:docname="face-arrow-up.svg"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    inkscape:export-filename="face-arrow-up.png"
-   inkscape:export-xdpi="192"
-   inkscape:export-ydpi="192"
+   inkscape:export-xdpi="144"
+   inkscape:export-ydpi="144"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -39,8 +39,8 @@
   <path
      clip-rule="evenodd"
      d="m 29.701507,15.479291 c -0.694276,0.694222 -1.819892,0.694222 -2.514169,0 L 17.777757,6.0697073 V 30.222223 C 17.777757,31.204089 16.981846,32 15.99998,32 15.018111,32 14.222202,31.204089 14.222202,30.222223 V 6.0697073 L 4.8126001,15.479291 c -0.6942223,0.694222 -1.8199112,0.694222 -2.5141334,0 -0.6942223,-0.694224 -0.6942223,-1.819911 0,-2.514135 L 14.742911,0.5206938 c 0.694224,-0.6942577 1.819911,-0.6942577 2.514135,0 L 29.701507,12.965156 c 0.694258,0.694224 0.694258,1.819911 0,2.514135 z"
-     fill="#000000"
+     fill="#180027"
      fill-rule="evenodd"
      id="path2"
-     style="fill:#360045;fill-opacity:1;stroke-width:1.77778" />
+     style="stroke-width:1.77778" />
 </svg>

@@ -8,8 +8,8 @@
    id="svg4"
    sodipodi:docname="face-minus.svg"
    inkscape:export-filename="face-minus.png"
-   inkscape:export-xdpi="192"
-   inkscape:export-ydpi="192"
+   inkscape:export-xdpi="144"
+   inkscape:export-ydpi="144"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -38,7 +38,7 @@
   <path
      clip-rule="evenodd"
      d="m -0.001998,16 c 0,-0.98199 0.7960461,-1.778 1.7779998,-1.778 H 30.223998 c 0.98199,0 1.778,0.79601 1.778,1.778 0,0.981989 -0.79601,1.778 -1.778,1.778 H 1.7760018 C 0.7940481,17.778 -0.001998,16.981989 -0.001998,16 Z"
-     fill="#360045"
+     fill="#180027"
      fill-rule="evenodd"
      id="path2"
      style="stroke-width:1.778" />

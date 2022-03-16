@@ -8,8 +8,8 @@
    id="svg4"
    sodipodi:docname="face-file.svg"
    inkscape:export-filename="face-file.png"
-   inkscape:export-xdpi="192"
-   inkscape:export-ydpi="192"
+   inkscape:export-xdpi="144"
+   inkscape:export-ydpi="144"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -38,7 +38,7 @@
   <path
      clip-rule="evenodd"
      d="M 8,3.2 C 7.116352,3.2 6.4,3.916352 6.4,4.8 v 22.4 c 0,0.88368 0.716352,1.6 1.6,1.6 h 16 c 0.88368,0 1.6,-0.71632 1.6,-1.6 V 14.4 c 0,-0.88368 -0.71632,-1.6 -1.6,-1.6 H 17.6 C 16.71632,12.8 16,12.083648 16,11.2 V 4.8 C 16,3.916352 15.28368,3.2 14.4,3.2 Z M 17.70112,0 c 1.42464,0 2.77552,0.632752 3.68752,1.72712 l 6.29888,7.55856 C 28.4064,10.148304 28.8,11.235664 28.8,12.35856 V 27.2 C 28.8,29.85104 26.65104,32 24,32 H 8 C 5.34904,32 3.2,29.85104 3.2,27.2 V 4.8 C 3.2,2.14904 5.34904,0 8,0 Z M 23.784,9.6 19.1376,4.024496 C 19.17872,4.276928 19.2,4.535984 19.2,4.8 v 4.8 z"
-     fill="#360045"
+     fill="#180027"
      fill-rule="evenodd"
      id="path2"
      style="stroke-width:1.6" />

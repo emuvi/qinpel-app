@@ -8,8 +8,8 @@
    id="svg4"
    sodipodi:docname="face-arrow-left.svg"
    inkscape:export-filename="face-arrow-left.png"
-   inkscape:export-xdpi="192"
-   inkscape:export-ydpi="192"
+   inkscape:export-xdpi="144"
+   inkscape:export-ydpi="144"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -38,7 +38,7 @@
   <path
      clip-rule="evenodd"
      d="m 15.479289,2.2984932 c 0.694222,0.6942756 0.694222,1.8198934 0,2.5141689 L 6.0697067,14.222244 H 30.222222 C 31.204089,14.222244 32,15.018156 32,16.000022 32,16.981889 31.204089,17.7778 30.222222,17.7778 H 6.0697067 l 9.4095823,9.4096 c 0.694222,0.694222 0.694222,1.819911 0,2.514133 -0.694222,0.694223 -1.819911,0.694223 -2.514133,0 L 0.52069329,17.257089 c -0.6942577,-0.694222 -0.6942577,-1.819911 0,-2.514133 L 12.965156,2.2984932 c 0.694222,-0.6942577 1.819911,-0.6942577 2.514133,0 z"
-     fill="#360045"
+     fill="#180027"
      fill-rule="evenodd"
      id="path2"
      style="stroke-width:1.77778" />

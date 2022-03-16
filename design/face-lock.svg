@@ -8,8 +8,8 @@
    id="svg4"
    sodipodi:docname="face-lock.svg"
    inkscape:export-filename="face-lock.png"
-   inkscape:export-xdpi="192"
-   inkscape:export-ydpi="192"
+   inkscape:export-xdpi="144"
+   inkscape:export-ydpi="144"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -38,7 +38,7 @@
   <path
      clip-rule="evenodd"
      d="m 16,3.2 c -3.534624,0 -6.4,2.865376 -6.4,6.4 v 3.2 H 22.4 V 9.6 C 22.4,6.065376 19.53456,3.2 16,3.2 Z m 9.6,9.6 V 9.6 C 25.6,4.298064 21.30192,0 16,0 10.698064,0 6.4,4.298064 6.4,9.6 v 3.2 H 3.2 V 27.2 C 3.2,29.85104 5.34904,32 8,32 h 16 c 2.65104,0 4.8,-2.14896 4.8,-4.8 V 12.8 Z M 6.4,16 v 11.2 c 0,0.88368 0.716352,1.6 1.6,1.6 h 16 c 0.88368,0 1.6,-0.71632 1.6,-1.6 V 16 Z m 9.6,3.2 c 0.88368,0 1.6,0.71632 1.6,1.6 V 24 c 0,0.88368 -0.71632,1.6 -1.6,1.6 -0.88368,0 -1.6,-0.71632 -1.6,-1.6 v -3.2 c 0,-0.88368 0.71632,-1.6 1.6,-1.6 z"
-     fill="#360045"
+     fill="#180027"
      fill-rule="evenodd"
      id="path2"
      style="stroke-width:1.6" />

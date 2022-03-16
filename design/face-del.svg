@@ -9,8 +9,8 @@
    sodipodi:docname="face-del.svg"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    inkscape:export-filename="face-del.png"
-   inkscape:export-xdpi="192"
-   inkscape:export-ydpi="192"
+   inkscape:export-xdpi="144"
+   inkscape:export-ydpi="144"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -38,9 +38,9 @@
   <path
      clip-rule="evenodd"
      d="M 16,3.5555556 C 9.127129,3.5555556 3.5555556,9.127129 3.5555556,16 3.5555556,22.872889 9.127129,28.444444 16,28.444444 22.872889,28.444444 28.444444,22.872889 28.444444,16 28.444444,9.127129 22.872889,3.5555556 16,3.5555556 Z M 0,16 C 0,7.163449 7.163449,0 16,0 24.836622,0 32,7.163449 32,16 32,24.836622 24.836622,32 16,32 7.163449,32 0,24.836622 0,16 Z m 23.111111,-1.777778 c 0.981867,0 1.777778,0.795911 1.777778,1.777778 0,0.981867 -0.795911,1.777778 -1.777778,1.777778 -7.220316,0 -4.008882,0 -14.222222,0 -0.981831,0 -1.777778,-0.795911 -1.777778,-1.777778 0,-0.981867 0.795947,-1.777778 1.777778,-1.777778 8.851449,0 3.569031,0 14.222222,0 z"
-     fill="#000000"
+     fill="#180027"
      fill-rule="evenodd"
      id="path2"
      sodipodi:nodetypes="sssssssssscsccscc"
-     style="fill:#360045;fill-opacity:1;stroke-width:1.77778" />
+     style="stroke-width:1.77778" />
 </svg>

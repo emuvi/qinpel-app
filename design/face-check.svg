@@ -8,8 +8,8 @@
    id="svg4"
    sodipodi:docname="face-check.svg"
    inkscape:export-filename="C:\Code\qinpel-app\design\face-check.png"
-   inkscape:export-xdpi="192"
-   inkscape:export-ydpi="192"
+   inkscape:export-xdpi="144"
+   inkscape:export-ydpi="144"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -38,7 +38,7 @@
   <path
      clip-rule="evenodd"
      d="m 31.479333,4.0762326 c 0.694223,0.6942765 0.694223,1.8198958 0,2.5141723 L 10.145987,27.92375 c -0.3334041,0.333333 -0.7855831,0.520711 -1.2570861,0.520711 -0.471503,0 -0.923681,-0.187378 -1.257086,-0.520711 L 0.52069398,20.812629 c -0.6942588,-0.694223 -0.6942588,-1.819914 0,-2.514137 0.69427652,-0.694223 1.81989582,-0.694223 2.51417232,0 L 8.8889009,24.152544 28.965196,4.0762326 c 0.694223,-0.6942588 1.819913,-0.6942588 2.514137,0 z"
-     fill="#360045"
+     fill="#180027"
      fill-rule="evenodd"
      id="path2"
      style="stroke-width:1.77778" />
