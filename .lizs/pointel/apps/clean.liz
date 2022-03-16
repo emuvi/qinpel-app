@@ -1,0 +1,8 @@
+#!/bin/liz
+
+print("Cleaning...")
+Liz.rm("node_modules")
+Liz.rm("build")
+Liz.rm("types")
+Liz.rm("package-lock.json")
+print("Done clean application")

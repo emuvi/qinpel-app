@@ -7,16 +7,16 @@
 
 @font-face {
     font-family: SourceSansPro;
-    src: url("/app/qinpel-app/assets/SourceSansPro.ttf");
+    src: url("/app/qinpel-app/assets/source-sans-pro.ttf");
 }
 
 @font-face {
     font-family: SourceSerifPro;
-    src: url("/app/qinpel-app/assets/SourceSerifPro.ttf");
+    src: url("/app/qinpel-app/assets/source-serif-pro.ttf");
 }
 
 body {
-    color: #270036;
+    color: #180027;
     background-color: #f1f1f1;
     font-family: SourceSansPro;
     font-size: 16px;

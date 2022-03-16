@@ -27,7 +27,7 @@ export class QinManager {
   private initMenu() {
     this.divMenu.id = "QinpelMenuID0";
     this.divMenu.className = "QinpelWindowMenu";
-    this.imgMenu.src = "./assets/qinpel.png";
+    this.imgMenu.src = "./assets/qinpel-48.png";
     this.imgMenu.alt = "Menu";
     this.divMenu.appendChild(this.imgMenu);
     this.divBody.appendChild(this.divMenu);
