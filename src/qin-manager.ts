@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from "axios";
-
 import { QinSoul } from "qinpel-res";
-
+import { QinAddsApp, QinDesk } from "./qin-desk";
 import { QinFrame } from "./qin-frame";
+import { Qinpel } from "./qinpel";
 
 export class QinManager {
   private divBody = document.createElement("div");
@@ -15,9 +15,15 @@ export class QinManager {
   private userToken = "";
 
   public constructor() {
+    this.initUser();
     this.initBody();
     this.initMenu();
-    this.initDraggable();
+    this.initScroll();
+  }
+
+  private initUser() {
+    this.userLang = QinSoul.body.getCookie("Qinpel-Lang", "");
+    this.userToken = QinSoul.body.getCookie("Qinpel-Token", "");
   }
 
   private initBody() {
@@ -41,7 +47,7 @@ export class QinManager {
     });
   }
 
-  private initDraggable() {
+  private initScroll() {
     QinSoul.arm.addScroller(this.divBody, {
       onDouble: () => {
         this.divBody.scrollTo(0, 0);
@@ -56,6 +62,10 @@ export class QinManager {
   public putInDocument() {
     document.body.appendChild(this.divBody);
     QinSoul.skin.disableSelection(document.body);
+  }
+
+  public newDesk(qinpel: Qinpel, qinAddsApp?: QinAddsApp): QinDesk {
+    return new QinDesk(qinpel, qinAddsApp);
   }
 
   public newFrame(title: string, appName: string, options?: any): QinFrame {
@@ -132,7 +142,7 @@ export class QinManager {
     this.showElement(this.divMenu);
   }
 
-  public showPopMenu() {
+  public popMenuShow() {
     // TODO - Show PopupMenu
   }
 
@@ -212,35 +222,16 @@ export class QinManager {
         .then((res) => {
           this.userLang = res.data.lang;
           this.userToken = res.data.token;
-          setCookie("Qinpel-Token", this.userToken);
+          QinSoul.body.setCookie("Qinpel-Lang", this.userLang);
+          QinSoul.body.setCookie("Qinpel-Token", this.userToken);
           resolve(this.userLang);
         })
         .catch((err) => reject(err));
     });
   }
-}
 
-function setCookie(name: any, value: any, options: any = {}) {
-  options = {
-    path: "/",
-    // add other defaults here if necessary
-    ...options,
-  };
-
-  if (options.expires instanceof Date) {
-    options.expires = options.expires.toUTCString();
+  public exit() {
+    this.userLang = "";
+    this.userToken = "";
   }
-
-  let updatedCookie =
-    encodeURIComponent(name) + "=" + encodeURIComponent(value);
-
-  for (let optionKey in options) {
-    updatedCookie += "; " + optionKey;
-    let optionValue = options[optionKey];
-    if (optionValue !== true) {
-      updatedCookie += "=" + optionValue;
-    }
-  }
-
-  document.cookie = updatedCookie;
 }
