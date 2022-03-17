@@ -27,12 +27,28 @@ export class QinManager {
   }
 
   private initBody() {
-    this.divBody.className = "QinpelWindowBody";
+    this.divBody.style.backgroundImage = "url('./assets/background-normal.png')";
+    this.divBody.style.backgroundAttachment = "local";
+    this.divBody.style.fontWeight = "bold";
+    this.divBody.style.fontSize = "12px";
+    this.divBody.style.position = "relative";
+    this.divBody.style.width = "100%";
+    this.divBody.style.height = "100vh";
+    this.divBody.style.overflow = "scroll";
+    this.divBody.style.touchAction = "none";
   }
 
   private initMenu() {
     this.divMenu.id = "QinpelMenuID0";
-    this.divMenu.className = "QinpelWindowMenu";
+    this.divMenu.style.backgroundColor = "#270036";
+    this.divMenu.style.border  = "2px solid #180027";
+    this.divMenu.style.borderRadius = "4px";
+    this.divMenu.style.position = "absolute";
+    this.divMenu.style.overflow = "hidden";
+    this.divMenu.style.top = "18px";
+    this.divMenu.style.left = "18px";
+    this.divMenu.style.width = "48px";
+    this.divMenu.style.height = "48px";
     this.imgMenu.src = "./assets/qinpel-48.png";
     this.imgMenu.alt = "Menu";
     this.divMenu.appendChild(this.imgMenu);
@@ -143,11 +159,27 @@ export class QinManager {
   }
 
   public popMenuShow() {
-    // TODO - Show PopupMenu
+    // [TODO] - Show PopupMenu
+    let divMenu = document.createElement("div");
+    divMenu.style.backgroundColor = "#878787";
+    divMenu.style.border = "2px solid #6c6c6c";
+    divMenu.style.borderStyle = "outset";
+    divMenu.style.borderRadius = "4px";
+    divMenu.style.position = "absolute";
+    divMenu.style.display = "flex";
+    divMenu.style.flexDirection = "column";
+    divMenu.style.overflowX = "hidden";
+    divMenu.style.overflowY = "auto";
+    let divMenuItem = document.createElement("div");
+    divMenuItem.style.borderBottom = "2px solid #b4b4b6";
+    divMenuItem.style.backgroundColor = "#eaeaea";
+    divMenuItem.style.color = "#242424";
+    divMenuItem.style.cursor = "pointer";
+    divMenuItem.style.padding = "4px";
   }
 
   private popMenuClose() {
-    // TODO - Get the PopMenu from the olds
+    // [TODO] - Close PopupMenu
     // if (qinpelRefWindow.refPopMenu != null) {
     //     qinpelRefWindow.divBody.removeChild(qinpelRefWindow.refPopMenu.elements.divPopMenu);
     //     qinpelRefWindow.refPopMenu = null;
