@@ -4,6 +4,9 @@ import { QinFramePopup } from "./qin-frame-popup";
 import { QinManager } from "./qin-manager";
 import { Qinpel } from "./qinpel";
 
+export { QinFrameDialog } from "./qin-frame-dialog";
+export { QinFramePopup } from "./qin-frame-popup";
+
 export class QinFrame {
   private manager: QinManager;
   private title: string;
@@ -147,6 +150,7 @@ export class QinFrame {
   private initIFrameBody() {
     this.iframeBody.id = "QinpelIFrameBodyID" + this.rndID;
     styles.applyOnIFrameBody(this.iframeBody);
+    this.iframeBody.style.display = "initial";
     let address = this.appName;
     if (!address.startsWith("/app/")) {
       address = "/app/" + address + "/index.html";
@@ -161,6 +165,8 @@ export class QinFrame {
   private initStatusBody() {
     this.statusBody.id = "QinpelStatusBodyID" + this.rndID;
     styles.applyOnStatusBody(this.statusBody);
+    this.statusBody.style.display = "none";
+    this.divBody.appendChild(this.statusBody);
   }
 
   private initDivFoot() {
@@ -203,12 +209,12 @@ export class QinFrame {
 
   private switchStatus() {
     if (this.seeStatus) {
-      this.divBody.removeChild(this.statusBody);
-      this.divBody.appendChild(this.iframeBody);
+      this.statusBody.style.display = "none";
+      this.iframeBody.style.display = "initial";
       this.seeStatus = false;
     } else {
-      this.divBody.removeChild(this.iframeBody);
-      this.divBody.appendChild(this.statusBody);
+      this.iframeBody.style.display = "none";
+      this.statusBody.style.display = "initial";
       this.statusBody.scrollTop = this.statusBody.scrollHeight;
       this.seeStatus = true;
     }

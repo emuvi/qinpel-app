@@ -6,5 +6,7 @@ import { QinDesk } from "./qin-desk";
 if (qinpel.manager.needToLog()) {
   (window.frameElement as HTMLIFrameElement).src = "./login.html";
 } else {
-  new QinDesk(qinpel, manifest => !manifest.group).putInDocument();
+  new QinDesk(qinpel, {
+    addsApps: (manifest) => !manifest.group,
+  }).putInDocument();
 }

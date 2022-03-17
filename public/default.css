@@ -3,6 +3,8 @@
     border: 0px;
     padding: 0px;
     outline: none;
+    min-width: 0px;
+    min-height: 0px;
 }
 
 @font-face {

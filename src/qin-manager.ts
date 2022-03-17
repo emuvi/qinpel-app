@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { QinSoul } from "qinpel-res";
-import { QinAddsApp, QinDesk } from "./qin-desk";
+import { QinDesk, QinDeskOptions } from "./qin-desk";
 import { QinFrame } from "./qin-frame";
 import { Qinpel } from "./qinpel";
 
@@ -80,8 +80,8 @@ export class QinManager {
     QinSoul.skin.disableSelection(document.body);
   }
 
-  public newDesk(qinpel: Qinpel, qinAddsApp?: QinAddsApp): QinDesk {
-    return new QinDesk(qinpel, qinAddsApp);
+  public newDesk(qinpel: Qinpel, options?: QinDeskOptions): QinDesk {
+    return new QinDesk(qinpel, options);
   }
 
   public newFrame(title: string, appName: string, options?: any): QinFrame {

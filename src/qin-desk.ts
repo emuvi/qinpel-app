@@ -1,5 +1,5 @@
 import { Qinpel } from "./qinpel";
-import { QinSoul } from "qinpel-res";
+import { QinAction, QinSoul } from "qinpel-res";
 
 export class QinDesk {
   private divMain = document.createElement("div");
@@ -7,24 +7,26 @@ export class QinDesk {
   private divCfgs = document.createElement("div");
 
   private qinpel: Qinpel;
-  private qinAddsApp: QinAddsApp;
+  private options: QinDeskOptions;
 
-  public constructor(qinpel: Qinpel, qinAddsApp?: QinAddsApp) {
+  public constructor(qinpel: Qinpel, options?: QinDeskOptions) {
     this.qinpel = qinpel;
-    this.qinAddsApp = qinAddsApp;
+    this.options = options;
     this.initMain();
-    this.initApps();
-    this.initCfgs();
+    if (!(this.options?.showApps === false)) {
+      this.initApps();
+    }
+    if (!(this.options?.showCfgs === false)) {
+      this.initCfgs();
+    }
   }
 
   private initMain() {
-    this.divMain.style.padding = "3px";
-    this.divMain.appendChild(this.divApps);
-    this.divMain.appendChild(this.divCfgs);
+    styles.applyOnDivMain(this.divMain);
   }
 
   public initApps() {
-    this.divApps.style.padding = "9px";
+    styles.applyOnDivLine(this.divApps);
     this.qinpel
       .get("/list/apps")
       .then((res) => {
@@ -38,6 +40,7 @@ export class QinDesk {
         }
         this.qinpel.frame.statusError(err, "{qinpel-app}(ErrCode-000002)");
       });
+    this.divMain.appendChild(this.divApps);
   }
 
   private listApps(response: string) {
@@ -50,8 +53,8 @@ export class QinDesk {
         .get("/app/" + name + "/manifest.json")
         .then((res) => {
           const manifest = res.data as QinManifest;
-          if (this.qinAddsApp) {
-            if (!this.qinAddsApp(manifest)) {
+          if (this.options?.addsApps) {
+            if (!this.options.addsApps(manifest)) {
               return;
             }
           }
@@ -59,9 +62,11 @@ export class QinDesk {
           const icon = "../" + name + "/favicon.ico";
           this.addMenu(
             this.divApps,
-            this.newMenu(title, icon, () => {
-              this.qinpel.manager.newFrame(title, name);
-              this.qinpel.frame.headCloseAction();
+            this.newMenu(title, icon, (ev) => {
+              if (ev.isPrimary) {
+                this.qinpel.manager.newFrame(title, name);
+                this.qinpel.frame.headCloseAction();
+              }
             })
           );
         })
@@ -72,49 +77,60 @@ export class QinDesk {
   }
 
   private initCfgs() {
-    this.divCfgs.style.padding = "9px";
+    styles.applyOnDivLine(this.divCfgs);
     if (QinSoul.foot.isLocalHost()) {
+      if (this.options?.addsCfgs) {
+        if (
+          !this.options.addsCfgs({
+            title: "DevTools",
+          })
+        ) {
+          return;
+        }
+      }
       this.addDevTools();
     }
+    this.divMain.appendChild(this.divCfgs);
   }
 
   private addDevTools() {
     this.addMenu(
       this.divCfgs,
-      this.newMenu("DevTools", "./assets/menu-devtools.ico", () => {
-        QinSoul.head.toggleDevTools();
-        this.qinpel.frame.headCloseAction();
-      })
+      this.newMenu(
+        "DevTools",
+        "/app/qinpel-app/assets/menu-devtools.ico",
+        (ev) => {
+          if (ev.isPrimary) {
+            QinSoul.head.toggleDevTools();
+            this.qinpel.frame.headCloseAction();
+          }
+        }
+      )
     );
   }
 
-  private newMenu(title: string, icon: string, action: any): HTMLDivElement {
-    const divContent = document.createElement("div");
-    divContent.style.display = "flex";
-    divContent.style.flexDirection = "column";
-    divContent.style.alignItems = "center";
-    const imgIcon = document.createElement("img");
-    imgIcon.style.width = "48px";
-    imgIcon.style.height = "48px";
-    imgIcon.style.margin = "3px";
-    imgIcon.src = icon;
-    const spanTitle = document.createElement("span");
-    spanTitle.style.margin = "3px";
-    spanTitle.style.fontWeight = "bold";
-    spanTitle.innerText = title;
-    divContent.appendChild(imgIcon);
-    divContent.appendChild(spanTitle);
-    QinSoul.arm.addAction(divContent, action);
-    return divContent;
+  private newMenu(
+    title: string,
+    icon: string,
+    action: QinAction
+  ): HTMLDivElement {
+    const menuBody = document.createElement("div");
+    styles.applyOnMenuBody(menuBody);
+    const menuIcon = document.createElement("img");
+    styles.applyOnMenuIcon(menuIcon);
+    menuIcon.src = icon;
+    const menuText = document.createElement("span");
+    styles.applyOnMenuText(menuText);
+    menuText.innerText = title;
+    menuBody.appendChild(menuIcon);
+    menuBody.appendChild(menuText);
+    QinSoul.arm.addAction(menuBody, action);
+    return menuBody;
   }
 
   private addMenu(divContainer: HTMLDivElement, divContent: HTMLDivElement) {
     const divMenu = document.createElement("div");
-    divMenu.style.display = "inline-block";
-    divMenu.style.margin = "5px";
-    divMenu.style.padding = "5px";
-    divMenu.style.maxWidth = "130px";
-    divMenu.style.cursor = "pointer";
+    styles.applyOnDivMenu(divMenu);
     divMenu.appendChild(divContent);
     divContainer.appendChild(divMenu);
   }
@@ -128,9 +144,48 @@ export class QinDesk {
   }
 }
 
+export type QinDeskOptions = {
+  showApps?: boolean;
+  addsApps?: QinAuthorize;
+  showCfgs?: boolean;
+  addsCfgs?: QinAuthorize;
+};
+
+export type QinAuthorize = (manifest: QinManifest) => boolean;
+
 export type QinManifest = {
   title: string;
   group?: string;
 };
 
-export type QinAddsApp = (manifest: QinManifest) => boolean;
+const styles = {
+  applyOnDivMain: (el: HTMLDivElement) => {
+    el.style.padding = "18px 3px";
+  },
+  applyOnDivLine: (el: HTMLDivElement) => {
+    el.style.padding = "3px";
+    el.style.display = "flex";
+    el.style.flexDirection = "row";
+    el.style.flexWrap = "wrap";
+  },
+  applyOnDivMenu: (el: HTMLDivElement) => {
+    el.style.margin = "3px";
+    el.style.minWidth = "96px";
+    el.style.maxWidth = "96px";
+    el.style.cursor = "pointer";
+  },
+  applyOnMenuBody: (el: HTMLDivElement) => {
+    el.style.display = "flex";
+    el.style.flexDirection = "column";
+    el.style.alignItems = "center";
+  },
+  applyOnMenuIcon: (el: HTMLImageElement) => {
+    el.style.width = "48px";
+    el.style.height = "48px";
+    el.style.margin = "3px";
+  },
+  applyOnMenuText: (el: HTMLSpanElement) => {
+    el.style.margin = "3px";
+    el.style.fontWeight = "bold";
+  },
+};
