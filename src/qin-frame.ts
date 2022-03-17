@@ -22,17 +22,15 @@ export class QinFrame {
   private iframeBody = document.createElement("iframe");
   private statusBody = document.createElement("div");
   private divFoot = document.createElement("div");
-  private imgStatusType = document.createElement("img");
-  private divStatusText = document.createElement("div");
-  private imgResize = document.createElement("img");
+  private footStatusType = document.createElement("img");
+  private footStatusText = document.createElement("div");
+  private footResize = document.createElement("img");
 
   private seeStatus = false;
   private minimized = false;
   private maximized = false;
   private lastWidth = -1;
   private lastHeight = -1;
-
-  private statusRecords: StatusRecord[] = [];
 
   public constructor(
     manager: QinManager,
@@ -143,7 +141,7 @@ export class QinFrame {
   private initDivBody() {
     this.divBody.id = "QinpelDivBodyID" + this.rndID;
     styles.applyOnDivBody(this.divBody);
-    this.divFrame.appendChild(this.divBody);  
+    this.divFrame.appendChild(this.divBody);
   }
 
   private initIFrameBody() {
@@ -163,36 +161,35 @@ export class QinFrame {
   private initStatusBody() {
     this.statusBody.id = "QinpelStatusBodyID" + this.rndID;
     styles.applyOnStatusBody(this.statusBody);
-    this.statusBody.innerText = "Status";
   }
 
   private initDivFoot() {
     styles.applyOnDivFoot(this.divFoot);
-    this.imgStatusType.src = "./assets/frame-status-info.png";
-    QinSoul.arm.addAction(this.imgStatusType, (ev) => {
+    this.footStatusType.src = "./assets/frame-status-info.png";
+    QinSoul.arm.addAction(this.footStatusType, (ev) => {
       if (ev.isPrimary()) {
         this.switchStatus();
       }
     });
-    this.divFoot.appendChild(this.imgStatusType);
-    styles.applyOnDivStatusText(this.divStatusText);
-    this.divStatusText.innerText = "StatusBar";
-    this.divFoot.appendChild(this.divStatusText);
-    this.imgResize.src = "./assets/frame-resize.png";
-    this.imgResize.alt = "/";
-    this.divFoot.appendChild(this.imgResize);
+    this.divFoot.appendChild(this.footStatusType);
+    styles.applyOnStatusText(this.footStatusText);
+    this.footStatusText.innerText = "StatusBar";
+    this.divFoot.appendChild(this.footStatusText);
+    this.footResize.src = "./assets/frame-resize.png";
+    this.footResize.alt = "/";
+    this.divFoot.appendChild(this.footResize);
     this.divFrame.appendChild(this.divFoot);
   }
 
   private initDraggable() {
-    QinSoul.arm.addMover([this.divHead, this.divStatusText], this.divFrame, {
+    QinSoul.arm.addMover([this.divHead, this.footStatusText], this.divFrame, {
       onDouble: () => this.headMaximizeAction(),
       onEnd: () => {
         this.manager.showElement(this.divFrame);
         QinSoul.skin.clearSelection();
       },
     });
-    QinSoul.arm.addResizer([this.imgResize], this.divFrame, {
+    QinSoul.arm.addResizer([this.footResize], this.divFrame, {
       onDouble: () => this.headMaximizeAction(),
       onEnd: () => {
         this.maximized = false;
@@ -212,6 +209,7 @@ export class QinFrame {
     } else {
       this.divBody.removeChild(this.iframeBody);
       this.divBody.appendChild(this.statusBody);
+      this.statusBody.scrollTop = this.statusBody.scrollHeight;
       this.seeStatus = true;
     }
   }
@@ -292,23 +290,23 @@ export class QinFrame {
   }
 
   public statusInfo(message: string) {
-    let rec = {
-      kind: StatusKind.INFO,
-      message: message,
-    };
-    this.statusRecords.push(rec);
-    this.divStatusText.innerText = this.getDisplayStatusMessage(message);
+    this.footStatusText.innerText = this.getDisplayStatusMessage(message);
+    let divInfo = document.createElement("div");
+    divInfo.innerText = message;
+    styles.applyOnStatusBodyItem(divInfo);
+    divInfo.style.backgroundColor = "#0f9d5827"
+    this.statusBody.appendChild(divInfo);
   }
 
   public statusError(error: any, origin: string) {
     let message = QinSoul.head.getErrorMessage(error, origin);
-    let rec = {
-      kind: StatusKind.ERROR,
-      message: message,
-    };
-    this.statusRecords.push(rec);
-    this.imgStatusType.src = "./assets/frame-status-error.png";
-    this.divStatusText.innerText = this.getDisplayStatusMessage(message);
+    this.footStatusText.innerText = this.getDisplayStatusMessage(message);
+    this.footStatusType.src = "./assets/frame-status-error.png";
+    let divError = document.createElement("div");
+    divError.innerText = message;
+    styles.applyOnStatusBodyItem(divError);
+    divError.style.backgroundColor = "#e5091427"
+    this.statusBody.appendChild(divError);
   }
 
   private getDisplayStatusMessage(message: string): string {
@@ -404,16 +402,6 @@ export class QinFrame {
   }
 }
 
-enum StatusKind {
-  INFO,
-  ERROR,
-}
-
-type StatusRecord = {
-  kind: StatusKind;
-  message: string;
-};
-
 const FrameConfigs = {
   POP_MENU_MAX_HEIGHT: 270,
   POP_MENU_WIDTH: 180,
@@ -443,7 +431,7 @@ const styles = {
   },
   applyOnDivBody: (el: HTMLDivElement) => {
     el.style.flex = "1";
-    el.style.display = "flex"
+    el.style.display = "flex";
     el.style.backgroundColor = "#f1f1f1";
     el.style.minWidth = "10px";
     el.style.minHeight = "10px";
@@ -454,7 +442,17 @@ const styles = {
   },
   applyOnStatusBody: (el: HTMLDivElement) => {
     el.style.flex = "1";
-    el.style.backgroundColor = "#f1f1f1";
+    el.style.backgroundColor = "#3b599827";
+    el.style.padding = "9px";
+    el.style.fontSize = "16px";
+    el.style.display = "flex";
+    el.style.flexDirection = "column";
+    el.style.overflow = "scroll";
+  },
+  applyOnStatusBodyItem: (el: HTMLDivElement) => {
+    el.style.margin = "9px";
+    el.style.padding = "9px";
+    el.style.borderRadius = "7px";
   },
   applyOnIFrameLoad: (el: HTMLIFrameElement) => {
     const head = el.contentWindow.document.head;
@@ -475,7 +473,7 @@ const styles = {
     el.style.flexWrap = "wrap";
     el.style.cursor = "default";
   },
-  applyOnDivStatusText: (el: HTMLDivElement) => {
+  applyOnStatusText: (el: HTMLDivElement) => {
     el.style.flex = "1";
     el.style.whiteSpace = "nowrap";
     el.style.overflow = "hidden";

@@ -24,7 +24,7 @@ export class QinDesk {
   }
 
   public initApps() {
-    this.divApps.style.padding = "9px";  
+    this.divApps.style.padding = "9px";
     this.qinpel
       .get("/list/apps")
       .then((res) => {
@@ -36,10 +36,7 @@ export class QinDesk {
         if (err.response!.status === 403) {
           this.qinpel.manager.exit();
         }
-        this.divMain.innerText = QinSoul.head.getErrorMessage(
-          err,
-          "{qinpel-app}(ErrCode-000002)"
-        );
+        this.qinpel.frame.statusError(err, "{qinpel-app}(ErrCode-000002)");
       });
   }
 
@@ -69,12 +66,7 @@ export class QinDesk {
           );
         })
         .catch((err) => {
-          const divError = document.createElement("div");
-          divError.innerText = QinSoul.head.getErrorMessage(
-            err,
-            "{qinpel-app}(ErrCode-000001)"
-          );
-          this.addMenu(this.divApps, divError);
+          this.qinpel.frame.statusError(err, "{qinpel-app}(ErrCode-000001)");
         });
     }
   }
@@ -87,7 +79,6 @@ export class QinDesk {
   }
 
   private addDevTools() {
-    
     this.addMenu(
       this.divCfgs,
       this.newMenu("DevTools", "./assets/menu-devtools.ico", () => {
