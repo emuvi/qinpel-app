@@ -13,8 +13,8 @@
     "files": [
         "src/main.ts",
         "src/index.ts",
-        "src/menu.ts",
-        "src/login.ts"
+        "src/login.ts",
+        "src/desk.ts"
     ],
     "exclude": [
         "node_modules",
