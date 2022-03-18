@@ -1,0 +1,7 @@
+.QinpelWindowBody {
+    scrollbar-width: none;
+}
+
+.QinpelWindowBody::-webkit-scrollbar {
+    display: none;
+}
