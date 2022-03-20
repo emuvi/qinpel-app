@@ -173,7 +173,7 @@ export class QinFrame {
     styles.applyOnDivFoot(this.divFoot);
     this.footStatusType.src = "./assets/frame-status-info.png";
     QinSoul.arm.addAction(this.footStatusType, (ev) => {
-      if (ev.isPrimary()) {
+      if (ev.isPrimary) {
         this.switchStatus();
       }
     });
