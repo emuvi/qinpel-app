@@ -41,7 +41,7 @@ export class QinManager {
 
   private initMenu() {
     this.divMenu.id = "QinpelMenuID0";
-    this.divMenu.style.backgroundColor = "#270036";
+    this.divMenu.style.backgroundColor = "#180027";
     this.divMenu.style.border  = "2px solid #180027";
     this.divMenu.style.borderRadius = "4px";
     this.divMenu.style.position = "absolute";
