@@ -35,7 +35,7 @@ export class QinDesk {
         }
       })
       .catch((err) => {
-        if (err.response!.status === 403) {
+        if (err.response?.status === 403) {
           this.qinpel.manager.exit();
         }
         this.qinpel.frame.statusError(err, "{qinpel-app}(ErrCode-000002)");

@@ -1,9 +1,8 @@
+import { QinDesk } from "./qin-desk";
 import { Qinpel } from "./qinpel";
 const qinpel = (window.frameElement as any).qinpel as Qinpel;
 
-import { QinDesk } from "./qin-desk";
-
-if (qinpel.manager.needToLog()) {
+if (qinpel.manager.needToEnter()) {
   (window.frameElement as HTMLIFrameElement).src = "./login.html";
 } else {
   new QinDesk(qinpel, {

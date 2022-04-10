@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { QinSoul } from "qinpel-res";
+import { QinArm, QinBody, QinSkin } from "qinpel-res";
 import { QinDesk, QinDeskOptions } from "./qin-desk";
 import { QinFrame } from "./qin-frame";
 import { Qinpel } from "./qinpel";
@@ -22,13 +22,14 @@ export class QinManager {
   }
 
   private initUser() {
-    this.userLang = QinSoul.body.getCookie("Qinpel-Lang", "");
-    this.userToken = QinSoul.body.getCookie("Qinpel-Token", "");
+    this.userLang = QinBody.getCookie("Qinpel-Lang", "");
+    this.userToken = QinBody.getCookie("Qinpel-Token", "");
   }
 
   private initBody() {
     this.divBody.className = "QinpelWindowBody";
-    this.divBody.style.backgroundImage = "url('./assets/background-normal.png')";
+    this.divBody.style.backgroundImage =
+      "url('./assets/background-normal.png')";
     this.divBody.style.backgroundAttachment = "local";
     this.divBody.style.fontWeight = "bold";
     this.divBody.style.fontSize = "12px";
@@ -42,7 +43,7 @@ export class QinManager {
   private initMenu() {
     this.divMenu.id = "QinpelMenuID0";
     this.divMenu.style.backgroundColor = "#180027";
-    this.divMenu.style.border  = "2px solid #180027";
+    this.divMenu.style.border = "2px solid #180027";
     this.divMenu.style.borderRadius = "4px";
     this.divMenu.style.position = "absolute";
     this.divMenu.style.overflow = "hidden";
@@ -54,31 +55,33 @@ export class QinManager {
     this.imgMenu.alt = "Menu";
     this.divMenu.appendChild(this.imgMenu);
     this.divBody.appendChild(this.divMenu);
-    QinSoul.arm.addAction(this.divMenu, (event) => {
-      if (event.hasShift) {
-        document.body.requestFullscreen();
-      } else {
-        this.newFrame("Qinpel", "/app/qinpel-app/desk.html");
+    QinArm.addAction(this.divMenu, (event) => {
+      if (event.isPrimary) {
+        if (event.hasShift) {
+          document.body.requestFullscreen();
+        } else {
+          this.newFrame("Qinpel", "/app/qinpel-app/desk.html");
+        }
       }
       return false;
     });
   }
 
   private initScroll() {
-    QinSoul.arm.addScroller(this.divBody, {
+    QinArm.addScroller(this.divBody, {
       onDouble: () => {
         this.divBody.scrollTo(0, 0);
-        QinSoul.skin.clearSelection();
+        QinSkin.clearSelection();
       },
       onEnd: () => {
-        QinSoul.skin.clearSelection();
+        QinSkin.clearSelection();
       },
     });
   }
 
   public putInDocument() {
     document.body.appendChild(this.divBody);
-    QinSoul.skin.disableSelection(document.body);
+    QinSkin.disableSelection(document.body);
   }
 
   public newDesk(qinpel: Qinpel, options?: QinDeskOptions): QinDesk {
@@ -140,7 +143,7 @@ export class QinManager {
         this.popMenuClose();
       }
       element.style.zIndex = String(++this.framesTopZ);
-      if (!QinSoul.skin.isElementVisibleInScroll(element)) {
+      if (!QinSkin.isElementVisibleInScroll(element)) {
         element.parentElement.scrollTo(element.offsetLeft, element.offsetTop);
       }
       if (element.id.indexOf("QinpelFrameID") === 0) {
@@ -189,7 +192,7 @@ export class QinManager {
 
   public showAlert(message: string) {
     alert(message);
-    // TODO - Show Better Alert
+    // [ TODO ] - Show Better Alert
   }
 
   public getBodyWidth() {
@@ -200,12 +203,12 @@ export class QinManager {
     return this.divBody.clientHeight;
   }
 
-  public hasLogged() {
-    return this.userToken != "";
+  public hasToken() {
+    return !!this.userToken;
   }
 
-  public needToLog() {
-    return !QinSoul.foot.isLocalHost() && !this.hasLogged();
+  public needToEnter() {
+    return !this.hasToken();
   }
 
   private getAxiosConfig(headers: any) {
@@ -255,8 +258,8 @@ export class QinManager {
         .then((res) => {
           this.userLang = res.data.lang;
           this.userToken = res.data.token;
-          QinSoul.body.setCookie("Qinpel-Lang", this.userLang);
-          QinSoul.body.setCookie("Qinpel-Token", this.userToken);
+          QinBody.setCookie("Qinpel-Lang", this.userLang);
+          QinBody.setCookie("Qinpel-Token", this.userToken);
           resolve(this.userLang);
         })
         .catch((err) => reject(err));
@@ -266,5 +269,7 @@ export class QinManager {
   public exit() {
     this.userLang = "";
     this.userToken = "";
+    QinBody.delCookie("Qinpel-Lang");
+    QinBody.delCookie("Qinpel-Token");
   }
 }

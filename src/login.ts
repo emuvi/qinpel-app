@@ -5,6 +5,7 @@ const inputUser = document.getElementById("loginUser") as HTMLInputElement;
 const inputPass = document.getElementById("loginPass") as HTMLInputElement;
 const buttonEnter = document.getElementById("loginEnter") as HTMLButtonElement;
 qinpel.utils.arm.addAction(buttonEnter, (qinEvent) => {
+    console.log("oi");
     if (qinEvent.isPrimary) {
         const user = inputUser.value;
         qinpel.manager.tryEnter(user, inputPass.value)

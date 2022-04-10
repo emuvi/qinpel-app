@@ -1,4 +1,4 @@
-import { QinBounds, QinGrandeur, QinSoul, QinWaiter } from "qinpel-res";
+import { QinBounds, QinGrandeur, QinSoul, QinHead, QinWaiter } from "qinpel-res";
 import { QinFrameDialog } from "./qin-frame-dialog";
 import { QinFramePopup } from "./qin-frame-popup";
 import { QinManager } from "./qin-manager";
@@ -305,7 +305,7 @@ export class QinFrame {
   }
 
   public statusError(error: any, origin: string) {
-    let message = QinSoul.head.getErrorMessage(error, origin);
+    let message = QinHead.getErrorMessage(error, origin);
     this.footStatusText.innerText = this.getDisplayStatusMessage(message);
     this.footStatusType.src = "./assets/frame-status-error.png";
     let divError = document.createElement("div");
