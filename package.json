@@ -10,7 +10,12 @@
   "main": "./build/main.js",
   "types": "./types/main.d.ts",
   "dependencies": {
-    "axios": "^0.22.0",
+    "axios": "^0.26.1",
+    "crypto-js": "^4.1.1",
     "qinpel-res": "file:../qinpel-res"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
+    "@types/node": "^17.0.23"
   }
 }

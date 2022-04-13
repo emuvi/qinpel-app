@@ -28,8 +28,7 @@ export class QinManager {
 
   private initBody() {
     this.divBody.className = "QinpelWindowBody";
-    this.divBody.style.backgroundImage =
-      "url('./assets/background-normal.png')";
+    this.divBody.style.backgroundImage = "url('./assets/background-normal.png')";
     this.divBody.style.backgroundAttachment = "local";
     this.divBody.style.fontWeight = "bold";
     this.divBody.style.fontSize = "12px";
@@ -234,11 +233,7 @@ export class QinManager {
     return axios.get(address, configs);
   }
 
-  public post(
-    address: string,
-    data: any,
-    headers?: any
-  ): Promise<AxiosResponse<any>> {
+  public post(address: string, data: any, headers?: any): Promise<AxiosResponse<any>> {
     let configs = this.getAxiosConfig(headers);
     if (!configs.headers["Content-Type"]) {
       if (typeof data === "string" || data instanceof String) {

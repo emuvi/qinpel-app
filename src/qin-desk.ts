@@ -1,5 +1,5 @@
-import { Qinpel } from "./qinpel";
 import { QinAction, QinSoul } from "qinpel-res";
+import { Qinpel } from "./qinpel";
 
 export class QinDesk {
   private divMain = document.createElement("div");
@@ -96,24 +96,16 @@ export class QinDesk {
   private addDevTools() {
     this.addMenu(
       this.divCfgs,
-      this.newMenu(
-        "DevTools",
-        "/app/qinpel-app/assets/menu-devtools.ico",
-        (ev) => {
-          if (ev.isPrimary) {
-            QinSoul.head.toggleDevTools();
-            this.qinpel.frame.headCloseAction();
-          }
+      this.newMenu("DevTools", "/app/qinpel-app/assets/menu-devtools.ico", (ev) => {
+        if (ev.isPrimary) {
+          QinSoul.head.toggleDevTools();
+          this.qinpel.frame.headCloseAction();
         }
-      )
+      })
     );
   }
 
-  private newMenu(
-    title: string,
-    icon: string,
-    action: QinAction
-  ): HTMLDivElement {
+  private newMenu(title: string, icon: string, action: QinAction): HTMLDivElement {
     const menuBody = document.createElement("div");
     styles.applyOnMenuBody(menuBody);
     const menuIcon = document.createElement("img");
