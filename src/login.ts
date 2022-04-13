@@ -1,4 +1,3 @@
-var sha1 = require("crypto-js/sha1");
 import { Qinpel } from "./qinpel";
 const qinpel = (window.frameElement as any).qinpel as Qinpel;
 qinpel.frame.statusInfo("You must inform your user and pass to enter.");
@@ -8,7 +7,7 @@ const buttonEnter = document.getElementById("loginEnter") as HTMLButtonElement;
 qinpel.utils.arm.addAction(buttonEnter, (qinEvent) => {
   if (qinEvent.isPrimary) {
     const user = inputUser.value;
-    const pass = sha1(inputPass.value).toString();
+    const pass = inputPass.value;
     qinpel.manager
       .tryEnter(user, pass)
       .then((_) => {

@@ -3,6 +3,7 @@ import { QinArm, QinBody, QinSkin } from "qinpel-res";
 import { QinDesk, QinDeskOptions } from "./qin-desk";
 import { QinFrame } from "./qin-frame";
 import { Qinpel } from "./qinpel";
+import { QinUtils } from "./qin-utils";
 
 export class QinManager {
   private divBody = document.createElement("div");
@@ -248,6 +249,7 @@ export class QinManager {
   }
 
   public tryEnter(name: string, pass: string): Promise<string> {
+    pass = QinUtils.crypto.sha1(pass);
     return new Promise((resolve, reject) => {
       this.post("/enter", { name, pass })
         .then((res) => {
