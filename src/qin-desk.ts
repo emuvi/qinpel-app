@@ -63,7 +63,7 @@ export class QinDesk {
           this.addMenu(
             this.divApps,
             this.newMenu(title, icon, (ev) => {
-              if (ev.isPrimary) {
+              if (ev.isMain) {
                 this.qinpel.manager.newFrame(title, name);
                 this.qinpel.frame.headCloseAction();
               }
@@ -97,7 +97,7 @@ export class QinDesk {
     this.addMenu(
       this.divCfgs,
       this.newMenu("DevTools", "/app/qinpel-app/assets/menu-devtools.ico", (ev) => {
-        if (ev.isPrimary) {
+        if (ev.isMain) {
           QinSoul.head.toggleDevTools();
           this.qinpel.frame.headCloseAction();
         }

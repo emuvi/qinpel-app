@@ -7,9 +7,9 @@ const buttonEnter = document.getElementById("loginEnter") as HTMLButtonElement;
 qinpel.utils.arm.addActions([inputUser, inputPass, buttonEnter], (qinEvent) => {
   function isActionTrigger(): boolean {
     if (qinEvent.fromOrigin == inputUser || qinEvent.fromOrigin == inputPass) {
-      return qinEvent.isPrimaryKey;
+      return qinEvent.isMainKey;
     } else {
-      return qinEvent.isPrimary;
+      return qinEvent.isMain;
     }
   }
   if (isActionTrigger()) {

@@ -7,7 +7,7 @@
    version="1.1"
    id="svg4"
    sodipodi:docname="face-split-view.svg"
-   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -23,20 +23,29 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      showgrid="false"
-     inkscape:zoom="27.28125"
+     inkscape:zoom="13.640625"
      inkscape:cx="15.981672"
      inkscape:cy="15.981672"
-     inkscape:window-width="3840"
-     inkscape:window-height="2080"
-     inkscape:window-x="2293"
-     inkscape:window-y="35"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="-8"
+     inkscape:window-y="22"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg4" />
   <path
      clip-rule="evenodd"
-     d="M 0,9.6 C 0,6.94904 2.14904,4.8 4.8,4.8 h 22.4 c 2.65104,0 4.8,2.14904 4.8,4.8 v 12.8 c 0,2.65104 -2.14896,4.8 -4.8,4.8 H 4.8 C 2.14904,27.2 0,25.05104 0,22.4 Z M 17.6,8 h 9.6 c 0.88368,0 1.6,0.716336 1.6,1.6 v 12.8 c 0,0.88368 -0.71632,1.6 -1.6,1.6 H 17.6 Z M 14.4,8 H 4.8 C 3.916352,8 3.2,8.716352 3.2,9.6 v 12.8 c 0,0.88368 0.716352,1.6 1.6,1.6 h 9.6 z"
+     d="M 0,4.8375422 C 0,2.1658483 2.14904,0 4.8,0 H 27.2 C 29.85104,0 32,2.1658483 32,4.8375422 V 27.162458 C 32,29.834233 29.85104,32 27.2,32 H 4.8 C 2.14904,32 0,29.834233 0,27.162458 Z m 17.6,-1.612514 h 9.6 c 0.88368,0 1.6,0.7219386 1.6,1.612514 V 27.162458 c 0,0.890591 -0.716346,1.619315 -1.6,1.612514 h -9.6 z m -3.2,0 H 4.8 c -0.883648,0 -1.6,0.7219548 -1.6,1.612514 V 27.162458 c 0,0.890591 0.7163778,1.619315 1.6,1.612514 h 9.6 z"
      fill="#180027"
      fill-rule="evenodd"
      id="path2"
-     style="stroke-width:1.6" />
+     style="stroke-width:1.60624"
+     sodipodi:nodetypes="ssssssssscsssscccsssscc" />
+  <rect
+     style="fill:#180027;fill-opacity:1;stroke-width:1.36868"
+     id="rect1840"
+     width="28.201283"
+     height="3.2047493"
+     x="-30.100641"
+     y="-17.602375"
+     transform="scale(-1)" />
 </svg>

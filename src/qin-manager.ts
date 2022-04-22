@@ -56,7 +56,7 @@ export class QinManager {
     this.divMenu.appendChild(this.imgMenu);
     this.divBody.appendChild(this.divMenu);
     QinArm.addAction(this.divMenu, (event) => {
-      if (event.isPrimary) {
+      if (event.isMain) {
         if (event.hasShift) {
           document.body.requestFullscreen();
         } else {
@@ -139,8 +139,8 @@ export class QinManager {
 
   public showElement(element: HTMLElement) {
     setTimeout(() => {
-      if (element.id != "QinpelPopMenuID1") {
-        this.popMenuClose();
+      if (element.id != "QinpelMenuAppsID1") {
+        this.closeMenuApps();
       }
       element.style.zIndex = String(++this.framesTopZ);
       if (!QinSkin.isElementVisibleInScroll(element)) {
@@ -162,7 +162,7 @@ export class QinManager {
     this.showElement(this.divMenu);
   }
 
-  public popMenuShow() {
+  public showMenuApps() {
     // [TODO] - Show PopupMenu
     let divMenu = document.createElement("div");
     divMenu.style.backgroundColor = "#878787";
@@ -182,7 +182,7 @@ export class QinManager {
     divMenuItem.style.padding = "4px";
   }
 
-  private popMenuClose() {
+  private closeMenuApps() {
     // [TODO] - Close PopupMenu
     // if (qinpelRefWindow.refPopMenu != null) {
     //     qinpelRefWindow.divBody.removeChild(qinpelRefWindow.refPopMenu.elements.divPopMenu);

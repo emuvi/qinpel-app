@@ -1,4 +1,3 @@
--- inkscape face-add.svg -C -d 144 -o face-add.png
 local svgs = Liz.path_list_files_ext(".", "svg")
 for _, svg_path in pairs(svgs) do
     local svg_name = Liz.path_name(svg_path)
@@ -6,9 +5,8 @@ for _, svg_path in pairs(svgs) do
         print("Exporting " .. svg_name .. "...")
         local svg_stem = Liz.path_stem(svg_path)
         local svg_dest = svg_stem .. ".png"
-        -- [TODO] Must generate 64x64 pixels, I believe that must be 180 dpi instead.
-        Liz.cmd("inkscape", {svg_path, "-C", "-d", "144", "-o", svg_dest})
-        Liz.cp("./" .. svg_dest, "../public/assets/" .. svg_dest)
+        Liz.cmd("inkscape", {svg_path, "-C", "-d", "192", "-o", svg_dest})
+        Liz.mv("./" .. svg_dest, "../public/assets/" .. svg_dest)
     end
     
 end
