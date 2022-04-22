@@ -7,9 +7,9 @@ export class QinDesk {
   private divCfgs = document.createElement("div");
 
   private qinpel: Qinpel;
-  private options: QinDeskOptions;
+  private options: QinDeskSet;
 
-  public constructor(qinpel: Qinpel, options?: QinDeskOptions) {
+  public constructor(qinpel: Qinpel, options?: QinDeskSet) {
     this.qinpel = qinpel;
     this.options = options;
     this.initMain();
@@ -136,7 +136,7 @@ export class QinDesk {
   }
 }
 
-export type QinDeskOptions = {
+export type QinDeskSet = {
   showApps?: boolean;
   addsApps?: QinAuthorize;
   showCfgs?: boolean;

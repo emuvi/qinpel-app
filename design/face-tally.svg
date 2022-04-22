@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   fill="none"
+   height="32"
+   viewBox="0 0 32 32"
+   width="32"
+   version="1.1"
+   id="svg10"
+   sodipodi:docname="face-tally.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs14" />
+  <sodipodi:namedview
+     id="namedview12"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="27.28125"
+     inkscape:cx="15.981672"
+     inkscape:cy="15.981672"
+     inkscape:window-width="3840"
+     inkscape:window-height="2080"
+     inkscape:window-x="2293"
+     inkscape:window-y="35"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg10" />
+  <g
+     id="g835"
+     transform="matrix(1.6293428,0,0,1.6293428,-3.5520958,-3.5522602)">
+    <path
+       d="M 3.66124,2.67117 C 3.71341,2.4 3.97956,2.18018 4.2557,2.18018 h 2 c 0.27614,0 0.45771,0.21982 0.40554,0.49099 L 5.33877,9.54511 C 5.2866,9.81628 5.02045,10.0361 4.74431,10.0361 h -2 c -0.27614,0 -0.45771,-0.21982 -0.40554,-0.49099 z"
+       fill="#180027"
+       id="path2" />
+    <path
+       d="M 8.66124,2.67117 C 8.71341,2.4 8.97956,2.18018 9.2557,2.18018 h 2 c 0.2761,0 0.4577,0.21982 0.4055,0.49099 L 8.07168,21.329 C 8.01951,21.6002 7.75336,21.82 7.47722,21.82 h -2 c -0.27614,0 -0.45771,-0.2198 -0.40554,-0.491 z"
+       fill="#180027"
+       id="path4" />
+    <path
+       d="M 13.6612,2.67117 C 13.7134,2.4 13.9796,2.18018 14.2557,2.18018 h 2 c 0.2761,0 0.4577,0.21982 0.4055,0.49099 L 13.0717,21.329 c -0.0522,0.2712 -0.3183,0.491 -0.5945,0.491 h -2 c -0.2761,0 -0.4577,-0.2198 -0.4055,-0.491 z"
+       fill="#180027"
+       id="path6" />
+    <path
+       d="M 18.6612,2.67117 C 18.7134,2.4 18.9796,2.18018 19.2557,2.18018 h 2 c 0.2761,0 0.4577,0.21982 0.4055,0.49099 l -1.3224,6.87394 c -0.0522,0.27117 -0.3183,0.49099 -0.5945,0.49099 h -2 c -0.2761,0 -0.4577,-0.21982 -0.4055,-0.49099 z"
+       fill="#180027"
+       id="path8" />
+  </g>
+</svg>

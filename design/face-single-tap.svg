@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   fill="none"
+   height="32"
+   viewBox="0 0 32 32"
+   width="32"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="face-single-tap.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs12" />
+  <sodipodi:namedview
+     id="namedview10"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="27.28125"
+     inkscape:cx="15.981672"
+     inkscape:cy="15.981672"
+     inkscape:window-width="3840"
+     inkscape:window-height="2080"
+     inkscape:window-x="2293"
+     inkscape:window-y="35"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8" />
+  <g
+     id="g832"
+     transform="matrix(1.8005862,0,0,1.8005862,-5.6070704,-5.6070434)">
+    <path
+       d="m 12.0491,3.11401 c 2.1436,0 4.0902,0.84305 5.5265,2.21566 l -1.4147,1.4147 C 15.087,5.73346 13.6404,5.11401 12.0491,5.11401 c -1.6405,0 -3.12727,0.65842 -4.21042,1.72543 L 6.42444,5.42519 C 7.86954,3.99627 9.85631,3.11401 12.0491,3.11401 Z"
+       fill="#180027"
+       id="path2" />
+    <path
+       d="m 10.9767,11.886 c 0,-0.5523 0.4477,-1 1,-1 0.5523,0 1,0.4477 1,1 v 2 h -2 z"
+       fill="#180027"
+       id="path4" />
+    <path
+       clip-rule="evenodd"
+       d="m 11.9767,6.88599 c -2.76144,0 -5.00002,2.23857 -5.00002,5.00001 v 4 c 0,2.7614 2.23858,5 5.00002,5 2.7614,0 5,-2.2386 5,-5 v -4 c 0,-2.76144 -2.2386,-5.00001 -5,-5.00001 z m 3,9.00001 v -4 c 0,-1.6569 -1.3432,-3.00001 -3,-3.00001 -1.6569,0 -3.00002,1.34311 -3.00002,3.00001 v 4 c 0,1.6568 1.34312,3 3.00002,3 1.6568,0 3,-1.3432 3,-3 z"
+       fill="#180027"
+       fill-rule="evenodd"
+       id="path6" />
+  </g>
+</svg>

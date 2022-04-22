@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   fill="none"
+   height="32"
+   viewBox="0 0 32 32"
+   width="32"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="face-o-up-chevron-push.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="27.28125"
+     inkscape:cx="15.981672"
+     inkscape:cy="15.981672"
+     inkscape:window-width="3840"
+     inkscape:window-height="2080"
+     inkscape:window-x="2293"
+     inkscape:window-y="35"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     clip-rule="evenodd"
+     d="M 16,2.9090909 C 8.7700945,2.9090909 2.9090909,8.7700945 2.9090909,16 2.9090909,23.229964 8.7700945,29.090909 16,29.090909 23.229964,29.090909 29.090909,23.229964 29.090909,16 29.090909,8.7700945 23.229964,2.9090909 16,2.9090909 Z M 16,0 C 7.1634473,0 0,7.1634473 0,16 0,24.836509 7.1634473,32 16,32 24.836509,32 32,24.836509 32,16 32,7.1634473 24.836509,0 16,0 Z m -5.818182,13.090909 v -2.909091 h 11.636364 v 2.909091 z M 22.1712,20.796218 20.114182,22.853236 16,18.7392 l -4.113978,4.114036 -2.057033,-2.057018 6.171156,-6.1712 z"
+     fill="#180027"
+     fill-rule="evenodd"
+     id="path2"
+     style="stroke-width:1.45455" />
+</svg>

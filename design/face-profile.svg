@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   fill="none"
+   height="32"
+   viewBox="0 0 32 32"
+   width="32"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="face-profile.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="27.28125"
+     inkscape:cx="15.981672"
+     inkscape:cy="15.981672"
+     inkscape:window-width="3840"
+     inkscape:window-height="2080"
+     inkscape:window-x="2293"
+     inkscape:window-y="35"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg6" />
+  <g
+     id="g829"
+     transform="matrix(1.4545455,0,0,1.4545455,-1.454546,-1.454546)">
+    <path
+       clip-rule="evenodd"
+       d="m 16,9 c 0,2.2091 -1.7909,4 -4,4 C 9.79086,13 8,11.2091 8,9 8,6.79086 9.79086,5 12,5 c 2.2091,0 4,1.79086 4,4 z m -2,0 c 0,1.1046 -0.8954,2 -2,2 -1.1046,0 -2,-0.8954 -2,-2 0,-1.10457 0.8954,-2 2,-2 1.1046,0 2,0.89543 2,2 z"
+       fill="#180027"
+       fill-rule="evenodd"
+       id="path2" />
+    <path
+       clip-rule="evenodd"
+       d="M 12,1 C 5.92487,1 1,5.92487 1,12 1,18.0751 5.92487,23 12,23 18.0751,23 23,18.0751 23,12 23,5.92487 18.0751,1 12,1 Z M 3,12 c 0,2.0902 0.71255,4.014 1.90798,5.5417 C 6.55245,15.3889 9.14627,14 12.0645,14 c 2.8803,0 5.4447,1.3531 7.092,3.4583 C 20.313,15.9443 21,14.0524 21,12 21,7.02944 16.9706,3 12,3 7.02944,3 3,7.02944 3,12 Z m 9,9 C 9.84977,21 7.87565,20.2459 6.32767,18.9878 7.59352,17.1812 9.69106,16 12.0645,16 c 2.3439,0 4.4188,1.1521 5.6893,2.9209 C 16.1939,20.2191 14.1881,21 12,21 Z"
+       fill="#180027"
+       fill-rule="evenodd"
+       id="path4" />
+  </g>
+</svg>

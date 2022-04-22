@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   fill="none"
+   height="32"
+   viewBox="0 0 32 32"
+   width="32"
+   version="1.1"
+   id="svg10"
+   sodipodi:docname="face-double-tap.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs14" />
+  <sodipodi:namedview
+     id="namedview12"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="27.28125"
+     inkscape:cx="15.981672"
+     inkscape:cy="15.981672"
+     inkscape:window-width="3840"
+     inkscape:window-height="2080"
+     inkscape:window-x="2293"
+     inkscape:window-y="35"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg10" />
+  <g
+     id="g835"
+     transform="matrix(1.4545455,0,0,1.4545455,-1.4544805,-1.454546)">
+    <path
+       clip-rule="evenodd"
+       d="m 14.9236,18 v -4 c 0,-1.6569 -1.3432,-3 -3,-3 -1.6569,0 -3.00005,1.3431 -3.00005,3 v 4 c 0,1.6569 1.34315,3 3.00005,3 1.6568,0 3,-1.3431 3,-3 z m -3,-9 C 9.16213,9 6.92355,11.2386 6.92355,14 v 4 c 0,2.7614 2.23858,5 5.00005,5 2.7614,0 5,-2.2386 5,-5 v -4 c 0,-2.7614 -2.2386,-5 -5,-5 z"
+       fill="#180027"
+       fill-rule="evenodd"
+       id="path2" />
+    <path
+       d="m 10.9236,14 c 0,-0.5523 0.4477,-1 1,-1 0.5522,0 1,0.4477 1,1 v 3 h -2 z"
+       fill="#180027"
+       id="path4" />
+    <path
+       d="m 11.9235,1 c 2.7788,0 5.2929,1.13339 7.1051,2.96311 L 17.6144,5.37735 C 16.1641,3.90955 14.15,3 11.9235,3 9.77436,3 7.82311,3.84749 6.38577,5.22651 L 4.97131,3.81205 C 6.7708,2.07122 9.22207,1 11.9235,1 Z"
+       fill="#180027"
+       id="path6" />
+    <path
+       clip-rule="evenodd"
+       d="m 11.9233,5 c 1.6576,0 3.1805,0.5761 4.3796,1.53898 L 14.8768,7.9651 C 14.0493,7.35833 13.0281,7 11.9233,7 10.848,7 9.85204,7.33943 9.03662,7.91699 L 7.60779,6.48816 C 8.79686,5.55586 10.2952,5 11.9233,5 Z"
+       fill="#180027"
+       fill-rule="evenodd"
+       id="path8" />
+  </g>
+</svg>

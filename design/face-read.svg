@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   fill="none"
+   height="32"
+   viewBox="0 0 32 32"
+   width="32"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="face-read.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="27.28125"
+     inkscape:cx="15.981672"
+     inkscape:cy="15.981672"
+     inkscape:window-width="3840"
+     inkscape:window-height="2080"
+     inkscape:window-x="2293"
+     inkscape:window-y="35"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     clip-rule="evenodd"
+     d="m 8.7272727,18.909091 c 1.6066473,0 2.9090913,-1.3024 2.9090913,-2.909091 0,-1.606691 -1.302444,-2.909091 -2.9090913,-2.909091 -1.6066472,0 -2.9090909,1.3024 -2.9090909,2.909091 0,1.606691 1.3024437,2.909091 2.9090909,2.909091 z m 5.0398543,-5.818182 c -1.006036,-1.739055 -2.886312,-2.909091 -5.0398543,-2.909091 -2.71104,0 -4.9890036,1.854211 -5.63488,4.363636 H 1.4545455 C 0.6512291,14.545454 0,15.196654 0,16 c 0,0.803345 0.6512291,1.454545 1.4545455,1.454545 h 1.6378472 c 0.6458764,2.509382 2.92384,4.363637 5.63488,4.363637 3.2132943,0 5.8181823,-2.604946 5.8181823,-5.818182 h 2.90909 c 0,3.213236 2.604946,5.818182 5.818182,5.818182 2.710982,0 4.988946,-1.854255 5.634909,-4.363637 h 1.637819 C 31.3488,17.454545 32,16.803345 32,16 32,15.196654 31.3488,14.545454 30.545455,14.545454 h -1.637819 c -0.645963,-2.509425 -2.923927,-4.363636 -5.634909,-4.363636 -2.1536,0 -4.033891,1.170036 -5.039854,2.909091 z M 20.363636,16 c 0,1.606691 1.3024,2.909091 2.909091,2.909091 1.606691,0 2.909091,-1.3024 2.909091,-2.909091 0,-1.606691 -1.3024,-2.909091 -2.909091,-2.909091 -1.606691,0 -2.909091,1.3024 -2.909091,2.909091 z"
+     fill="#180027"
+     fill-rule="evenodd"
+     id="path2"
+     style="stroke-width:1.45455" />
+</svg>

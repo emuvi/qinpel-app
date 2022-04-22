@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   fill="none"
+   height="32"
+   viewBox="0 0 32 32"
+   width="32"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="face-v-scroll.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs12" />
+  <sodipodi:namedview
+     id="namedview10"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="27.28125"
+     inkscape:cx="15.981672"
+     inkscape:cy="15.981672"
+     inkscape:window-width="3840"
+     inkscape:window-height="2080"
+     inkscape:window-x="2293"
+     inkscape:window-y="35"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8" />
+  <g
+     id="g832"
+     transform="matrix(1.5274572,0,0,1.5274572,-2.3294253,-2.329601)">
+    <path
+       d="M 9.17154,16.8182 7.75732,18.2324 12,22.475 16.2426,18.2324 14.8284,16.8182 12,19.6466 Z"
+       fill="#180027"
+       id="path2" />
+    <path
+       d="M 14.8284,7.182 16.2426,5.76779 12,1.52515 7.75733,5.76779 9.17155,7.182 12,4.35357 Z"
+       fill="#180027"
+       id="path4" />
+    <path
+       clip-rule="evenodd"
+       d="m 12,9.00018 c 1.6569,0 3,1.34312 3,3.00002 0,1.6568 -1.3431,3 -3,3 -1.6569,0 -3,-1.3432 -3,-3 0,-1.6569 1.3431,-3.00002 3,-3.00002 z m 0,2.00002 c 0.5523,0 1,0.4477 1,1 0,0.5523 -0.4477,1 -1,1 -0.5523,0 -1,-0.4477 -1,-1 0,-0.5523 0.4477,-1 1,-1 z"
+       fill="#180027"
+       fill-rule="evenodd"
+       id="path6" />
+  </g>
+</svg>

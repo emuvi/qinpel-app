@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   fill="none"
+   height="32"
+   viewBox="0 0 32 32"
+   width="32"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="face-pokemon.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="27.28125"
+     inkscape:cx="15.981672"
+     inkscape:cy="15.981672"
+     inkscape:window-width="3840"
+     inkscape:window-height="2080"
+     inkscape:window-x="2293"
+     inkscape:window-y="35"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     clip-rule="evenodd"
+     d="M 0,16 C 0,7.163449 7.163449,0 16,0 24.836622,0 32,7.163449 32,16 32,24.836622 24.836622,32 16,32 7.163449,32 0,24.836622 0,16 Z m 3.6815822,1.777778 C 4.5442133,23.808533 9.73072,28.444444 16,28.444444 c 6.269333,0 11.455822,-4.635911 12.3184,-10.666666 H 21.029867 C 20.2976,19.849244 18.322133,21.333333 16,21.333333 c -2.322133,0 -4.29776,-1.484089 -5.029902,-3.555555 z M 28.3184,14.222222 C 27.455822,8.191484 22.269333,3.5555556 16,3.5555556 9.73072,3.5555556 4.5442133,8.191484 3.6815822,14.222222 H 10.970098 C 11.70224,12.150773 13.677867,10.666667 16,10.666667 c 2.322133,0 4.2976,1.484106 5.029867,3.555555 z M 16,17.777778 c 0.981867,0 1.777778,-0.795911 1.777778,-1.777778 0,-0.981867 -0.795911,-1.777778 -1.777778,-1.777778 -0.981867,0 -1.777778,0.795911 -1.777778,1.777778 0,0.981867 0.795911,1.777778 1.777778,1.777778 z"
+     fill="#180027"
+     fill-rule="evenodd"
+     id="path2"
+     style="stroke-width:1.77778" />
+</svg>
