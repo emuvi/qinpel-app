@@ -91,6 +91,7 @@ export class QinFramePopup {
 
   public close() {
     if (this._frame.getIFrameDocument().body.contains(this._divMain)) {
+      this._divMain.focus();
       this._frame.getIFrameDocument().body.removeChild(this._divMain);
     }
   }
