@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from "axios";
-import { QinArm, QinBody, QinSkin } from "qinpel-res";
+import { QinArm, QinHead, QinSkin } from "qinpel-res";
 import { QinDesk, QinDeskSet } from "./qin-desk";
 import { QinFrame } from "./qin-frame";
-import { Qinpel } from "./qinpel";
 import { QinUtils } from "./qin-utils";
+import { Qinpel } from "./qinpel";
 
 export class QinManager {
   private divBody = document.createElement("div");
@@ -23,8 +23,8 @@ export class QinManager {
   }
 
   private initUser() {
-    this.userLang = QinBody.getCookie("Qinpel-Lang", "");
-    this.userToken = QinBody.getCookie("Qinpel-Token", "");
+    this.userLang = QinHead.getCookie("Qinpel-Lang", "");
+    this.userToken = QinHead.getCookie("Qinpel-Token", "");
   }
 
   private initBody() {
@@ -255,8 +255,8 @@ export class QinManager {
         .then((res) => {
           this.userLang = res.data.lang;
           this.userToken = res.data.token;
-          QinBody.setCookie("Qinpel-Lang", this.userLang);
-          QinBody.setCookie("Qinpel-Token", this.userToken);
+          QinHead.setCookie("Qinpel-Lang", this.userLang);
+          QinHead.setCookie("Qinpel-Token", this.userToken);
           resolve(this.userLang);
         })
         .catch((err) => reject(err));
@@ -266,7 +266,7 @@ export class QinManager {
   public exit() {
     this.userLang = "";
     this.userToken = "";
-    QinBody.delCookie("Qinpel-Lang");
-    QinBody.delCookie("Qinpel-Token");
+    QinHead.delCookie("Qinpel-Lang");
+    QinHead.delCookie("Qinpel-Token");
   }
 }
