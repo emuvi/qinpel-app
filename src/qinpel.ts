@@ -1,24 +1,30 @@
-import { AxiosResponse } from "axios";
-import { QinSoul } from "qinpel-res";
 import { QinFrame } from "./qin-frame";
 import { QinManager } from "./qin-manager";
+import { QinTalker } from "./qin-talker";
 import { QinUtils } from "./qin-utils";
 
 export class Qinpel {
-  public manager: QinManager;
-  public frame: QinFrame;
-  public utils = { ...QinSoul, ...QinUtils };
+  private _manager: QinManager;
+  private _frame: QinFrame;
 
   public constructor(manager: QinManager, frame: QinFrame) {
-    this.manager = manager;
-    this.frame = frame;
+    this._manager = manager;
+    this._frame = frame;
   }
 
-  public get(address: string, headers?: any): Promise<AxiosResponse<never>> {
-    return this.manager.get(address, headers);
+  public get chief(): QinManager {
+    return this._manager;
   }
 
-  public post(address: string, data: any, headers?: any): Promise<AxiosResponse<any>> {
-    return this.manager.post(address, data, headers);
+  public get frame(): QinFrame {
+    return this._frame;
+  }
+
+  public get talk(): QinTalker {
+    return this._manager.talker;
+  }
+
+  public get util() {
+    return QinUtils;
   }
 }

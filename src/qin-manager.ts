@@ -1,7 +1,7 @@
-import axios, { AxiosResponse } from "axios";
 import { QinArm, QinHead, QinSkin } from "qinpel-res";
 import { QinDesk, QinDeskSet } from "./qin-desk";
 import { QinFrame } from "./qin-frame";
+import { QinTalker } from "./qin-talker";
 import { QinUtils } from "./qin-utils";
 import { Qinpel } from "./qinpel";
 
@@ -14,6 +14,8 @@ export class QinManager {
 
   private userLang = "";
   private userToken = "";
+
+  private _talker = new QinTalker(this);
 
   public constructor() {
     this.initUser();
@@ -211,7 +213,7 @@ export class QinManager {
     return !this.hasToken();
   }
 
-  private getAxiosConfig(headers: any) {
+  public getAxiosConfig(headers: any) {
     if (!headers) {
       headers = {};
     }
@@ -229,29 +231,15 @@ export class QinManager {
     return configs;
   }
 
-  public get(address: string, headers?: any): Promise<AxiosResponse<never>> {
-    let configs = this.getAxiosConfig(headers);
-    return axios.get(address, configs);
-  }
-
-  public post(address: string, data: any, headers?: any): Promise<AxiosResponse<any>> {
-    let configs = this.getAxiosConfig(headers);
-    if (!configs.headers["Content-Type"]) {
-      if (typeof data === "string" || data instanceof String) {
-        configs.headers["Content-Type"] = "text/plain";
-      } else if (data instanceof FormData) {
-        configs.headers["Content-Type"] = "multipart/form-data";
-      } else {
-        configs.headers["Content-Type"] = "application/json";
-      }
-    }
-    return axios.post(address, data, configs);
+  public get talker(): QinTalker {
+    return this._talker;
   }
 
   public tryEnter(name: string, pass: string): Promise<string> {
     pass = QinUtils.crypto.sha1(pass);
     return new Promise((resolve, reject) => {
-      this.post("/enter", { name, pass })
+      this._talker
+        .post("/enter", { name, pass })
         .then((res) => {
           this.userLang = res.data.lang;
           this.userToken = res.data.token;
