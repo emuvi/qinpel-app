@@ -18,15 +18,9 @@ export class QinManager {
   private _talker = new QinTalker(this);
 
   public constructor() {
-    this.initUser();
     this.initBody();
     this.initMenu();
     this.initScroll();
-  }
-
-  private initUser() {
-    this.userLang = QinHead.getCookie("Qinpel-Lang", "");
-    this.userToken = QinHead.getCookie("Qinpel-Token", "");
   }
 
   private initBody() {
@@ -209,8 +203,26 @@ export class QinManager {
     return !!this.userToken;
   }
 
-  public needToEnter() {
-    return !this.hasToken();
+  public async needToEnter(): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      this.talk
+        .get("/logged")
+        .then((response) => {
+          if (response.status === 200) {
+            console.log(response.data);
+            if (response.data === "<!-- No user is logged. -->") {
+              resolve(true);
+            } else {
+              resolve(false);
+            }
+          } else {
+            resolve(true);
+          }
+        })
+        .catch((_) => {
+          resolve(true);
+        });
+    });
   }
 
   public getAxiosConfig(headers: any) {
@@ -231,7 +243,7 @@ export class QinManager {
     return configs;
   }
 
-  public get talker(): QinTalker {
+  public get talk(): QinTalker {
     return this._talker;
   }
 
@@ -243,8 +255,6 @@ export class QinManager {
         .then((res) => {
           this.userLang = res.data.lang;
           this.userToken = res.data.token;
-          QinHead.setCookie("Qinpel-Lang", this.userLang);
-          QinHead.setCookie("Qinpel-Token", this.userToken);
           resolve(this.userLang);
         })
         .catch((err) => reject(err));

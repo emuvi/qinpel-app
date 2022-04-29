@@ -4,16 +4,16 @@ import { QinTalker } from "./qin-talker";
 import { QinUtils } from "./qin-utils";
 
 export class Qinpel {
-  private _manager: QinManager;
+  private _chief: QinManager;
   private _frame: QinFrame;
 
-  public constructor(manager: QinManager, frame: QinFrame) {
-    this._manager = manager;
+  public constructor(chief: QinManager, frame: QinFrame) {
+    this._chief = chief;
     this._frame = frame;
   }
 
   public get chief(): QinManager {
-    return this._manager;
+    return this._chief;
   }
 
   public get frame(): QinFrame {
@@ -21,7 +21,7 @@ export class Qinpel {
   }
 
   public get talk(): QinTalker {
-    return this._manager.talker;
+    return this._chief.talk;
   }
 
   public get util() {
