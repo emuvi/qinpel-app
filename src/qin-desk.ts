@@ -27,7 +27,7 @@ export class QinDesk {
 
   public initApps() {
     styles.applyOnDivLine(this.divApps);
-    this.qinpel
+    this.qinpel.talk
       .get("/list/apps")
       .then((res) => {
         for (let name of this.listApps(res.data)) {
@@ -36,7 +36,7 @@ export class QinDesk {
       })
       .catch((err) => {
         if (err.response?.status === 403) {
-          this.qinpel.manager.exit();
+          this.qinpel.chief.exit();
         }
         this.qinpel.frame.statusError(err, "{qinpel-app}(ErrCode-000002)");
       });
@@ -49,7 +49,7 @@ export class QinDesk {
 
   private tryAddApp(name: string) {
     if (name && name != "qinpel-app") {
-      this.qinpel
+      this.qinpel.talk
         .get("/app/" + name + "/manifest.json")
         .then((res) => {
           const manifest = res.data as QinManifest;
@@ -64,7 +64,7 @@ export class QinDesk {
             this.divApps,
             this.newMenu(title, icon, (ev) => {
               if (ev.isMain) {
-                this.qinpel.manager.newFrame(title, name);
+                this.qinpel.chief.newFrame(title, name);
                 this.qinpel.frame.headCloseAction();
               }
             })
