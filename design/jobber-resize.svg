@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 12.7 12.700001"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="jobber-resize.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="jobber-resize.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="16"
+     inkscape:cx="-3.5625"
+     inkscape:cy="8.0000001"
+     inkscape:window-width="3840"
+     inkscape:window-height="2080"
+     inkscape:window-x="2869"
+     inkscape:window-y="35"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     height="20px" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="rect1289"
+       style="fill:#fff6d5;fill-opacity:1;stroke:none;stroke-width:10.6836"
+       d="M 0.0011006,0 1.5481515,5.7794923 5.778862,1.5491655 Z M 11.304045,0 c -0.34478,0 -0.688936,0.1296044 -0.95845,0.3856015 -0.0089,0.00847 -0.01833,0.016058 -0.02705,0.024785 L 6.3494221,4.3791547 4.3783984,6.3499998 0.4092873,10.31875 c -0.00873,0.0088 -0.016366,0.01815 -0.024787,0.02705 -0.5204899,0.547874 -0.5128577,1.406169 0.024787,1.943785 0.5094703,0.509425 1.3075485,0.544308 1.8560102,0.103723 l 0.00903,-0.0068 L 12.386543,2.2752122 c 0.0024,-0.00297 0.0044,-0.00602 0.0068,-0.00903 C 12.833906,1.7178372 12.79902,0.9198315 12.289549,0.4104075 12.016362,0.1372342 11.660204,0 11.304045,0 Z M 11.150693,6.9205077 6.9199828,11.150834 12.7,12.7 Z" />
+  </g>
+</svg>

@@ -2,16 +2,16 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="24"
-   height="20"
-   viewBox="0 0 6.3499998 5.2916669"
+   width="48"
+   height="48"
+   viewBox="0 0 12.7 12.700001"
    version="1.1"
    id="svg5"
-   inkscape:export-filename="status-info.png"
+   inkscape:export-filename="jobber-status-error.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
-   sodipodi:docname="status-info.svg"
+   sodipodi:docname="jobber-status-error.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -28,12 +28,12 @@
      showgrid="false"
      units="px"
      inkscape:zoom="15.651904"
-     inkscape:cx="4.7598043"
-     inkscape:cy="15.237763"
-     inkscape:window-width="1920"
-     inkscape:window-height="1013"
-     inkscape:window-x="-9"
-     inkscape:window-y="29"
+     inkscape:cx="6.4528891"
+     inkscape:cy="15.269708"
+     inkscape:window-width="3840"
+     inkscape:window-height="2080"
+     inkscape:window-x="2869"
+     inkscape:window-y="35"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
      height="20px" />
@@ -44,27 +44,26 @@
      inkscape:groupmode="layer"
      id="layer1">
     <g
-       transform="matrix(0.14552083,0,0,0.13859127,1.42875,-141.61382)"
-       id="g850">
+       transform="matrix(0.635,0,0,0.60476192,-1.27,-623.14668)"
+       id="g864">
       <path
-         d="M 22,12 A 10,10 0 1 1 2,12 10,10 0 1 1 22,12 Z"
-         fill="#2980b9"
+         d="M 22,12 C 22,17.523 17.523,22 12,22 6.4772,22 2,17.523 2,12 2,6.4772 6.4772,2 12,2 17.523,2 22,6.4772 22,12 Z"
+         fill="#c0392b"
          transform="translate(0,1029.4)"
-         id="path842" />
+         id="path856" />
       <path
-         d="M 22,12 A 10,10 0 1 1 2,12 10,10 0 1 1 22,12 Z"
-         fill="#3498db"
+         d="M 22,12 C 22,17.523 17.523,22 12,22 6.4772,22 2,17.523 2,12 2,6.4772 6.4772,2 12,2 17.523,2 22,6.4772 22,12 Z"
+         fill="#e74c3c"
          transform="translate(0,1028.4)"
-         id="path844" />
+         id="path858" />
       <path
-         d="m 11,1035.4 v 2 h 2 v -2 z m -1,4 -1,1 h 2 v 6 H 9 v 1 h 1 4 1 v -1 h -2 v -7 z"
-         fill="#2980b9"
-         id="path846" />
+         d="m 7.0503,1037.8 3.5357,3.6 -3.5357,3.5 1.4142,1.4 3.5355,-3.5 3.536,3.5 1.414,-1.4 -3.536,-3.5 3.536,-3.6 -1.414,-1.4 -3.536,3.5 -3.5355,-3.5 z"
+         fill="#c0392b"
+         id="path860" />
       <path
-         d="m 11,6 v 2 h 2 V 6 Z m -1,4 -1,1 h 2 v 6 H 9 v 1 h 1 4 1 v -1 h -2 v -7 z"
+         d="m 7.0503,1036.8 3.5357,3.6 -3.5357,3.5 1.4142,1.4 3.5355,-3.5 3.536,3.5 1.414,-1.4 -3.536,-3.5 3.536,-3.6 -1.414,-1.4 -3.536,3.5 -3.5355,-3.5 z"
          fill="#ecf0f1"
-         transform="translate(0,1028.4)"
-         id="path848" />
+         id="path862" />
     </g>
   </g>
 </svg>

@@ -1,20 +1,20 @@
 import axios, { AxiosResponse } from "axios";
-import { QinManager } from "./qin-manager";
+import { QinChief } from "./qin-chief";
 
 export class QinTalker {
-  private _manager: QinManager;
+  private _chief: QinChief;
 
-  public constructor(manager: QinManager) {
-    this._manager = manager;
+  public constructor(chief: QinChief) {
+    this._chief = chief;
   }
 
   public get(address: string, headers?: any): Promise<AxiosResponse<never>> {
-    let configs = this._manager.getAxiosConfig(headers);
+    let configs = this._chief.getAxiosConfig(headers);
     return axios.get(address, configs);
   }
 
   public post(address: string, data: any, headers?: any): Promise<AxiosResponse<any>> {
-    let configs = this._manager.getAxiosConfig(headers);
+    let configs = this._chief.getAxiosConfig(headers);
     if (!configs.headers["Content-Type"]) {
       if (typeof data === "string" || data instanceof String) {
         configs.headers["Content-Type"] = "text/plain";

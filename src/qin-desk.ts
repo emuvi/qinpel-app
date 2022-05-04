@@ -1,17 +1,17 @@
-import { QinAction, QinSoul } from "qinpel-res";
+import { QinAction, QinSoul, QinWaiter } from "qinpel-res";
 import { Qinpel } from "./qinpel";
 
 export class QinDesk {
   private divMain = document.createElement("div");
-  private divApps = document.createElement("div");
-  private divCfgs = document.createElement("div");
+  private divApps: HTMLDivElement = null;
+  private divCfgs: HTMLDivElement = null;
 
   private qinpel: Qinpel;
   private options: QinDeskSet;
 
   public constructor(qinpel: Qinpel, options?: QinDeskSet) {
     this.qinpel = qinpel;
-    this.options = options;
+    this.options = options || {};
     this.initMain();
     if (!(this.options?.showApps === false)) {
       this.initApps();
@@ -26,6 +26,8 @@ export class QinDesk {
   }
 
   public initApps() {
+    this.divApps = document.createElement("div");
+    this.divMain.appendChild(this.divApps);
     styles.applyOnDivLine(this.divApps);
     this.qinpel.talk
       .get("/list/apps")
@@ -38,9 +40,8 @@ export class QinDesk {
         if (err.response?.status === 403) {
           this.qinpel.chief.exit();
         }
-        this.qinpel.frame.statusError(err, "{qinpel-app}(ErrCode-000002)");
+        this.qinpel.jobbed.statusError(err, "{qinpel-app}(ErrCode-000002)");
       });
-    this.divMain.appendChild(this.divApps);
   }
 
   private listApps(response: string) {
@@ -48,15 +49,13 @@ export class QinDesk {
   }
 
   private tryAddApp(name: string) {
-    if (name && name != "qinpel-app") {
+    if (name && name !== "qinpel-app") {
       this.qinpel.talk
         .get("/app/" + name + "/manifest.json")
         .then((res) => {
           const manifest = res.data as QinManifest;
-          if (this.options?.addsApps) {
-            if (!this.options.addsApps(manifest)) {
-              return;
-            }
+          if (!shouldAdd(this.options.addsApps, manifest)) {
+            return;
           }
           const title = manifest.title;
           const icon = "../" + name + "/favicon.ico";
@@ -64,33 +63,33 @@ export class QinDesk {
             this.divApps,
             this.newMenu(title, icon, (ev) => {
               if (ev.isMain) {
-                this.qinpel.chief.newFrame(title, name);
-                this.qinpel.frame.headCloseAction();
+                this.qinpel.chief.newJobber(title, name);
+                this.qinpel.jobbed.close();
               }
             })
           );
         })
         .catch((err) => {
-          this.qinpel.frame.statusError(err, "{qinpel-app}(ErrCode-000001)");
+          this.qinpel.jobbed.statusError(err, "{qinpel-app}(ErrCode-000001)");
         });
     }
   }
 
   private initCfgs() {
+    this.divCfgs = document.createElement("div");
+    this.divMain.appendChild(this.divCfgs);
     styles.applyOnDivLine(this.divCfgs);
     if (QinSoul.foot.isLocalHost()) {
-      if (this.options?.addsCfgs) {
-        if (
-          !this.options.addsCfgs({
-            title: "DevTools",
-          })
-        ) {
-          return;
-        }
+      if (shouldAdd(this.options.addsCfgs, { title: "DevTools" })) {
+        this.addDevTools();
       }
-      this.addDevTools();
     }
-    this.divMain.appendChild(this.divCfgs);
+    if (shouldAdd(this.options.addsCfgs, { title: "QinBases" })) {
+      this.qinpel.talk.get("/list/bases").then((res) => {
+        let bases = this.qinpel.util.qiny.body.getTextLines(res.data);
+        this.addQinBases(bases);
+      });
+    }
   }
 
   private addDevTools() {
@@ -99,8 +98,17 @@ export class QinDesk {
       this.newMenu("DevTools", "/app/qinpel-app/assets/menu-devtools.ico", (ev) => {
         if (ev.isMain) {
           QinSoul.head.toggleDevTools();
-          this.qinpel.frame.headCloseAction();
+          this.qinpel.jobbed.close();
         }
+      })
+    );
+  }
+
+  private addQinBases(bases: string[]) {
+    this.addMenu(
+      this.divCfgs,
+      this.newCombo("QinBases", bases, (base) => {
+        console.log(base);
       })
     );
   }
@@ -117,6 +125,25 @@ export class QinDesk {
     menuBody.appendChild(menuIcon);
     menuBody.appendChild(menuText);
     QinSoul.arm.addAction(menuBody, action);
+    return menuBody;
+  }
+
+  private newCombo(title: string, items: string[], action: QinWaiter): HTMLDivElement {
+    const menuBody = document.createElement("div");
+    styles.applyOnMenuBody(menuBody);
+    const menuCombo = document.createElement("select");
+    styles.applyOnMenuCombo(menuCombo);
+    for (const item of items) {
+      const menuComboItem = document.createElement("option");
+      menuComboItem.value = item;
+      menuComboItem.innerText = item;
+    }
+    menuBody.appendChild(menuCombo);
+    if (action) {
+      menuBody.onchange = () => {
+        action(menuCombo.value);
+      };
+    }
     return menuBody;
   }
 
@@ -143,6 +170,13 @@ export type QinDeskSet = {
   addsCfgs?: QinAuthorize;
 };
 
+function shouldAdd(authorizer: QinAuthorize, manifest: QinManifest): boolean {
+  if (!authorizer) {
+    return true;
+  }
+  return authorizer(manifest);
+}
+
 export type QinAuthorize = (manifest: QinManifest) => boolean;
 
 export type QinManifest = {
@@ -152,7 +186,14 @@ export type QinManifest = {
 
 const styles = {
   applyOnDivMain: (el: HTMLDivElement) => {
-    el.style.padding = "18px 3px";
+    el.style.margin = "18px 3px";
+    styles.applyOnDivColumn(el);
+  },
+  applyOnDivColumn: (el: HTMLDivElement) => {
+    el.style.padding = "0px";
+    el.style.display = "flex";
+    el.style.flexDirection = "column";
+    el.style.flexWrap = "nowrap";
   },
   applyOnDivLine: (el: HTMLDivElement) => {
     el.style.padding = "3px";
@@ -174,6 +215,9 @@ const styles = {
   applyOnMenuIcon: (el: HTMLImageElement) => {
     el.style.width = "48px";
     el.style.height = "48px";
+    el.style.margin = "3px";
+  },
+  applyOnMenuCombo: (el: HTMLSelectElement) => {
     el.style.margin = "3px";
   },
   applyOnMenuText: (el: HTMLSpanElement) => {

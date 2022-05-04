@@ -1,19 +1,19 @@
 import { QinArm, QinHead, QinSkin } from "qinpel-res";
 import { QinDesk, QinDeskSet } from "./qin-desk";
-import { QinFrame } from "./qin-frame";
+import { QinJobber } from "./qin-jobber";
 import { QinTalker } from "./qin-talker";
 import { QinUtils } from "./qin-utils";
 import { Qinpel } from "./qinpel";
 
-export class QinManager {
-  private divBody = document.createElement("div");
-  private divMenu = document.createElement("div");
-  private imgMenu = document.createElement("img");
-  private frames: QinFrame[] = [];
-  private framesTopZ = 1;
+export class QinChief {
+  private _divBody = document.createElement("div");
+  private _divMenu = document.createElement("div");
+  private _imgMenu = document.createElement("img");
+  private _jobbers: QinJobber[] = [];
+  private _framesTopZ = 1;
 
-  private userLang = "";
-  private userToken = "";
+  private _userLang = "";
+  private _userToken = "";
 
   private _talker = new QinTalker(this);
 
@@ -24,39 +24,39 @@ export class QinManager {
   }
 
   private initBody() {
-    this.divBody.className = "QinpelWindowBody";
-    this.divBody.style.backgroundImage = "url('./assets/background-normal.png')";
-    this.divBody.style.backgroundAttachment = "local";
-    this.divBody.style.fontWeight = "bold";
-    this.divBody.style.fontSize = "12px";
-    this.divBody.style.position = "relative";
-    this.divBody.style.width = "100%";
-    this.divBody.style.height = "100vh";
-    this.divBody.style.overflow = "scroll";
-    this.divBody.style.touchAction = "none";
+    this._divBody.className = "QinpelWindowBody";
+    this._divBody.style.backgroundImage = "url('./assets/background-normal.png')";
+    this._divBody.style.backgroundAttachment = "local";
+    this._divBody.style.fontWeight = "bold";
+    this._divBody.style.fontSize = "12px";
+    this._divBody.style.position = "relative";
+    this._divBody.style.width = "100%";
+    this._divBody.style.height = "100vh";
+    this._divBody.style.overflow = "scroll";
+    this._divBody.style.touchAction = "none";
   }
 
   private initMenu() {
-    this.divMenu.id = "QinpelMenuID0";
-    this.divMenu.style.backgroundColor = "#180027";
-    this.divMenu.style.border = "2px solid #180027";
-    this.divMenu.style.borderRadius = "4px";
-    this.divMenu.style.position = "absolute";
-    this.divMenu.style.overflow = "hidden";
-    this.divMenu.style.top = "18px";
-    this.divMenu.style.left = "18px";
-    this.divMenu.style.width = "48px";
-    this.divMenu.style.height = "48px";
-    this.imgMenu.src = "./assets/qinpel-48.png";
-    this.imgMenu.alt = "Menu";
-    this.divMenu.appendChild(this.imgMenu);
-    this.divBody.appendChild(this.divMenu);
-    QinArm.addAction(this.divMenu, (event) => {
+    this._divMenu.id = "QinpelMenuID0";
+    this._divMenu.style.backgroundColor = "#180027";
+    this._divMenu.style.border = "2px solid #180027";
+    this._divMenu.style.borderRadius = "4px";
+    this._divMenu.style.position = "absolute";
+    this._divMenu.style.overflow = "hidden";
+    this._divMenu.style.top = "18px";
+    this._divMenu.style.left = "18px";
+    this._divMenu.style.width = "48px";
+    this._divMenu.style.height = "48px";
+    this._imgMenu.src = "./assets/qinpel-48.png";
+    this._imgMenu.alt = "Menu";
+    this._divMenu.appendChild(this._imgMenu);
+    this._divBody.appendChild(this._divMenu);
+    QinArm.addAction(this._divMenu, (event) => {
       if (event.isMain) {
         if (event.hasShift) {
           document.body.requestFullscreen();
         } else {
-          this.newFrame("Qinpel", "/app/qinpel-app/desk.html");
+          this.newJobber("Qinpel", "/app/qinpel-app/desk.html");
         }
       }
       return false;
@@ -64,9 +64,9 @@ export class QinManager {
   }
 
   private initScroll() {
-    QinArm.addScroller(this.divBody, {
+    QinArm.addScroller(this._divBody, {
       onDouble: () => {
-        this.divBody.scrollTo(0, 0);
+        this._divBody.scrollTo(0, 0);
         QinSkin.clearSelection();
       },
       onEnd: () => {
@@ -76,60 +76,60 @@ export class QinManager {
   }
 
   public putInDocument() {
-    document.body.appendChild(this.divBody);
+    document.body.appendChild(this._divBody);
     QinSkin.disableSelection(document.body);
+  }
+
+  public addChild(child: HTMLElement) {
+    this._divBody.appendChild(child);
+  }
+
+  public delChild(child: HTMLElement) {
+    this._divBody.removeChild(child);
   }
 
   public newDesk(qinpel: Qinpel, options?: QinDeskSet): QinDesk {
     return new QinDesk(qinpel, options);
   }
 
-  public newFrame(title: string, appName: string, options?: any): QinFrame {
-    let result = new QinFrame(this, title, appName, options);
+  public newJobber(title: string, appName: string, options?: any): QinJobber {
+    let result = new QinJobber(this, title, appName, options);
     result.install();
-    this.frames.push(result);
+    this._jobbers.push(result);
     return result;
   }
 
-  public getFrame(fromTitle: string): QinFrame {
-    for (const frame of this.frames) {
-      if (frame.getTitle() === fromTitle) {
-        return frame;
+  public getJobber(fromTitle: string): QinJobber {
+    for (const jobber of this._jobbers) {
+      if (jobber.title === fromTitle) {
+        return jobber;
       }
     }
     return null;
   }
 
-  public addChild(child: HTMLElement) {
-    this.divBody.appendChild(child);
-  }
-
-  public delChild(child: HTMLElement) {
-    this.divBody.removeChild(child);
-  }
-
-  public getFrameFromID(fromID: string): QinFrame {
-    for (const frame of this.frames) {
-      if (frame.getID() === fromID) {
-        return frame;
+  public getJobberFromID(fromID: string): QinJobber {
+    for (const jobber of this._jobbers) {
+      if (jobber.getMainID() === fromID) {
+        return jobber;
       }
     }
     return null;
   }
 
-  public getFrameIndexFromID(fromID: string): number {
-    for (let i = 0; i < this.frames.length; i++) {
-      if (this.frames[i].getID() === fromID) {
+  public getJobberIndexFromID(fromID: string): number {
+    for (let i = 0; i < this._jobbers.length; i++) {
+      if (this._jobbers[i].getMainID() === fromID) {
         return i;
       }
     }
     return -1;
   }
 
-  public delFrame(frame: QinFrame) {
-    const index = this.frames.indexOf(frame);
+  public delJobber(jobber: QinJobber) {
+    const index = this._jobbers.indexOf(jobber);
     if (index > -1) {
-      this.frames.splice(index, 1);
+      this._jobbers.splice(index, 1);
     }
   }
 
@@ -138,24 +138,24 @@ export class QinManager {
       if (element.id != "QinpelMenuAppsID1") {
         this.closeMenuApps();
       }
-      element.style.zIndex = String(++this.framesTopZ);
+      element.style.zIndex = String(++this._framesTopZ);
       if (!QinSkin.isElementVisibleInScroll(element)) {
         element.parentElement.scrollTo(element.offsetLeft, element.offsetTop);
       }
       if (element.id.indexOf("QinpelFrameID") === 0) {
-        const index = this.getFrameIndexFromID(element.id);
+        const index = this.getJobberIndexFromID(element.id);
         if (index > 0) {
-          const frame = this.frames[index];
-          this.frames.splice(index, 1);
-          this.frames.unshift(frame);
+          const jobber = this._jobbers[index];
+          this._jobbers.splice(index, 1);
+          this._jobbers.unshift(jobber);
         }
       }
     }, 360);
   }
 
   public showMenu() {
-    this.divBody.scrollTo(0, 0);
-    this.showElement(this.divMenu);
+    this._divBody.scrollTo(0, 0);
+    this.showElement(this._divMenu);
   }
 
   public showMenuApps() {
@@ -192,15 +192,15 @@ export class QinManager {
   }
 
   public getBodyWidth() {
-    return this.divBody.clientWidth;
+    return this._divBody.clientWidth;
   }
 
   public getBodyHeight() {
-    return this.divBody.clientHeight;
+    return this._divBody.clientHeight;
   }
 
   public hasToken() {
-    return !!this.userToken;
+    return !!this._userToken;
   }
 
   public async needToEnter(): Promise<boolean> {
@@ -209,7 +209,6 @@ export class QinManager {
         .get("/logged")
         .then((response) => {
           if (response.status === 200) {
-            console.log(response.data);
             if (response.data === "<!-- No user is logged. -->") {
               resolve(true);
             } else {
@@ -229,10 +228,10 @@ export class QinManager {
     if (!headers) {
       headers = {};
     }
-    headers["Qinpel-Token"] = this.userToken;
+    headers["Qinpel-Token"] = this._userToken;
     if (!headers["Accept-Language"]) {
-      if (this.userLang) {
-        headers["Accept-Language"] = this.userLang;
+      if (this._userLang) {
+        headers["Accept-Language"] = this._userLang;
       } else if (navigator.language) {
         headers["Accept-Language"] = navigator.language;
       }
@@ -253,17 +252,17 @@ export class QinManager {
       this._talker
         .post("/enter", { name, pass })
         .then((res) => {
-          this.userLang = res.data.lang;
-          this.userToken = res.data.token;
-          resolve(this.userLang);
+          this._userLang = res.data.lang;
+          this._userToken = res.data.token;
+          resolve(this._userLang);
         })
         .catch((err) => reject(err));
     });
   }
 
   public exit() {
-    this.userLang = "";
-    this.userToken = "";
+    this._userLang = "";
+    this._userToken = "";
     QinHead.delCookie("Qinpel-Lang");
     QinHead.delCookie("Qinpel-Token");
   }

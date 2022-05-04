@@ -1,4 +1,4 @@
-import { QinManager } from "./qin-manager";
+import { QinChief } from "./qin-chief";
 
-const manager = new QinManager();
-manager.putInDocument();
+const chief = new QinChief();
+chief.putInDocument();

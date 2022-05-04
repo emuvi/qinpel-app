@@ -8,6 +8,6 @@ const crypto = {
 };
 
 export const QinUtils = {
-  soul: { ...QinSoul },
+  qiny: { ...QinSoul },
   crypto,
 };
