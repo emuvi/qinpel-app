@@ -116,7 +116,7 @@ export class QinJobber {
     this._imgMenu.src = "./assets/jobber-menu.png";
     styles.applyOnDivEdgeIcon(this._imgMenu);
     this._imgMenu.alt = "o";
-    QinSoul.arm.addAction(this._imgMenu, () => this.showChiefMenu());
+    QinSoul.arm.addActionMain(this._imgMenu, () => this.showChiefMenu());
     this._divHead.appendChild(this._imgMenu);
     this._divTitle.style.flex = "1";
     this._divTitle.style.fontSize = "14px";
@@ -125,17 +125,17 @@ export class QinJobber {
     this._imgMinimize.src = "./assets/jobber-minimize.png";
     styles.applyOnDivEdgeIcon(this._imgMinimize);
     this._imgMinimize.alt = "-";
-    QinSoul.arm.addAction(this._imgMinimize, () => this.minimize());
+    QinSoul.arm.addActionMain(this._imgMinimize, () => this.minimize());
     this._divHead.appendChild(this._imgMinimize);
     this._imgMaximize.src = "./assets/jobber-maximize.png";
     styles.applyOnDivEdgeIcon(this._imgMaximize);
     this._imgMaximize.alt = "+";
-    QinSoul.arm.addAction(this._imgMaximize, () => this.maximize());
+    QinSoul.arm.addActionMain(this._imgMaximize, () => this.maximize());
     this._divHead.appendChild(this._imgMaximize);
     this._imgClose.src = "./assets/jobber-close.png";
     styles.applyOnDivEdgeIcon(this._imgClose);
     this._imgClose.alt = "x";
-    QinSoul.arm.addAction(this._imgClose, () => this.close());
+    QinSoul.arm.addActionMain(this._imgClose, () => this.close());
     this._divHead.appendChild(this._imgClose);
     this._divFrame.appendChild(this._divHead);
   }
@@ -427,8 +427,8 @@ const styles = {
     el.style.cursor = "default";
   },
   applyOnDivEdgeIcon: (el: HTMLImageElement) => {
-    el.style.width = "16px";
-    el.style.height = "16px";
+    el.style.width = "15px";
+    el.style.height = "15px";
     el.style.margin = "4px";
   },
   applyOnDivBody: (el: HTMLDivElement) => {
