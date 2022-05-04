@@ -331,11 +331,12 @@ export class QinJobber {
   }
 
   public minimize() {
+    console.log("minimize");
     if (this._minimized) {
       this._divFrame.style.width = this._lastWidth + "px";
       this._divFrame.style.height = this._lastHeight + "px";
-      this._iframeBody.style.display = "";
-      this._divFoot.style.display = "";
+      this._iframeBody.style.display = "initial";
+      this._divFoot.style.display = "initial";
       this._minimized = false;
     } else {
       if (this._maximized) {
@@ -353,6 +354,7 @@ export class QinJobber {
   }
 
   public maximize() {
+    console.log("maximize");
     if (this._maximized) {
       this._divFrame.style.width = this._lastWidth + "px";
       this._divFrame.style.height = this._lastHeight + "px";
