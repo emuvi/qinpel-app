@@ -86,6 +86,7 @@ export class QinDesk {
     }
     if (shouldAdd(this.options.addsCfgs, { title: "QinBases" })) {
       this.qinpel.talk.get("/list/bases").then((res) => {
+        let data = res.data;
         let bases = this.qinpel.util.qiny.body.getTextLines(res.data);
         this.addQinBases(bases);
       });
@@ -105,10 +106,25 @@ export class QinDesk {
   }
 
   private addQinBases(bases: string[]) {
+    if (!bases || bases.length === 0) {
+      return;
+    }
+    let actual = this.qinpel.chief.loadConfig("QinBaseSelected");
+    if (!actual) {
+      actual = bases[0];
+      this.qinpel.chief.saveConfig("QinBaseSelected", actual);
+    }
+    let items = new Array<ComboItem>();
+    for (let base of bases) {
+      items.push({
+        title: base,
+        selected: base === actual,
+      });
+    }
     this.addMenu(
       this.divCfgs,
-      this.newCombo("QinBases", bases, (base) => {
-        console.log(base);
+      this.newCombo("QinBases", items, (base) => {
+        this.qinpel.chief.saveConfig("QinBaseSelected", base);
       })
     );
   }
@@ -128,15 +144,21 @@ export class QinDesk {
     return menuBody;
   }
 
-  private newCombo(title: string, items: string[], action: QinWaiter): HTMLDivElement {
+  private newCombo(title: string, items: ComboItem[], action: QinWaiter): HTMLDivElement {
     const menuBody = document.createElement("div");
     styles.applyOnMenuBody(menuBody);
+    const menuText = document.createElement("span");
+    styles.applyOnMenuText(menuText);
+    menuText.innerText = title;
+    menuBody.appendChild(menuText);
     const menuCombo = document.createElement("select");
     styles.applyOnMenuCombo(menuCombo);
     for (const item of items) {
       const menuComboItem = document.createElement("option");
-      menuComboItem.value = item;
-      menuComboItem.innerText = item;
+      menuComboItem.value = item.title;
+      menuComboItem.innerText = item.title;
+      menuComboItem.selected = item.selected;
+      menuCombo.appendChild(menuComboItem);
     }
     menuBody.appendChild(menuCombo);
     if (action) {
@@ -154,7 +176,7 @@ export class QinDesk {
     divContainer.appendChild(divMenu);
   }
 
-  public putInDocument() {
+  public putInDocBody() {
     document.body.appendChild(this.divMain);
   }
 
@@ -182,6 +204,11 @@ export type QinAuthorize = (manifest: QinManifest) => boolean;
 export type QinManifest = {
   title: string;
   group?: string;
+};
+
+type ComboItem = {
+  title: string;
+  selected: boolean;
 };
 
 const styles = {
@@ -218,6 +245,7 @@ const styles = {
     el.style.margin = "3px";
   },
   applyOnMenuCombo: (el: HTMLSelectElement) => {
+    QinSoul.skin.styleAsEdit(el);
     el.style.margin = "3px";
   },
   applyOnMenuText: (el: HTMLSpanElement) => {

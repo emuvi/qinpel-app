@@ -1,4 +1,4 @@
-import { QinBounds, QinGrandeur, QinHead, QinSoul, QinWaiter } from "qinpel-res";
+import { QinArm, QinBounds, QinGrandeur, QinHead, QinSoul, QinWaiter } from "qinpel-res";
 import { QinChief } from "./qin-chief";
 import { QinJobberDialog } from "./qin-jobber-dialog";
 import { QinJobberPopup } from "./qin-jobber-popup";
@@ -116,7 +116,7 @@ export class QinJobber {
     this._imgMenu.src = "./assets/jobber-menu.png";
     styles.applyOnDivEdgeIcon(this._imgMenu);
     this._imgMenu.alt = "o";
-    QinSoul.arm.addActionMain(this._imgMenu, () => this.showChiefMenu());
+    QinArm.addActionMain(this._imgMenu, () => this.showChiefMenu());
     this._divHead.appendChild(this._imgMenu);
     this._divTitle.style.flex = "1";
     this._divTitle.style.fontSize = "14px";
@@ -125,17 +125,17 @@ export class QinJobber {
     this._imgMinimize.src = "./assets/jobber-minimize.png";
     styles.applyOnDivEdgeIcon(this._imgMinimize);
     this._imgMinimize.alt = "-";
-    QinSoul.arm.addActionMain(this._imgMinimize, () => this.minimize());
+    QinArm.addActionMain(this._imgMinimize, () => this.minimize());
     this._divHead.appendChild(this._imgMinimize);
     this._imgMaximize.src = "./assets/jobber-maximize.png";
     styles.applyOnDivEdgeIcon(this._imgMaximize);
     this._imgMaximize.alt = "+";
-    QinSoul.arm.addActionMain(this._imgMaximize, () => this.maximize());
+    QinArm.addActionMain(this._imgMaximize, () => this.maximize());
     this._divHead.appendChild(this._imgMaximize);
     this._imgClose.src = "./assets/jobber-close.png";
     styles.applyOnDivEdgeIcon(this._imgClose);
     this._imgClose.alt = "x";
-    QinSoul.arm.addActionMain(this._imgClose, () => this.close());
+    QinArm.addActionMain(this._imgClose, () => this.close());
     this._divHead.appendChild(this._imgClose);
     this._divFrame.appendChild(this._divHead);
   }
@@ -189,7 +189,7 @@ export class QinJobber {
   }
 
   private initDraggable() {
-    QinSoul.arm.addMover([this._divHead, this._footStatusText], this._divFrame, {
+    QinSoul.arm.addMover([this._divTitle, this._footStatusText], this._divFrame, {
       onDouble: () => this.maximize(),
       onEnd: () => {
         this._chief.showElement(this._divFrame);
@@ -331,7 +331,6 @@ export class QinJobber {
   }
 
   public minimize() {
-    console.log("minimize");
     if (this._minimized) {
       this._divFrame.style.width = this._lastWidth + "px";
       this._divFrame.style.height = this._lastHeight + "px";
@@ -354,7 +353,6 @@ export class QinJobber {
   }
 
   public maximize() {
-    console.log("maximize");
     if (this._maximized) {
       this._divFrame.style.width = this._lastWidth + "px";
       this._divFrame.style.height = this._lastHeight + "px";

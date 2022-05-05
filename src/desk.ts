@@ -8,6 +8,6 @@ qinpel.chief.needToEnter().then((need) => {
   } else {
     new QinDesk(qinpel, {
       addsApps: (manifest) => !manifest.group,
-    }).putInDocument();
+    }).putInDocBody();
   }
 });
