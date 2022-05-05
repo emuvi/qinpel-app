@@ -83,7 +83,7 @@ export class QinJobber {
     };
     let windowSizeStyle = QinSoul.skin.getWindowSizeStyle();
     const frameStyleID = this.getFrameWindowStyleID(windowSizeStyle);
-    const frameBoundsSaved = window.localStorage.getItem(frameStyleID);
+    const frameBoundsSaved = this._chief.loadConfig(frameStyleID);
     if (frameBoundsSaved) {
       let parts = frameBoundsSaved.split(",");
       result.posX = Number(parts[0]);
@@ -301,8 +301,8 @@ export class QinJobber {
   }
 
   private getDisplayStatusMessage(message: string): string {
-    if (message.length > JobberConfigs.STATUS_MESSAGE_MAX_LENGTH) {
-      return message.substring(0, JobberConfigs.STATUS_MESSAGE_MAX_LENGTH);
+    if (message.length > JobberSetup.STATUS_MESSAGE_MAX_LENGTH) {
+      return message.substring(0, JobberSetup.STATUS_MESSAGE_MAX_LENGTH);
     } else {
       return message;
     }
@@ -319,7 +319,7 @@ export class QinJobber {
       parseInt(this._divFrame.style.width, 10) +
       "," +
       parseInt(this._divFrame.style.height, 10);
-    window.localStorage.setItem(frameStyleID, frameBounds);
+    this._chief.saveConfig(frameStyleID, frameBounds);
   }
 
   public show() {
@@ -346,7 +346,7 @@ export class QinJobber {
       this._lastHeight = parseInt(this._divFrame.style.height, 10);
       this._iframeBody.style.display = "none";
       this._divFoot.style.display = "none";
-      this._divFrame.style.width = JobberConfigs.MINIMIZED_WIDTH + "px";
+      this._divFrame.style.width = JobberSetup.MINIMIZED_WIDTH + "px";
       this._divFrame.style.height = this._divHead.clientHeight + "px";
       this._minimized = true;
     }
@@ -399,7 +399,7 @@ export class QinJobber {
   }
 }
 
-const JobberConfigs = {
+const JobberSetup = {
   POP_MENU_MAX_HEIGHT: 270,
   POP_MENU_WIDTH: 180,
   MINIMIZED_WIDTH: 180,

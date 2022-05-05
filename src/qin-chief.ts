@@ -242,6 +242,14 @@ export class QinChief {
     return configs;
   }
 
+  public saveConfig(key: string, value: string) {
+    window.localStorage.setItem(key, value);
+  }
+
+  public loadConfig(key: string, orDefault?: string): string {
+    return window.localStorage.getItem(key) || orDefault;
+  }
+
   public get talk(): QinTalker {
     return this._talker;
   }
