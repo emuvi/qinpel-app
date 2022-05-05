@@ -118,8 +118,7 @@ export class QinJobber {
     this._imgMenu.alt = "o";
     QinArm.addActionMain(this._imgMenu, () => this.showChiefMenu());
     this._divHead.appendChild(this._imgMenu);
-    this._divTitle.style.flex = "1";
-    this._divTitle.style.fontSize = "14px";
+    styles.applyOnDivHeadTitle(this._divTitle);
     this._divTitle.innerText = this._title;
     this._divHead.appendChild(this._divTitle);
     this._imgMinimize.src = "./assets/jobber-minimize.png";
@@ -424,6 +423,10 @@ const styles = {
     el.style.flexWrap = "wrap";
     el.style.cursor = "default";
   },
+  applyOnDivHeadTitle: (el: HTMLSpanElement) => {
+    el.style.flex = "1";
+    el.style.fontSize = "16px";
+  },
   applyOnDivEdgeIcon: (el: HTMLImageElement) => {
     el.style.width = "15px";
     el.style.height = "15px";
@@ -477,6 +480,6 @@ const styles = {
     el.style.flex = "1";
     el.style.whiteSpace = "nowrap";
     el.style.overflow = "hidden";
-    el.style.fontSize = "14px";
+    el.style.fontSize = "15px";
   },
 };
