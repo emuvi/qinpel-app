@@ -1,8 +1,8 @@
 import { QinArm, QinHead, QinSkin } from "qinpel-res";
 import { QinDesk, QinDeskSet } from "./qin-desk";
 import { QinJobber } from "./qin-jobber";
+import { QinOurs } from "./qin-ours";
 import { QinTalker } from "./qin-talker";
-import { QinUtils } from "./qin-utils";
 import { Qinpel } from "./qinpel";
 
 export class QinChief {
@@ -255,7 +255,7 @@ export class QinChief {
   }
 
   public tryEnter(name: string, pass: string): Promise<string> {
-    pass = QinUtils.crypto.sha1(pass);
+    pass = QinOurs.crypto.sha1(pass);
     return new Promise((resolve, reject) => {
       this._talker
         .post("/enter", { name, pass })

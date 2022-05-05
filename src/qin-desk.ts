@@ -1,4 +1,5 @@
 import { QinAction, QinSoul, QinWaiter } from "qinpel-res";
+import { QinNames } from "./qin-names";
 import { Qinpel } from "./qinpel";
 
 export class QinDesk {
@@ -87,7 +88,7 @@ export class QinDesk {
     if (shouldAdd(this.options.addsCfgs, { title: "QinBases" })) {
       this.qinpel.talk.get("/list/bases").then((res) => {
         let data = res.data;
-        let bases = this.qinpel.util.qiny.body.getTextLines(res.data);
+        let bases = this.qinpel.our.soul.body.getTextLines(res.data);
         this.addQinBases(bases);
       });
     }
@@ -96,12 +97,16 @@ export class QinDesk {
   private addDevTools() {
     this.addMenu(
       this.divCfgs,
-      this.newMenu("DevTools", "/app/qinpel-app/assets/menu-devtools.ico", (ev) => {
-        if (ev.isMain) {
-          QinSoul.head.toggleDevTools();
-          this.qinpel.jobbed.close();
+      this.newMenu(
+        QinNames.DevTools,
+        "/app/qinpel-app/assets/menu-devtools.ico",
+        (ev) => {
+          if (ev.isMain) {
+            QinSoul.head.toggleDevTools();
+            this.qinpel.jobbed.close();
+          }
         }
-      })
+      )
     );
   }
 
@@ -109,10 +114,10 @@ export class QinDesk {
     if (!bases || bases.length === 0) {
       return;
     }
-    let actual = this.qinpel.chief.loadConfig("QinBaseSelected");
+    let actual = this.qinpel.chief.loadConfig(QinNames.QinBaseSelected);
     if (!actual) {
       actual = bases[0];
-      this.qinpel.chief.saveConfig("QinBaseSelected", actual);
+      this.qinpel.chief.saveConfig(QinNames.QinBaseSelected, actual);
     }
     let items = new Array<ComboItem>();
     for (let base of bases) {
@@ -123,8 +128,8 @@ export class QinDesk {
     }
     this.addMenu(
       this.divCfgs,
-      this.newCombo("QinBases", items, (base) => {
-        this.qinpel.chief.saveConfig("QinBaseSelected", base);
+      this.newCombo(QinNames.QinBases, items, (base) => {
+        this.qinpel.chief.saveConfig(QinNames.QinBaseSelected, base);
       })
     );
   }

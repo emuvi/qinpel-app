@@ -1,7 +1,7 @@
 import { QinChief } from "./qin-chief";
 import { QinJobber } from "./qin-jobber";
+import { QinOurs } from "./qin-ours";
 import { QinTalker } from "./qin-talker";
-import { QinUtils } from "./qin-utils";
 
 export class Qinpel {
   private _chief: QinChief;
@@ -24,7 +24,7 @@ export class Qinpel {
     return this._chief.talk;
   }
 
-  public get util() {
-    return QinUtils;
+  public get our() {
+    return QinOurs;
   }
 }
