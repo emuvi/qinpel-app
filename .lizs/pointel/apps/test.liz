@@ -3,6 +3,7 @@
 local wd = Liz.wd()
 local project = Liz.path_name(wd)
 print("Testing " .. project .. " ...")
+print("============================================================")
 
 if Liz.has("pre-test.liz") then
     print("Running pre test...")
