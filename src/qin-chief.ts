@@ -47,7 +47,9 @@ export class QinChief {
     this._divMenu.style.left = "18px";
     this._divMenu.style.width = "48px";
     this._divMenu.style.height = "48px";
-    this._imgMenu.src = "./assets/qinpel-48.png";
+    this._imgMenu.src = "./assets/qinpel.png";
+    this._imgMenu.style.width = "48px";
+    this._imgMenu.style.height = "48px";
     this._imgMenu.alt = "Menu";
     this._divMenu.appendChild(this._imgMenu);
     this._divBody.appendChild(this._divMenu);
