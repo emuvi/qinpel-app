@@ -250,7 +250,7 @@ const styles = {
     el.style.margin = "3px";
   },
   applyOnMenuCombo: (el: HTMLSelectElement) => {
-    QinSoul.skin.styleAsEdit(el);
+    QinSoul.skin.styleAsEditable(el);
     el.style.margin = "3px";
   },
   applyOnMenuText: (el: HTMLSpanElement) => {

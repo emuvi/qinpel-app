@@ -19,7 +19,7 @@ export class QinJobberPopup {
 
   private initMain() {
     this._divMain.appendChild(this._divContent);
-    QinSoul.skin.styleAsEdit(this._divMain);
+    QinSoul.skin.styleAsEditable(this._divMain);
     this._divMain.style.position = "absolute";
     this._divMain.style.padding = "3px";
     this._divMain.style.overflow = "auto";
