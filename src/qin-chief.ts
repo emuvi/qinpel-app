@@ -161,7 +161,7 @@ export class QinChief {
   }
 
   public showMenuApps() {
-    // [TODO] - Show PopupMenu
+    // [ TODO ] - Show PopupMenu
     let divMenu = document.createElement("div");
     divMenu.style.backgroundColor = "#878787";
     divMenu.style.border = "2px solid #6c6c6c";
@@ -181,7 +181,7 @@ export class QinChief {
   }
 
   private closeMenuApps() {
-    // [TODO] - Close PopupMenu
+    // [ TODO ] - Close PopupMenu
     // if (qinpelRefWindow.refPopMenu != null) {
     //     qinpelRefWindow.divBody.removeChild(qinpelRefWindow.refPopMenu.elements.divPopMenu);
     //     qinpelRefWindow.refPopMenu = null;
