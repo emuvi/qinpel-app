@@ -39,7 +39,7 @@ export class QinJobberPopup {
 
   private onFocusOutClose(ev: FocusEvent) {
     setTimeout(() => {
-      if (!this._divMain.contains(this._jobber.getBodyDoc().activeElement)) {
+      if (!this._divMain.contains(this._jobber.getIFrameDoc().activeElement)) {
         this.close();
       }
     }, 360);
@@ -48,26 +48,32 @@ export class QinJobberPopup {
 
   public show() {
     this.close();
-    this._jobber.getBodyDoc().body.appendChild(this._divMain);
+    const iframeBody = this._jobber.getIFrameDoc().body;
+    iframeBody.appendChild(this._divMain);
     this._posX = 18;
     this._posY = 18;
-    this._maxWidth = this._jobber.getBody().clientWidth - (this._posY + 9);
-    this._maxHeight = this._jobber.getBody().clientHeight - (this._posY + 9);
+    this._maxWidth = this._jobber.getIFrame().clientWidth - (this._posY + 9);
+    this._maxHeight = this._jobber.getIFrame().clientHeight - (this._posY + 9);
     this._divMain.style.left = this._posX + "px";
     this._divMain.style.top = this._posY + "px";
     this._divMain.style.maxWidth = this._maxWidth + "px";
     this._divMain.style.maxHeight = this._maxHeight + "px";
     this._divMain.focus();
+    this._posX = this._jobber.getIFrame().clientWidth / 2 - this._divMain.clientWidth / 2;
+    this._posY =
+      this._jobber.getIFrame().clientHeight / 2 - this._divMain.clientHeight / 2;
+    this._divMain.style.left = this._posX + "px";
+    this._divMain.style.top = this._posY + "px";
   }
 
   public showOnParent(parent: HTMLElement) {
     this.close();
-    this._jobber.getBodyDoc().body.appendChild(this._divMain);
+    this._jobber.getIFrameDoc().body.appendChild(this._divMain);
     let bounds = parent.getBoundingClientRect();
     this._posX = bounds.left;
     this._posY = bounds.top + bounds.height;
-    this._maxWidth = this._jobber.getBody().clientWidth - (this._posX + 9);
-    this._maxHeight = this._jobber.getBody().clientHeight - (this._posY + 9);
+    this._maxWidth = this._jobber.getIFrame().clientWidth - (this._posX + 9);
+    this._maxHeight = this._jobber.getIFrame().clientHeight - (this._posY + 9);
     this._divMain.style.left = this._posX + "px";
     this._divMain.style.top = this._posY + "px";
     this._divMain.style.maxWidth = this._maxWidth + "px";
@@ -77,7 +83,7 @@ export class QinJobberPopup {
 
   public showOnBounds(bounds: QinBounds) {
     this.close();
-    this._jobber.getBodyDoc().body.appendChild(this._divMain);
+    this._jobber.getIFrameDoc().body.appendChild(this._divMain);
     this._posX = bounds.posX;
     this._posY = bounds.posY;
     this._maxWidth = bounds.width;
@@ -90,14 +96,14 @@ export class QinJobberPopup {
   }
 
   public close() {
-    if (this._jobber.getBodyDoc().body.contains(this._divMain)) {
+    if (this._jobber.getIFrameDoc().body.contains(this._divMain)) {
       this._divMain.focus();
-      this._jobber.getBodyDoc().body.removeChild(this._divMain);
+      this._jobber.getIFrameDoc().body.removeChild(this._divMain);
     }
   }
 
   public toggle() {
-    if (this._jobber.getBodyDoc().body.contains(this._divMain)) {
+    if (this._jobber.getIFrameDoc().body.contains(this._divMain)) {
       this.close();
     } else {
       this.show();

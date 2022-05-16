@@ -188,11 +188,6 @@ export class QinChief {
     // }
   }
 
-  public showAlert(message: string) {
-    alert(message);
-    // [ TODO ] - Show Better Alert
-  }
-
   public getBodyWidth() {
     return this._divBody.clientWidth;
   }

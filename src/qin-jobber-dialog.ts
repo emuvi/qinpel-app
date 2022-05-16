@@ -55,14 +55,14 @@ export class QinJobberDialog {
       return;
     }
     this.docNodes = [];
-    for (let i = 0; i < this.jobber.getBodyDoc().body.childNodes.length; i++) {
-      const child = this.jobber.getBodyDoc().body.childNodes[i];
+    for (let i = 0; i < this.jobber.getIFrameDoc().body.childNodes.length; i++) {
+      const child = this.jobber.getIFrameDoc().body.childNodes[i];
       this.docNodes.push(child);
     }
     for (const child of this.docNodes) {
-      this.jobber.getBodyDoc().body.removeChild(child);
+      this.jobber.getIFrameDoc().body.removeChild(child);
     }
-    this.jobber.getBodyDoc().body.appendChild(this.divDialog);
+    this.jobber.getIFrameDoc().body.appendChild(this.divDialog);
     this.showing = true;
   }
 
@@ -70,9 +70,9 @@ export class QinJobberDialog {
     if (!this.showing) {
       return;
     }
-    this.jobber.getBodyDoc().body.removeChild(this.divDialog);
+    this.jobber.getIFrameDoc().body.removeChild(this.divDialog);
     for (const child of this.docNodes) {
-      this.jobber.getBodyDoc().body.appendChild(child);
+      this.jobber.getIFrameDoc().body.appendChild(child);
     }
     this.docNodes = [];
     this.showing = false;

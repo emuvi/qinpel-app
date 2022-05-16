@@ -1,4 +1,12 @@
-import { QinArm, QinBounds, QinGrandeur, QinHead, QinSoul, QinWaiter } from "qinpel-res";
+import {
+  QinArm,
+  QinBounds,
+  QinGrandeur,
+  QinHead,
+  QinSkin,
+  QinSoul,
+  QinWaiter,
+} from "qinpel-res";
 import { QinChief } from "./qin-chief";
 import { QinJobberDialog } from "./qin-jobber-dialog";
 import { QinJobberPopup } from "./qin-jobber-popup";
@@ -369,11 +377,11 @@ export class QinJobber {
     this._chief.showElement(this._divFrame);
   }
 
-  public getBody(): HTMLIFrameElement {
+  public getIFrame(): HTMLIFrameElement {
     return this._iframeBody;
   }
 
-  public getBodyDoc(): Document {
+  public getIFrameDoc(): Document {
     return this._iframeBody.contentWindow.document;
   }
 
@@ -383,6 +391,30 @@ export class QinJobber {
 
   public newPopup(divContent: HTMLDivElement): QinJobberPopup {
     return new QinJobberPopup(this, divContent);
+  }
+
+  public showAlert(message: string) {
+    const divBody = document.createElement("div");
+    const popup = this.newPopup(divBody);
+    divBody.style.display = "flex";
+    divBody.style.flexDirection = "column";
+    divBody.style.padding = "12px";
+    const divMessage = document.createElement("div");
+    divBody.appendChild(divMessage);
+    divMessage.innerText = message;
+    const divButton = document.createElement("div");
+    divBody.appendChild(divButton);
+    divButton.style.display = "flex";
+    divButton.style.justifyContent = "center";
+    divButton.style.marginTop = "6px";
+    const button = document.createElement("button");
+    divButton.appendChild(button);
+    QinSkin.styleAsEditable(button);
+    button.innerText = "Ok";
+    button.onclick = () => {
+      popup.close();
+    };
+    popup.show();
   }
 
   public navigate(url: string) {

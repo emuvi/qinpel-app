@@ -22,7 +22,7 @@ qinpel.our.soul.arm.addActions([inputUser, inputPass, buttonEnter], (qinEvent) =
         qinpel.jobbed.navigate("./desk.html");
       })
       .catch((err) => {
-        qinpel.chief.showAlert("Problem on enter: " + err);
+        qinpel.jobbed.showAlert("Problem on enter: " + err);
       });
   }
 });
