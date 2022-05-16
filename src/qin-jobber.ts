@@ -417,6 +417,44 @@ export class QinJobber {
     popup.show();
   }
 
+  public showDialog(message: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const divBody = document.createElement("div");
+      const popup = this.newPopup(divBody);
+      divBody.style.display = "flex";
+      divBody.style.flexDirection = "column";
+      divBody.style.padding = "12px";
+      const divMessage = document.createElement("div");
+      divBody.appendChild(divMessage);
+      divMessage.innerText = message;
+      const divButton = document.createElement("div");
+      divBody.appendChild(divButton);
+      divButton.style.display = "flex";
+      divButton.style.justifyContent = "center";
+      divButton.style.marginTop = "6px";
+      const btnOk = document.createElement("button");
+      divButton.appendChild(btnOk);
+      QinSkin.styleAsEditable(btnOk);
+      btnOk.innerText = "Ok";
+      var confirmed = false;
+      btnOk.onclick = () => {
+        confirmed = true;
+        popup.close();
+      };
+      const btnCancel = document.createElement("button");
+      divButton.appendChild(btnCancel);
+      QinSkin.styleAsEditable(btnCancel);
+      btnCancel.innerText = "Cancel";
+      btnCancel.onclick = () => {
+        popup.close();
+      };
+      popup.addOnClose(() => {
+        resolve(confirmed);
+      });
+      popup.show();
+    });
+  }
+
   public navigate(url: string) {
     this._iframeBody.src = url;
   }
