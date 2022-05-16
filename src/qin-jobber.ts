@@ -1,8 +1,10 @@
 import {
   QinArms,
+  QinBody,
   QinBounds,
   QinGrandeur,
   QinHead,
+  QinLegs,
   QinSkin,
   QinSoul,
   QinWaiter,
@@ -393,15 +395,20 @@ export class QinJobber {
     return new QinJobberPopup(this, divContent);
   }
 
+  private newMessageLines(message: string): HTMLDivElement {
+    return QinLegs.newColumn(
+      QinBody.getTextLines(message).map((line) => QinLegs.newSpan(line))
+    );
+  }
+
   public showAlert(message: string) {
     const divBody = document.createElement("div");
     const popup = this.newPopup(divBody);
     divBody.style.display = "flex";
     divBody.style.flexDirection = "column";
     divBody.style.padding = "12px";
-    const divMessage = document.createElement("div");
+    const divMessage = this.newMessageLines(message);
     divBody.appendChild(divMessage);
-    divMessage.innerText = message;
     const divButton = document.createElement("div");
     divBody.appendChild(divButton);
     divButton.style.display = "flex";
@@ -424,9 +431,8 @@ export class QinJobber {
       divBody.style.display = "flex";
       divBody.style.flexDirection = "column";
       divBody.style.padding = "12px";
-      const divMessage = document.createElement("div");
+      const divMessage = this.newMessageLines(message);
       divBody.appendChild(divMessage);
-      divMessage.innerText = message;
       const divButton = document.createElement("div");
       divBody.appendChild(divButton);
       divButton.style.display = "flex";
