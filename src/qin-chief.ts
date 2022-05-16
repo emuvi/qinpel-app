@@ -1,4 +1,4 @@
-import { QinArm, QinHead, QinSkin } from "qinpel-res";
+import { QinArms, QinHead, QinSkin } from "qinpel-res";
 import { QinDesk, QinDeskSet } from "./qin-desk";
 import { QinJobber } from "./qin-jobber";
 import { QinOurs } from "./qin-ours";
@@ -53,7 +53,7 @@ export class QinChief {
     this._imgMenu.alt = "Menu";
     this._divMenu.appendChild(this._imgMenu);
     this._divBody.appendChild(this._divMenu);
-    QinArm.addAction(this._divMenu, (event) => {
+    QinArms.addAction(this._divMenu, (event) => {
       if (event.isMain) {
         if (event.hasShift) {
           document.body.requestFullscreen();
@@ -66,7 +66,7 @@ export class QinChief {
   }
 
   private initScroll() {
-    QinArm.addScroller(this._divBody, {
+    QinArms.addScroller(this._divBody, {
       onDouble: () => {
         this._divBody.scrollTo(0, 0);
         QinSkin.clearSelection();

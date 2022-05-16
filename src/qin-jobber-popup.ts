@@ -1,4 +1,4 @@
-import { QinArm, QinBounds, QinSoul } from "qinpel-res";
+import { QinArms, QinBounds, QinSoul } from "qinpel-res";
 import { QinJobber } from "./qin-jobber";
 
 export class QinJobberPopup {
@@ -36,7 +36,7 @@ export class QinJobberPopup {
         this.close();
       }
     }, 360);
-    return QinArm.stopEvent(ev);
+    return QinArms.stopEvent(ev);
   }
 
   public addOnShow(func: Function) {

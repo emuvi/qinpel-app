@@ -145,7 +145,7 @@ export class QinDesk {
     menuText.innerText = title;
     menuBody.appendChild(menuIcon);
     menuBody.appendChild(menuText);
-    QinSoul.arm.addAction(menuBody, action);
+    QinSoul.arms.addAction(menuBody, action);
     return menuBody;
   }
 

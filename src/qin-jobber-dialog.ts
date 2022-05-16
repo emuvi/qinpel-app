@@ -39,7 +39,7 @@ export class QinJobberDialog {
     styles.applyOnDialogImage(this.imgClose);
     this.imgClose.src = "/app/qinpel-app/assets/jobber-close.png";
     this.spanClose.appendChild(this.imgClose);
-    QinSoul.arm.addAction(this.spanClose, (_) => {
+    QinSoul.arms.addAction(this.spanClose, (_) => {
       this.close();
     });
   }
