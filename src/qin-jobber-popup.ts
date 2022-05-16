@@ -1,4 +1,4 @@
-import { QinBounds, QinSoul } from "qinpel-res";
+import { QinArm, QinBounds, QinSoul } from "qinpel-res";
 import { QinJobber } from "./qin-jobber";
 
 export class QinJobberPopup {
@@ -27,17 +27,7 @@ export class QinJobberPopup {
     this._divMain.style.padding = "3px";
     this._divMain.style.overflow = "auto";
     this._divMain.tabIndex = 0;
-    this.addFocusOutCloseToAll(this._divMain);
-  }
-
-  private addFocusOutCloseToAll(el: HTMLElement) {
-    el.addEventListener("focusout", (ev) => this.onFocusOutClose(ev));
-    for (let index = 0; index < el.children.length; index++) {
-      const child = el.children.item(index);
-      if (child instanceof HTMLElement) {
-        this.addFocusOutCloseToAll(child);
-      }
-    }
+    this._divMain.addEventListener("focusout", (ev) => this.onFocusOutClose(ev));
   }
 
   private onFocusOutClose(ev: FocusEvent) {
@@ -46,7 +36,7 @@ export class QinJobberPopup {
         this.close();
       }
     }, 360);
-    return QinSoul.arm.stopEvent(ev);
+    return QinArm.stopEvent(ev);
   }
 
   public addOnShow(func: Function) {
