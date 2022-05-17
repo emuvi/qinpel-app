@@ -395,12 +395,6 @@ export class QinJobber {
     return new QinJobberPopup(this, divContent);
   }
 
-  private newMessageLines(message: string): HTMLDivElement {
-    return QinLegs.newColumn(
-      QinBody.getTextLines(message).map((line) => QinLegs.newSpan(line))
-    );
-  }
-
   public showAlert(message: string) {
     const divBody = document.createElement("div");
     const popup = this.newPopup(divBody);
@@ -459,6 +453,12 @@ export class QinJobber {
       });
       popup.show();
     });
+  }
+
+  private newMessageLines(message: string): HTMLDivElement {
+    return QinLegs.newColumn(
+      QinBody.getTextLines(message).map((line) => QinLegs.newSpan(line))
+    );
   }
 
   public navigate(url: string) {
