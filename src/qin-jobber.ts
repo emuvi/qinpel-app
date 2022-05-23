@@ -488,7 +488,7 @@ export class QinJobber {
     popup.show();
   }
 
-  public showError(error: any, origin?: string) {
+  public showError(error: any, origin: string) {
     const divBody = document.createElement("div");
     const popup = this.newPopup(divBody);
     divBody.style.display = "flex";
