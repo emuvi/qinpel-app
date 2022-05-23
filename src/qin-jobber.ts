@@ -455,6 +455,72 @@ export class QinJobber {
     });
   }
 
+  public showInfo(message: string) {
+    const divBody = document.createElement("div");
+    const popup = this.newPopup(divBody);
+    divBody.style.display = "flex";
+    divBody.style.flexDirection = "column";
+    divBody.style.padding = "12px";
+    const divIcon = document.createElement("div");
+    divBody.appendChild(divIcon);
+    divIcon.style.display = "flex";
+    divIcon.style.justifyContent = "center";
+    divIcon.style.marginBottom = "6px";
+    const icon = document.createElement("img");
+    icon.src = "/app/qinpel-app/assets/jobber-status-info.png";
+    icon.style.width = "24px";
+    icon.style.height = "24px";
+    divIcon.appendChild(icon);
+    const divMessage = this.newMessageLines(message);
+    divBody.appendChild(divMessage);
+    const divButton = document.createElement("div");
+    divBody.appendChild(divButton);
+    divButton.style.display = "flex";
+    divButton.style.justifyContent = "center";
+    divButton.style.marginTop = "6px";
+    const button = document.createElement("button");
+    divButton.appendChild(button);
+    QinSkin.styleAsEditable(button);
+    button.innerText = "Ok";
+    button.onclick = () => {
+      popup.close();
+    };
+    popup.show();
+  }
+
+  public showError(error: any, origin?: string) {
+    const divBody = document.createElement("div");
+    const popup = this.newPopup(divBody);
+    divBody.style.display = "flex";
+    divBody.style.flexDirection = "column";
+    divBody.style.padding = "12px";
+    const divIcon = document.createElement("div");
+    divBody.appendChild(divIcon);
+    divIcon.style.display = "flex";
+    divIcon.style.justifyContent = "center";
+    divIcon.style.marginBottom = "6px";
+    const icon = document.createElement("img");
+    icon.src = "/app/qinpel-app/assets/jobber-status-error.png";
+    icon.style.width = "24px";
+    icon.style.height = "24px";
+    divIcon.appendChild(icon);
+    const divMessage = this.newMessageLines(QinHead.getErrorMessage(error, origin));
+    divBody.appendChild(divMessage);
+    const divButton = document.createElement("div");
+    divBody.appendChild(divButton);
+    divButton.style.display = "flex";
+    divButton.style.justifyContent = "center";
+    divButton.style.marginTop = "6px";
+    const button = document.createElement("button");
+    divButton.appendChild(button);
+    QinSkin.styleAsEditable(button);
+    button.innerText = "Ok";
+    button.onclick = () => {
+      popup.close();
+    };
+    popup.show();
+  }
+
   private newMessageLines(message: string): HTMLDivElement {
     return QinLegs.newColumn(
       QinBody.getTextLines(message).map((line) => QinLegs.newSpan(line))
