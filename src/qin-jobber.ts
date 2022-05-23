@@ -419,7 +419,7 @@ export class QinJobber {
   }
 
   public showDialog(message: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const divBody = document.createElement("div");
       const popup = this.newPopup(divBody);
       divBody.style.display = "flex";
