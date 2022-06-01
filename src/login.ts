@@ -22,7 +22,7 @@ qinpel.our.soul.arms.addActions([inputUser, inputPass, buttonEnter], (qinEvent) 
       .tryEnter(user, pass)
       .then((_) => {
         qinpel.jobbed.statusInfo(
-          "Successful entry with user " + user,
+          "Successfully entry with user " + user,
           "{qinpel-app}(ErrCode-000004)"
         );
         qinpel.jobbed.navigate("./desk.html");
