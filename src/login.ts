@@ -1,6 +1,9 @@
 import { Qinpel } from "./qinpel";
 const qinpel = (window.frameElement as any).qinpel as Qinpel;
-qinpel.jobbed.statusInfo("You must inform your user and pass to enter.");
+qinpel.jobbed.statusInfo(
+  "You must inform your user and pass to enter.",
+  "{qinpel-app}(ErrCode-000003)"
+);
 const inputUser = document.getElementById("loginUser") as HTMLInputElement;
 const inputPass = document.getElementById("loginPass") as HTMLInputElement;
 const buttonEnter = document.getElementById("loginEnter") as HTMLButtonElement;
@@ -18,7 +21,10 @@ qinpel.our.soul.arms.addActions([inputUser, inputPass, buttonEnter], (qinEvent) 
     qinpel.chief
       .tryEnter(user, pass)
       .then((_) => {
-        qinpel.jobbed.statusInfo("Successful entry with user " + user);
+        qinpel.jobbed.statusInfo(
+          "Successful entry with user " + user,
+          "{qinpel-app}(ErrCode-000004)"
+        );
         qinpel.jobbed.navigate("./desk.html");
       })
       .catch((err) => {

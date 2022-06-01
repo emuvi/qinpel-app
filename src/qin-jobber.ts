@@ -289,7 +289,8 @@ export class QinJobber {
     this.show();
   }
 
-  public statusInfo(message: string) {
+  public statusInfo(info: any, origin: string) {
+    let message = QinHead.getInfoMessage(info, origin);
     this._footStatusText.innerText = this.getDisplayStatusMessage(message);
     let divInfo = document.createElement("div");
     divInfo.innerText = message;
@@ -455,7 +456,7 @@ export class QinJobber {
     });
   }
 
-  public showInfo(message: string) {
+  public showInfo(info: any, origin: string) {
     const divBody = document.createElement("div");
     const popup = this.newPopup(divBody);
     divBody.style.display = "flex";
@@ -471,7 +472,7 @@ export class QinJobber {
     icon.style.width = "24px";
     icon.style.height = "24px";
     divIcon.appendChild(icon);
-    const divMessage = this.newMessageLines(message);
+    const divMessage = this.newMessageLines(QinHead.getInfoMessage(info, origin));
     divBody.appendChild(divMessage);
     const divButton = document.createElement("div");
     divBody.appendChild(divButton);
