@@ -311,8 +311,9 @@ export class QinJobber {
   }
 
   private getDisplayStatusMessage(message: string): string {
-    if (message.length > JobberSetup.STATUS_MESSAGE_MAX_LENGTH) {
-      return message.substring(0, JobberSetup.STATUS_MESSAGE_MAX_LENGTH);
+    let firstBreak = message.indexOf("\n");
+    if (firstBreak > -1) {
+      return message.substring(0, firstBreak);
     } else {
       return message;
     }
@@ -543,7 +544,6 @@ const JobberSetup = {
   POP_MENU_MAX_HEIGHT: 270,
   POP_MENU_WIDTH: 180,
   MINIMIZED_WIDTH: 180,
-  STATUS_MESSAGE_MAX_LENGTH: 180,
 };
 
 const styles = {
