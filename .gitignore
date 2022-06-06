@@ -1,4 +1,5 @@
 node_modules/
+.lizs/
 build/
 types/
 *.log
