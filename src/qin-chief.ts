@@ -22,6 +22,7 @@ export class QinChief {
     this.initBody();
     this.initMenu();
     this.initScroll();
+    this.initServerLang();
   }
 
   private initBody() {
@@ -76,6 +77,18 @@ export class QinChief {
         QinSkin.clearSelection();
       },
     });
+  }
+
+  private initServerLang() {
+    this._serverLang = "en";
+    this.talk
+      .get("/lang")
+      .then((res) => {
+        this._serverLang = res.data;
+      })
+      .catch((err) => {
+        console.log("Could not get the server language because: " + err);
+      });
   }
 
   public putInDocument() {
