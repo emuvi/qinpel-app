@@ -27,4 +27,8 @@ export class Qinpel {
   public get our() {
     return QinOurs;
   }
+
+  public tr(of: string): string {
+    return this.our.tr(of);
+  }
 }
