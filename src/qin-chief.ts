@@ -286,9 +286,15 @@ export class QinChief {
   public loadTranslations(ofApplication): Promise<void> {
     return new Promise<void>((resolve, _) => {
       let lang = this._userLang || this._serverLang;
-      if (!lang || lang == "en") return;
+      if (!lang || lang == "en") {
+        resolve();
+        return;
+      }
       let appsLoaded = this.loadedTranslations.get(lang);
-      if (appsLoaded && appsLoaded.indexOf(ofApplication) > -1) return;
+      if (appsLoaded && appsLoaded.indexOf(ofApplication) > -1) {
+        resolve();
+        return;
+      }
       if (appsLoaded) {
         appsLoaded.push(ofApplication);
       } else {
@@ -303,7 +309,9 @@ export class QinChief {
           QinHead.translations(dictionary);
           resolve();
         })
-        .catch((_) => {});
+        .catch((_) => {
+          resolve();
+        });
     });
   }
 
