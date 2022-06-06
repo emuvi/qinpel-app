@@ -108,11 +108,11 @@ export class QinChief {
     return new QinDesk(qinpel, options);
   }
 
-  public newJobber(title: string, appName: string, options?: any): QinJobber {
-    let result = new QinJobber(this, title, appName, options);
+  public newJobber(title: string, appNameOrAddress: string, options?: any): QinJobber {
+    let result = new QinJobber(this, title, appNameOrAddress, options);
     result.install();
     this._jobbers.push(result);
-    this.loadTranslations(appName);
+    this.loadTranslations(result.appName);
     return result;
   }
 
@@ -281,25 +281,29 @@ export class QinChief {
     });
   }
 
+  private loadedTranslations: Map<string, Array<string>> = new Map<string, Array<string>>();
+
   public loadTranslations(ofApplication): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<void>((resolve, _) => {
       let lang = this._userLang || this._serverLang;
-      if (lang == "en") return;
-      if (lang) {
-        let address = "/app/" + ofApplication + "/dics/" + lang + ".txt";
-        this._talker
-          .get(address)
-          .then((res) => {
-            let dictionary = res.data;
-            QinHead.translations(dictionary);
-            resolve();
-          })
-          .catch((err) => {
-            reject(err);
-          });
+      if (!lang || lang == "en") return;
+      let appsLoaded = this.loadedTranslations.get(lang);
+      if (appsLoaded && appsLoaded.indexOf(ofApplication) > -1) return;
+      if (appsLoaded) {
+        appsLoaded.push(ofApplication);
       } else {
-        reject("There is no language to load.");
+        appsLoaded = [ofApplication];
+        this.loadedTranslations.set(lang, appsLoaded);
       }
+      let address = "/app/" + ofApplication + "/dics/" + lang + ".txt";
+      this._talker
+        .get(address)
+        .then((res) => {
+          let dictionary = res.data;
+          QinHead.translations(dictionary);
+          resolve();
+        })
+        .catch((_) => {});
     });
   }
 

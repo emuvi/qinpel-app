@@ -20,6 +20,7 @@ export { QinJobberPopup } from "./qin-jobber-popup";
 export class QinJobber {
   private _chief: QinChief;
   private _title: string;
+  private _appNameOrAddress: string;
   private _appName: string;
   private _options: any;
   private _waiters: QinWaiter[] = [];
@@ -45,10 +46,10 @@ export class QinJobber {
   private _lastWidth = -1;
   private _lastHeight = -1;
 
-  public constructor(chief: QinChief, title: string, appName: string, options?: any) {
+  public constructor(chief: QinChief, title: string, appNameOrAddress: string, options?: any) {
     this._chief = chief;
     this._title = this.initFrameTitle(title);
-    this._appName = appName;
+    this._appNameOrAddress = appNameOrAddress;
     this._options = options ? options : {};
     this.initDivFrame();
     this.initDivHead();
@@ -159,9 +160,16 @@ export class QinJobber {
     this._iframeBody.id = "QinpelIFrameBodyID" + this._rndID;
     styles.applyOnIFrameBody(this._iframeBody);
     this._iframeBody.style.display = "initial";
-    let address = this._appName;
+    let address = this._appNameOrAddress;
     if (!address.startsWith("/app/")) {
+      this._appName = address;
       address = "/app/" + address + "/index.html";
+    } else {
+      this._appName = address.substring(5);
+      let nextSlash = this._appName.indexOf("/");
+      if (nextSlash > 0) {
+        this._appName = this._appName.substring(0, nextSlash);
+      }
     }
     this._iframeBody.src = address;
     this._iframeBody.onload = (_) => {
