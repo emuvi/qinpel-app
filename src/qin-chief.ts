@@ -12,6 +12,7 @@ export class QinChief {
   private _jobbers: QinJobber[] = [];
   private _framesTopZ = 1;
 
+  private _serverLang = "";
   private _userLang = "";
   private _userToken = "";
 
@@ -98,6 +99,7 @@ export class QinChief {
     let result = new QinJobber(this, title, appName, options);
     result.install();
     this._jobbers.push(result);
+    this.loadTranslations(appName);
     return result;
   }
 
@@ -259,9 +261,31 @@ export class QinChief {
         .then((res) => {
           this._userLang = res.data.lang;
           this._userToken = res.data.token;
+          this.loadTranslations("qinpel-app");
           resolve(this._userLang);
         })
         .catch((err) => reject(err));
+    });
+  }
+
+  public loadTranslations(ofApplication): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      let lang = this._userLang || this._serverLang;
+      if (lang) {
+        let address = "/app/" + ofApplication + "/dics/" + lang + ".txt";
+        this._talker
+          .get(address)
+          .then((res) => {
+            let dictionary = res.data;
+            QinHead.translations(dictionary);
+            resolve();
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      } else {
+        reject("There is no language to load.");
+      }
     });
   }
 
