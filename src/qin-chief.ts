@@ -271,6 +271,7 @@ export class QinChief {
   public loadTranslations(ofApplication): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       let lang = this._userLang || this._serverLang;
+      if (lang == "en") return;
       if (lang) {
         let address = "/app/" + ofApplication + "/dics/" + lang + ".txt";
         this._talker
